@@ -13,7 +13,10 @@ namespace MadHotSpot.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var data = "";
+            // return Json(data);
+            return View(data);
+ 
         }
 
         public IActionResult About()
@@ -30,7 +33,16 @@ namespace MadHotSpot.Controllers
             return View();
         }
 
+        #region Update
+ 
 
+        [HttpPost]
+        public async Task<IActionResult> Update(Ayarlar ayarlar)
+        {
+            var data = "";
+            return Json(data);
+        }
+        #endregion
 
         public IActionResult Privacy()
         {
