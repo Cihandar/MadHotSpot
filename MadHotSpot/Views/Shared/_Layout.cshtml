@@ -1,0 +1,68 @@
+﻿ 
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Starter</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/AdminLTE/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="plugins/AdminLTE/css/adminlte.min.css">
+    <link rel="stylesheet" href="plugins/w2ui/css/w2ui-1.5.min.css">
+    <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/plugins/notiflix/css/notiflix.css" rel="stylesheet" />
+    <link href="~/plugins/easySelect/css/bootstrap-multiselect.min.css" rel="stylesheet" />
+    <link href="~/plugins/daterangepicker/css/daterangepicker.css" rel="stylesheet"    />
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+
+        <partial name="_Header" />
+
+        <partial name="_SideBar" />
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <partial name="_ContentHeader" />
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    @*@Localizer.GetString("Boş geçilemez!")*@
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        <partial name="_Footer" />
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="plugins/AdminLTE/js/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.ajax.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/AdminLTE/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="plugins/AdminLTE/js/adminlte.min.js"></script>
+    <script src="plugins/w2ui/js/w2ui-1.5.js" asp-append-version="true"></script>
+    <script src="~/plugins/notiflix/js/notiflix.js"></script>
+    <script src="~/plugins/easySelect/js/bootstrap-multiselect.min.js"></script>
+    <script src="~/js/global/CrudCommands.js" asp-append-version="true"></script>
+    <script src="~/plugins/daterangepicker/js/moment.min.js"></script>
+    <script src="~/plugins/daterangepicker/js/daterangepicker.js"></script>
+
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

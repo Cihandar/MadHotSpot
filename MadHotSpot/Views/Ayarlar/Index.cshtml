@@ -1,0 +1,115 @@
+﻿
+@model MadHotSpot.Models.Ayarlar
+
+
+
+
+<form class="OtelApp-forms" id="OtelApp-forms" asp-controller="OtelBilgi" asp-action="Update" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, dataTableReload)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/OtelBilgi/Update">
+ 
+    <div class="row">
+        <div class="col-12">
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Kaydet</button>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Mikrotik Ayarları</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label asp-for="MikrotikIp" class="form-control-label">Ip Adresi</label>
+                                    <input asp-for="MikrotikIp" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikIp" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="MikrotikPort" class="form-control-label">Port</label>
+                                    <input asp-for="MikrotikPort" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikPort" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="MikrotikUser" class="form-control-label">Kullanıcı Adı</label>
+                                    <input maxlength="11" asp-for="MikrotikUser" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikUser" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="MikrotikPass" class="form-control-label">Şifre</label>
+                                    <input maxlength="11" asp-for="MikrotikPass" type="password" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikPass" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="MikrotikDefaultSifre" class="form-control-label">Default Giriş Şifresi</label>
+                                    <input maxlength="11" asp-for="MikrotikDefaultSifre" type="password" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikDefaultSifre" class="text-danger"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Tarife ve Diğer Ayarlar</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+
+                                <div class="form-group col-12">
+                                    <label asp-for="GunlukFiyatTL" class="form-control-label">Günlük Fiyat TL</label>
+                                    <input asp-for="GunlukFiyatTL" class="form-control" placeholder="₺" />
+                                    <span asp-validation-for="GunlukFiyatTL" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="GunlukFiyatEURO" class="form-control-label">Günlük Fiyat EURO</label>
+                                    <input asp-for="GunlukFiyatEURO" class="form-control" placeholder="€" />
+                                    <span asp-validation-for="GunlukFiyatEURO" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="GunlukFiyatUSD" class="form-control-label">Gunluk Fiyat USD</label>
+                                    <input maxlength="11" asp-for="GunlukFiyatUSD" class="form-control" placeholder="$" />
+                                    <span asp-validation-for="GunlukFiyatUSD" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="SinirsizAktif" class="form-control-label">Sınırsız Aktif</label>
+                                    <input maxlength="11" asp-for="SinirsizAktif" class="form-control" placeholder="" />
+                                    <span asp-validation-for="SinirsizAktif" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="AdSoyadZorunlu" class="form-control-label">Ad Soyad Zorunlu</label>
+                                    <input maxlength="11" asp-for="AdSoyadZorunlu" class="form-control" placeholder="" />
+                                    <span asp-validation-for="AdSoyadZorunlu" class="text-danger"> </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+    </div>
+ 
+
+
+
+
+
+
+</form>
+
+<div id="grid" style="width: 100%; height: 350px;"></div>
+
+@section Scripts
+    {
+    <script src="js/pages/Ayarlar/index.js" asp-append-version="true"></script>
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
+}

@@ -1,0 +1,122 @@
+﻿ 
+
+.w2ui-toolbar table.w2ui-button .w2ui-tb-image > span {
+
+    color: #007bff !important;
+}
+
+.w2ui-reset table tr th, .w2ui-reset table tr td {
+    font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+    font-size: 14px !important;
+}
+
+.w2ui-grid .w2ui-grid-body table td.w2ui-grid-data {
+    padding-left: 5px !important;
+}
+
+.w2ui-grid .w2ui-grid-body table .w2ui-head > div {
+    text-align: center;
+    font-size: 14px !important;
+
+}
+
+.w2ui-grid .w2ui-grid-body table .w2ui-head {
+    padding: 7px !important;
+    background-image: -webkit-linear-gradient(#ffffff, #ffffff);
+}
+
+.w2ui-grid .w2ui-grid-toolbar {
+    background-color: #ffffff !important; 
+}
+
+
+.w2ui-toolbar:not(.w2ui-grid-toolbar) {
+    background-color: #ffffff !important;
+    padding: 10px !important;
+}
+.text-danger {
+    color: #dc3545 !important;
+    text-align: left !important;
+    margin-top: 2px !important;
+    font-size: 10px !important;
+}
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+    .box.box-info {
+        border-top-color: #00c0ef;
+    }
+
+.box-header.with-border {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.box-header {
+    color: #444;
+    display: block;
+    padding-left: 14px;
+    position: relative;
+    padding-top: 9px;
+}
+
+.box-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 10px;
+}
+
+/*Formlardaki Inputlar için*/
+
+
+.form-control:focus {
+    color: #343a40 !important;
+    background-color: #fdf0c9 !important;
+    /* border-color: #28a745; */
+    outline: 0 !important;
+    box-shadow: inset 0 0 0 transparent !important;
+    border-bottom: 5px solid #28a745 !important;
+}
+
+.form-control {
+    display: block !important;
+    width: 100% !important;
+    height: calc(1.75rem + 2px) !important;
+    padding: 0rem 0.75rem !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #495057 !important;
+    background-color: #fff !important;
+    background-clip: padding-box !important;
+    border-bottom: 2px solid #007bff !important;
+    border-radius: .25rem !important;
+    box-shadow: inset 0 0 0 transparent !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    border-top: 0px !important;
+    border-right: 0px !important;
+    border-left: 0px !important;
+}
+
+label {
+    margin-bottom: 0px !important;
+}
+
+    label:not(.form-check-label):not(.custom-file-label)
+    {
+        font-weight : 500 !important;
+        color: #444;
+    }
+
+.col-half-offset {
+    margin-left: 4.166666667%
+}
