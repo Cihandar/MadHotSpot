@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MadHotSpot.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MadHotSpot
 {
@@ -34,7 +35,6 @@ namespace MadHotSpot
 
             #region DbContext
             services.AddDbContext<OtelAppDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
-
             #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
