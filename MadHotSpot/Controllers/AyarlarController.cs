@@ -9,29 +9,24 @@ using tik4net;
 
 namespace MadHotSpot.Controllers
 {
-    public class AyarlarController : Controller
+    public class AyarlarController : BaseController
     {
+
+        public OtelAppDbContext context;
+
+        public AyarlarController(OtelAppDbContext _context)
+        {
+            context = _context;
+        }
+
         public IActionResult Index()
         {
-            var data = "";
+            var data = context.H_Ayarlar.FirstOrDefault(x=>x.FirmaId == FirmaId);
             // return Json(data);
             return View(data);
  
         }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your conta2ct page.";
-
-            return View();
-        }
+ 
 
         #region Update
  
@@ -39,30 +34,37 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Ayarlar ayarlar)
         {
-            var data = "";
-            return Json(data);
+            var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+
+            ayar.GunlukFiyatEURO = ayarlar.GunlukFiyatEURO;
+            ayar.GunlukFiyatTL = ayarlar.GunlukFiyatTL;
+            ayar.GunlukFiyatUSD = ayarlar.GunlukFiyatUSD;
+            ayar.MikrotikIp = ayarlar.MikrotikIp;
+            ayar.MikrotikPort = ayarlar.MikrotikPort;
+            ayar.MikrotikUser = ayarlar.MikrotikUser;
+            ayar.MikrotikPass = ayarlar.MikrotikPass;
+            ayar.MikrotikDefaultSifre = ayarlar.MikrotikDefaultSifre;
+            ayar.SinirsizAktif = ayarlar.SinirsizAktif;
+            ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
+
+            return Json(context.SaveChanges());
         }
         #endregion
+ 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult TestMikrotik()
+        public IActionResult TestMikrotik(Ayarlar ayar)
         {
             try
             {
-                //using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.ApiSsl_v2)) // Use TikConnectionType.Api for mikrotikversion prior v6.45
-                //{
-                //    connection.Open("185.117.122.10", 8910, "mduzgun", "Abera.-4207**");
-                //    return Json("Bağlantı Başarılı !!!");
-                //}
-                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, "185.117.122.10", 18728, "mduzgun", "Abera.-4207**"))
+ 
+                int port = 0;
+                int.TryParse(ayar.MikrotikPort, out port);
+
+                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, port, ayar.MikrotikUser, ayar.MikrotikPass))
                 {
-                    if (!conn.IsOpened) conn.Open("185.117.122.10", 18728, "mduzgun", "Abera.-4207**");
+                    if (!conn.IsOpened) conn.Open(ayar.MikrotikIp, port, ayar.MikrotikUser, ayar.MikrotikPass);
                     conn.Close();
-                    return Json("Okey");
+                    return Json("True");
                 }
             }
             catch (Exception ex)

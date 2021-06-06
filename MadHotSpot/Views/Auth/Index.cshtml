@@ -1,0 +1,74 @@
+﻿@model MadHotSpot.Models.Firmalar;
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/css/pages/Auth/index.css" asp-append-version="true">
+<link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/plugins/notiflix/css/notiflix.css" rel="stylesheet" />
+<h2></h2>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <!--Register-->
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="Oteller" asp-action="Register" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, dataTableReload)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Auth/Register">
+            @Html.AntiForgeryToken()
+            <h1>Kayıt Ol</h1>
+            <span>Hemen kayıt olun ve kullanıma başlayın !</span>
+
+            <input type="text" asp-for="FirmaAdi" placeholder="Firma Adı" />
+            <span asp-validation-for="FirmaAdi" class="text-danger"> </span>
+ 
+
+            <input type="text" asp-for="YetkiliAdSoyad" placeholder="Yetkili Ad Soyad" />
+            <span asp-validation-for="YetkiliAdSoyad" class="text-danger"> </span>
+
+            <input type="text" asp-for="Telefon" placeholder="Telefon Numaranız (Örn:5552223344)" />
+            <span asp-validation-for="Telefon" class="text-danger"> </span>
+
+            <input type="email" asp-for="Email" placeholder="Email" />
+            <span asp-validation-for="Email" class="text-danger"> </span>
+
+            <input type="password" asp-for="Password" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"> </span>
+
+            <button>Kayıt Ol</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <!--Login-->
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="Auth" asp-action="Login" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, redirectUrl)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Auth/Login">
+            @Html.AntiForgeryToken()
+            <h1>Giriş Yap</h1>
+            <span></span>
+            <input type="text" name="HotelCode" placeholder="Otel Kodunuz" />
+            <input type="text" name="UserName" placeholder="Kullanıcı Adınız" />
+            <input type="password" name="password" placeholder="Şifreniz" />
+            <a href="#">Şifremi Unuttum?</a>
+            <button type="submit">Giriş</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Merhaba, EasyHotelManager'a Hoş Geldin !</h1>
+                <p>Hemen kayıt olun ve kullanıma başlayın</p>
+                <button class="ghost" id="signUp">Kayıt Ol</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+ 
+</footer>
+<script src="~/plugins/AdminLTE/js/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.ajax.js"></script>
+<script src="~/plugins/notiflix/js/notiflix.js"></script>
+<script src="~/js/global/CrudCommands.js" asp-append-version="true"></script>
+<script src="~/js/pages/Auth/index.js" asp-append-version="true"></script>

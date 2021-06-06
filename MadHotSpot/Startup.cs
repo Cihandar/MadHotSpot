@@ -34,7 +34,7 @@ namespace MadHotSpot
             });
 
             #region DbContext
-            services.AddDbContext<OtelAppDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
+            services.AddDbContext<OtelAppDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("OtelAppDatabase")));
             #endregion
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
