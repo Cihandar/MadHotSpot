@@ -67,9 +67,17 @@ namespace MadHotSpot
                 options.AccessDeniedPath = "/Auth/AccessDenied";
                 options.Cookie = new CookieBuilder
                 {
-                    IsEssential = true // required for auth to work without explicit user consent; adjust to suit your privacy policy
+                    IsEssential = true, // required for auth to work without explicit user consent; adjust to suit your privacy policy,
+                    Name = ".MadHotSpot.Session",
+                    HttpOnly =  false,
+                    Expiration = TimeSpan.FromMinutes(20),
+                    SecurePolicy = CookieSecurePolicy.Always
+
+
                 };
+
             });
+
 
             //services.AddSession(options =>
             //{
@@ -97,9 +105,10 @@ namespace MadHotSpot
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
