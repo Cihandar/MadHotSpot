@@ -1,7 +1,7 @@
 ﻿@model MadHotSpot.Models.InternetSatisViewModel;
 @{
 
-    var action = Model == null || Model.InternetSatis.Id == Guid.Empty ? "create" : "update";
+    var action = Model.InternetSatis == null || Model.InternetSatis.Id == Guid.Empty ? "create" : "update";
     //var areaTypeList = typeof(type).EnumToList().Select(x => new { Value = x.Value, Text = x.Description }).OrderBy(x => x.Text).ToList();
 }
 <div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -42,7 +42,8 @@
                             <span asp-validation-for="InternetSatis.Tutar" class="text-danger"> </span>
                         </div>
                         <div class="form-group col-md-2">
-                            <select class="form-control" id="doviz" onchange="hesapla()">
+                            <label asp-for="InternetSatis.Doviz" class="form-control-label">Döviz</label>
+                            <select class="form-control" id="doviz" asp-for="InternetSatis.Doviz" onchange="hesapla()">
                                 <option value="TL">TL</option>
                                 <option value="USD">USD</option>
                                 <option value="EURO">EURO</option>
