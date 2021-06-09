@@ -21,18 +21,18 @@ namespace MadHotSpot.Controllers
         public override void OnActionExecuting(ActionExecutingContext context)
         {
 
-            Guid guidid;
+            //Guid guidid;
 
-            if (Guid.TryParse(context.HttpContext.Session.GetString("FirmaId"),out guidid))
-            {
-                FirmaId = guidid;
-               if( Guid.TryParse(context.HttpContext.Session.GetString("UserId"), out guidid))
-                {
-                    UserId = guidid;
-                }
+            //if (Guid.TryParse(context.HttpContext.Session.GetString("FirmaId"),out guidid))
+            //{
+            //    FirmaId = guidid;
+            //   if( Guid.TryParse(context.HttpContext.Session.GetString("UserId"), out guidid))
+            //    {
+            //        UserId = guidid;
+            //    }
 
 
-            } 
+            //} 
              
 
 

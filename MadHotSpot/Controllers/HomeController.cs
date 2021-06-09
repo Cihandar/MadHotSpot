@@ -10,7 +10,7 @@ using tik4net;
 
 namespace MadHotSpot.Controllers
 {
-    [Authorize]
+ 
     public class HomeController : Controller
     {
         public IActionResult Index()

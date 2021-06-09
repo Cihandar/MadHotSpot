@@ -21,10 +21,19 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
-            var data = context.H_Kullanicilar.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now).OrderBy(x => x.BaslamaTarihi).ToList();
-            // return Json(data);
-            return View(data);
+      
  
+            return View();
+ 
+        }
+
+
+        [HttpGet]
+        public JsonResult GetAll()
+        {
+            var data = context.H_Kullanicilar.Where(x => x.FirmaId == FirmaId).ToList();
+   
+            return Json(data);
         }
 
 
@@ -61,7 +70,7 @@ namespace MadHotSpot.Controllers
             snc.Yetki = data.Yetki;
             snc.Email = data.Email;
 
-            var result=  context.SaveChanges()
+            var result = context.SaveChanges();
 
 
             return Json(result);

@@ -21,11 +21,18 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
+
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult GetAll()
+        {
             var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now).OrderBy(x => x.BaslamaTarihi).ToList();
             // return Json(data);
-            return View(data);
- 
+            return Json(data);
         }
+
 
 
         [HttpGet]
