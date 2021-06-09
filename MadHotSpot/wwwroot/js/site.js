@@ -11,7 +11,8 @@ function GridIslemlerButtons(data, type, full, meta, updateeUrl, deleteUrl) {
 }
 
 
-$(".seridenApp-datatables-create").on("click", function () {
+$(document).on("click", ".seridenApp-datatables-create", function () {
+    debugger;
     var element = $(this);
     ModalCallWithUrl(element.data("endpoint"), null, "crud-modal");
 
