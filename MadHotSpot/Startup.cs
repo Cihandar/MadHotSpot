@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MadHotSpot.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using tik4net.Objects.User;
 
 namespace MadHotSpot
 {
@@ -36,6 +38,48 @@ namespace MadHotSpot
             #region DbContext
             services.AddDbContext<OtelAppDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("OtelAppDatabase")));
             #endregion
+
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 2;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Lockout = new LockoutOptions { AllowedForNewUsers = false };
+                    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+                })
+                .AddEntityFrameworkStores<OtelAppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.Zero;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                options.LoginPath = "/Auth/Login";
+                options.LogoutPath = "/Auth/Logout";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
+                options.Cookie = new CookieBuilder
+                {
+                    IsEssential = true // required for auth to work without explicit user consent; adjust to suit your privacy policy
+                };
+            });
+
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(20);
+            //    options.Cookie.HttpOnly = false;
+            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            //    options.Cookie.Name = ".OtelApp.Session";
+            //});
+
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

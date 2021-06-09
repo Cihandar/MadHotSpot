@@ -9,14 +9,13 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <!--Register-->
-        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="Oteller" asp-action="Register" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, dataTableReload)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Auth/Register">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="Auth" asp-action="Register" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, dataTableReload)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Auth/Register">
             @Html.AntiForgeryToken()
             <h1>Kayıt Ol</h1>
             <span>Hemen kayıt olun ve kullanıma başlayın !</span>
 
             <input type="text" asp-for="FirmaAdi" placeholder="Firma Adı" />
             <span asp-validation-for="FirmaAdi" class="text-danger"> </span>
- 
 
             <input type="text" asp-for="YetkiliAdSoyad" placeholder="Yetkili Ad Soyad" />
             <span asp-validation-for="YetkiliAdSoyad" class="text-danger"> </span>

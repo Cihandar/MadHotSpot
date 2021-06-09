@@ -31,10 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Home\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Include="wwwroot\js\pages\Auth\index.js" />
     <None Include="wwwroot\plugins\datatables\datatables.bundle.js" />
   </ItemGroup>
 

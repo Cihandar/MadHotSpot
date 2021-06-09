@@ -1,9 +1,4 @@
-﻿$(function () {
-    w2utils.locale('tr-tr');
-
-});
-
-
+﻿
 function ModalCallWithUrl(url, id, formId) {
     $.get(url, { id: formId }, function (data, status) {
         $("body").append(data);
@@ -66,7 +61,7 @@ var OtelAppOnSuccess = function (data, callback) {
 
 // Ajax Form OnFailure on
 var OtelAppOnFailure = function (data) {
-    var failMessage = ajaxErrorMessage;
+    var failMessage = "";
     if (data && data.responseJSON && data.responseJSON.message && data.responseJSON.message.length > 0) {
         failMessage = data.responseJSON.message;
     }

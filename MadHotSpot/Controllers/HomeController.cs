@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MadHotSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 using tik4net;
 
 namespace MadHotSpot.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
