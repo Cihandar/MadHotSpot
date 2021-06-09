@@ -9,14 +9,12 @@
         <table class="table table-striped- table-bordered table-hover table-checkable" id="table">
             <thead>
                 <tr>
-                    <th>İnternet Şifresi</th>
-                    <th>AdSoyad</th>
-                    <th>Odano</th>
-                    <th>Tutar</th>
-                    <th>Döviz</th>
-                    <th>Başlama Tarihi</th>
-                    <th>Bitiş Tarihi</th>
+                    <th>Kullanıcı Kodu</th>
+                    <th></th>
                     <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Yetki</th>
+ 
                     <th width="50">İşlemler</th>
                 </tr>
             </thead>
@@ -32,7 +30,7 @@
 
     var GetData = function () {
         $.ajax({
-            url: "/InternetSatis/GetAll",
+            url: "/Kullanicilar/GetAll",
             type: "get",
             dataType: "json",
             complete: function () {
@@ -62,7 +60,7 @@
                             text: 'Yeni Ekle',
                             className: 'btn-warning seridenApp-datatables-create',
                             attr: {
-                                "data-endpoint": "/InternetSatis/Create",
+                                "data-endpoint": "/Kullanicilar/Create",
                                 title: "deneme"
                             },
                             //action: function (e, dt, node, config) {
@@ -78,14 +76,10 @@
                         { extend: 'colvis', text: 'Göster' }
                     ],
                     columns: [
-                        { "data": "sifre" },
-                        { "data": "adSoyad" },
-                        { "data": "odano" },
-                        { "data": "tutar" },
-                        { "data": "doviz" },
-                        { "data": "baslamaTarihi" },
-                        { "data": "bitisTarihi" },
+                        { "data": "kullaniciKodu" },
                         { "data": "telefon" },
+                        { "data": "email" },
+                        { "data": "yetki" },
                         {
                             data: null,
                             width: "210px",
@@ -93,7 +87,7 @@
                             targets: -1,
                             orderable: false,
                             render: function (data, type, full, meta) {
-                                return GridIslemlerButtons(data, type, full, meta, "/Restaurant/update", "/Restaurant/delete");
+                                return GridIslemlerButtons(data, type, full, meta, "/Kullanicilar/update", "/Kullanicilar/delete");
                             }
                         }
                     ],
@@ -109,4 +103,10 @@
         });
     };
 
+    function GridIslemlerButtons(data, type, full, meta, updateeUrl, deleteUrl) {
+        return '<button class="btn btn-success font-weight-bold btn-pill mr-2 seridenApp-datatables-update  min-w-90px" style="background:#31C241 !important" title="Düzenle" data-endpoint="' + updateeUrl + '" data-id="' +
+            full.id +
+            '">Güncelle</button>' +
+            '<button  class="btn btn-danger font-weight-bold btn-pill mt-1 mr-2 seridenApp-datatables-delete  min-w-90px" title = "Sil" style="background:#FF4301 !important"  data-endpoint="' + deleteUrl + '" data-id="' + full.id + '">Sil</button> ';
+    }
 </script>

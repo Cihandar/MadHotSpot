@@ -9,19 +9,19 @@ using tik4net;
 
 namespace MadHotSpot.Controllers
 {
-    public class InternetSatisController : BaseController
+    public class KullanicilarController : BaseController
     {
 
         public OtelAppDbContext context;
 
-        public InternetSatisController(OtelAppDbContext _context)
+        public KullanicilarController(OtelAppDbContext _context)
         {
             context = _context;
         }
 
         public IActionResult Index()
         {
-            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now).OrderBy(x => x.BaslamaTarihi).ToList();
+            var data = context.H_Kullanicilar.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now).OrderBy(x => x.BaslamaTarihi).ToList();
             // return Json(data);
             return View(data);
  
@@ -29,21 +29,43 @@ namespace MadHotSpot.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Create(Guid InternetSatisId)
+        public async Task<IActionResult> Create(Guid KullanicilarId)
         {
-            InternetSatisViewModel satis = new InternetSatisViewModel();
-            satis.InternetSatis = context.H_InternetSatis.FirstOrDefault(x => x.Id == InternetSatisId);
-            satis.Ayarlar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
-            return PartialView("_FormPartial", satis);
+            var data = context.H_Kullanicilar.FirstOrDefault(x => x.Id == KullanicilarId);
+            return PartialView("_FormPartial", data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(InternetSatisViewModel satis)
+        public async Task<IActionResult> Create(Kullanicilar data)
         {
-            context.H_InternetSatis.Add(satis.InternetSatis);
+            context.H_Kullanicilar.Add(data);
             return Json("True");
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid KullanicilarId)
+        {
+            var data = context.H_Kullanicilar.FirstOrDefault(x => x.Id == KullanicilarId);
+            return PartialView("_FormPartial", data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Kullanicilar data)
+        {
+            var snc = context.H_Kullanicilar.FirstOrDefault(x => x.Id == data.Id);
+
+            snc.KullaniciKodu = data.KullaniciKodu;
+            snc.Sifre = data.Sifre;
+            snc.Telefon = data.Telefon;
+            snc.Yetki = data.Yetki;
+            snc.Email = data.Email;
+
+            var result=  context.SaveChanges()
+
+
+            return Json(result);
+        }
 
 
 
