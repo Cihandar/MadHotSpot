@@ -41,13 +41,17 @@ namespace MadHotSpot.Controllers
             InternetSatisViewModel satis = new InternetSatisViewModel();
             satis.InternetSatis = context.H_InternetSatis.FirstOrDefault(x => x.Id == InternetSatisId);
             satis.Ayarlar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+
             return PartialView("_FormPartial", satis);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(InternetSatisViewModel satis)
         {
-            try { 
+            try {
+                satis.InternetSatis.FirmaId = FirmaId;
+                satis.InternetSatis.BaslamaTarihi = DateTime.Now;
+                satis.InternetSatis.BitisTarihi = DateTime.Now.AddDays(satis.InternetSatis.Gun);
             context.H_InternetSatis.Add(satis.InternetSatis);
             context.SaveChanges();
             return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
