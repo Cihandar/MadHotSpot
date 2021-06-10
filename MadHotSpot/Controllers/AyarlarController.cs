@@ -72,7 +72,8 @@ namespace MadHotSpot.Controllers
         {
             try
             {
- 
+                var retVal = new Response();
+
                 int port = 0;
                 int.TryParse(ayar.MikrotikPort, out port);
 
@@ -80,13 +81,13 @@ namespace MadHotSpot.Controllers
                 {
                     if (!conn.IsOpened) conn.Open(ayar.MikrotikIp, port, ayar.MikrotikUser, ayar.MikrotikPass);
                     conn.Close();
-                    return Json("True");
+                    return Ok(new Response { Success = true, Message = "Erişim Sağlandı" });
                 }
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
-                
+                return Ok(new Response { Success = false, Message = ex.Message }); ;
+
             }
     
  

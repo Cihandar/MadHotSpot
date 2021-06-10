@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <DebugType>full</DebugType>
+    <UserSecretsId>01b52193-1a65-4dd8-a51a-ba7a37b6fc11</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -47,8 +47,15 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(InternetSatisViewModel satis)
         {
+            try { 
             context.H_InternetSatis.Add(satis.InternetSatis);
-            return Json("True");
+            context.SaveChanges();
+            return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
+            }     
+            catch (Exception ex)
+            {
+                return Ok(new Response { Success = false, Message = "Hata Döndü. " + ex.Message }); ;
+            }
         }
 
 

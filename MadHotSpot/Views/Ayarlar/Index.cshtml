@@ -5,7 +5,7 @@
 
 
 <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="OtelBilgi" asp-action="Update" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Ayarlar/Update">
- 
+
     <div class="row">
         <div class="col-12">
             <div class="card-footer">
@@ -15,7 +15,7 @@
 
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" id="mikrotik">
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h5 class="box-title">Mikrotik Ayarları</h5>
@@ -48,13 +48,14 @@
                                     <span asp-validation-for="MikrotikDefaultSifre" class="text-danger"> </span>
                                 </div>
                                 <div class="form-group col-12">
-                                    <button type="submit" class="btn btn-success" id="testButton"><i class="fa fa-android"></i> Test</button>
+                                    <button type="button" class="btn btn-success" onclick="mikrotiktest()">
+                                        <i class="fa fa-ribbon"></i> Test
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -99,6 +100,8 @@
             </div>
 
 
+        </div>
+
     </div>
  
 
@@ -106,13 +109,32 @@
 
 
 
-
 </form>
 
-<div id="grid" style="width: 100%; height: 350px;"></div>
+
 
 @section Scripts
     {
- 
+    <script>
+        function mikrotiktest() {
+            Notiflix.Block.Standard('#mikrotik');
+            $.ajax({
+                type: "get",
+                url: "Ayarlar/TestMikrotik",
+                data: { MikrotikIp: $("#MikrotikIp").val(), MikrotikPort: $("#MikrotikPort").val(), MikrotikUser: $("#MikrotikUser").val(), MikrotikPass: $("#MikrotikPass").val() },
+                success: function (result) {
+
+                    if (result.success) {
+                        Notiflix.Notify.Success(result.message);
+                    } else {
+                        Notiflix.Notify.Failure(result.message);
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
+
+            });
+        }
+    </script>
+
     <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
 }
