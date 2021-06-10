@@ -12,6 +12,7 @@ namespace MadHotSpot.Models
     {
         public string AvatarUrl { get; set; }
         public byte Status { get; set; }
+        public Guid FirmaId { get; set; }
 
     }
 }

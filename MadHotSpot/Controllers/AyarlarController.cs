@@ -34,20 +34,36 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Ayarlar ayarlar)
         {
-            var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+            var retVal = new Response();
 
-            ayar.GunlukFiyatEURO = ayarlar.GunlukFiyatEURO;
-            ayar.GunlukFiyatTL = ayarlar.GunlukFiyatTL;
-            ayar.GunlukFiyatUSD = ayarlar.GunlukFiyatUSD;
-            ayar.MikrotikIp = ayarlar.MikrotikIp;
-            ayar.MikrotikPort = ayarlar.MikrotikPort;
-            ayar.MikrotikUser = ayarlar.MikrotikUser;
-            ayar.MikrotikPass = ayarlar.MikrotikPass;
-            ayar.MikrotikDefaultSifre = ayarlar.MikrotikDefaultSifre;
-            ayar.SinirsizAktif = ayarlar.SinirsizAktif;
-            ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
+            try
+            {
+                var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
 
-            return Json(context.SaveChanges());
+                ayar.GunlukFiyatEURO = ayarlar.GunlukFiyatEURO;
+                ayar.GunlukFiyatTL = ayarlar.GunlukFiyatTL;
+                ayar.GunlukFiyatUSD = ayarlar.GunlukFiyatUSD;
+                ayar.MikrotikIp = ayarlar.MikrotikIp;
+                ayar.MikrotikPort = ayarlar.MikrotikPort;
+                ayar.MikrotikUser = ayarlar.MikrotikUser;
+                ayar.MikrotikPass = ayarlar.MikrotikPass;
+                ayar.MikrotikDefaultSifre = ayarlar.MikrotikDefaultSifre;
+                ayar.SinirsizAktif = ayarlar.SinirsizAktif;
+                ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
+
+               context.SaveChanges();
+ 
+                    return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
+              
+            }
+            catch (Exception)
+            {
+                return Ok(new Response { Success = false, Message = "Hata Döndü. Bir Dön bak kendine... " }); ;
+            }
+      
+            
+                
+           
         }
         #endregion
  

@@ -18,7 +18,7 @@ namespace MadHotSpot.Controllers
     {
 
         public static Guid FirmaId { get; set; }
-
+        
         public override void OnActionExecuting(ActionExecutingContext context)
         {
 
@@ -34,7 +34,8 @@ namespace MadHotSpot.Controllers
                 }
                 else
                 {
-                    FirmaId = new Guid();
+                    FirmaId = user.FirmaId;
+
 
                     //_onlineUser.NameSurname = user.Name;
                     //_onlineUser.ProfilePicture = user.AvatarUrl;

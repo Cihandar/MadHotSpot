@@ -7,6 +7,7 @@ using MadHotSpot.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using tik4net.Objects.User;
 
@@ -39,7 +40,9 @@ namespace MadHotSpot.Controllers
             var ajaxResult = new Response();
             try
             {
-                var user = _userManager.Users.Where(x => x.UserName == request.UserName).FirstOrDefault();
+                var firma = _context.H_Firmalar.Where(x => x.FirmaKodu == request.FirmaKodu).FirstOrDefault();
+
+                var user = _userManager.Users.Where(x => x.FirmaId == firma.Id && request.UserName == x.UserName).FirstOrDefault();
               
                 if (user == null)
                 {
@@ -79,9 +82,10 @@ namespace MadHotSpot.Controllers
             try
             {
 
-
+                request.FirmaKodu= new Random().Next(1000, 9999);
                 _context.H_Firmalar.Add(request);
                 _context.SaveChanges();
+
 
                 var UserAddSnc = new Response();
                 var user = new AppUser
@@ -89,11 +93,15 @@ namespace MadHotSpot.Controllers
                     Email = request.Email,
                     UserName = request.Email,
                     PhoneNumber = request.Telefon,
-                    EmailConfirmed = false
+                    FirmaId=request.Id
+                    
 
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
+
+
+
 
                 if (!result.Succeeded)
                 {
@@ -103,6 +111,11 @@ namespace MadHotSpot.Controllers
 
                 if (UserAddSnc.Success)
                 {
+
+                    _context.H_Ayarlar.Add(new Ayarlar { FirmaId = request.Id, GunlukFiyatTL = 10, GunlukFiyatEURO = 2, GunlukFiyatUSD = 3, SinirsizAktif=false, AdSoyadZorunlu=false });
+
+                    _context.SaveChanges();
+                    
                     //var OtelBilgiAddSnc = await _mediator.Send(new OtelBilgiCreateCommand { Email = request.Email, OdaSayisi = request.OdaSayisi, HotelId = Oteller.Id, OtelAdi = request.OtelAdi, Tel = request.Telefon });
 
                     //if (OtelBilgiAddSnc.Success)
