@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MadHotSpot.Models;
+using Microsoft.AspNetCore.Authorization;
 using tik4net;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MadHotSpot.Controllers
 {
-
+    [Authorize]
     public class BaseController : Controller
     {
 

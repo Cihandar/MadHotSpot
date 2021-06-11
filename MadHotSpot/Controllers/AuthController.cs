@@ -141,5 +141,12 @@ namespace MadHotSpot.Controllers
 
             return Ok(retVal);
         }
+
+        [Route("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return View("index");
+        }
     }
 }

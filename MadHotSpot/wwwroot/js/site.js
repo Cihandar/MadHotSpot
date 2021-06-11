@@ -76,3 +76,25 @@ var OtelAppOnSuccess = function (data, callback) {
         Notiflix.Notify.Failure(data.message);
     }
 };
+
+$(document).on("click","#BtnSignOut",function() {
+    Notiflix.Confirm.Show("Uyarı", 'Çıkış Yapmak istiyor musunuz?', 'Evet', 'Hayır',
+        function () { // Yes button 
+            window.location.href = "/Auth/Logout";
+        }, function () { // No button 
+
+        });
+
+});
+
+function RandomPassCreator(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+    }
+    return result;
+}
+
