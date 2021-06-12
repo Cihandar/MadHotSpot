@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using tik4net.Objects.User;
-
+using MadHotSpot.Extentions;
 namespace MadHotSpot.Controllers
 {
     [AllowAnonymous]
@@ -115,7 +115,7 @@ namespace MadHotSpot.Controllers
                     _context.H_Ayarlar.Add(new Ayarlar { FirmaId = request.Id, GunlukFiyatTL = 10, GunlukFiyatEURO = 2, GunlukFiyatUSD = 3, SinirsizAktif=false, AdSoyadZorunlu=false });
 
                     _context.SaveChanges();
-                    
+
                     //var OtelBilgiAddSnc = await _mediator.Send(new OtelBilgiCreateCommand { Email = request.Email, OdaSayisi = request.OdaSayisi, HotelId = Oteller.Id, OtelAdi = request.OtelAdi, Tel = request.Telefon });
 
                     //if (OtelBilgiAddSnc.Success)
@@ -126,6 +126,11 @@ namespace MadHotSpot.Controllers
 
                     //    }
                     //}
+
+                    SendEmail mail = new SendEmail();
+
+                    mail.Send(request.Email,"Online Hotspot Giriş Bilgileri","", request.Email, request.FirmaKodu.ToString(), request.Password, "IlkKayit");
+
                 }
                 else
                 {
