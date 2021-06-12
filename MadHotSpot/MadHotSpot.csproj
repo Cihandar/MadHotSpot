@@ -54,4 +54,8 @@
     <None Include="wwwroot\plugins\datatables\datatables.bundle.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MadHotSpot.Models;
+ 
 
 namespace MadHotSpot.Models
 {
@@ -21,9 +22,14 @@ namespace MadHotSpot.Models
         public DbSet<Kullanicilar> H_Kullanicilar { get; set; }
         public DbSet<Firmalar> H_Firmalar { get; set; }
         public DbSet<InternetSatis> H_InternetSatis { get; set; }
+        public DbSet<ViewKasa> H_ViewKasa { get; set; }
+
+
+
+
     }
 
-
+    
 
 
 

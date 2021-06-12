@@ -81,7 +81,7 @@
                            // { extend: 'colvis', text: 'Göster' }
                         ],
                         columns: [ 
-                            { "data": null },
+                            { "data": null, visible:false},
                             { "data": "sifre" },
                             { "data": "adSoyad" },
                             { "data": "odano" },
@@ -96,8 +96,6 @@
                                     }
                                     return moment(data).format("DD.MM.YYYY HH:mm:ss");
                                 }
-
-
                                
                             },
                             {
@@ -122,11 +120,7 @@
                                 targets: -1,
                                 orderable: false,
                                 render: function (data, type, full, meta) {
-                                    return '<button class="btn btn-success far fa-edit  font-weight-bold btn-pill mt-1 mr-2 seridenApp-datatables-update  min-w-90px" style="background:#31C241 !important" title="Düzenle" data-endpoint="InternetSatis/Update" data-id="' +
-                                        full.id +
-                                        '"></button>' 
-                                    +
-                                        '<button  class="btn btn-secondary fas fa-print font-weight-bold btn-pill mt-1 mr-2 seridenApp-datatables-delete  min-w-90px" title = "Print" style="background:#ffc107 !important"  data-endpoint="" data-id="' + full.id + '"> </button> ' +
+                                    return '<button  class="btn btn-secondary fas fa-print font-weight-bold btn-pill mt-1 mr-2 seridenApp-datatables-delete  min-w-90px" title = "Print" style="background:#ffc107 !important"  data-endpoint="" data-id="' + full.id + '"></button> ' +
                                         '<button  id="InterSatisIade" class="btn btn-secondary fas fa-undo-alt font-weight-bold btn-pill mt-1 mr-2 seridenApp-datatables-delete  min-w-90px" title = "İade" style="background:#FF4301 !important"  data-endpoint="" data-id="' + full.id + '"> İade</button> ';
                                 }
                             }
