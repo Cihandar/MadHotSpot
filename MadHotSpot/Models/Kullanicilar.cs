@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MadHotSpot.Models.Enum;
 
 namespace MadHotSpot.Models
 {
     public class Kullanicilar:BaseModel
     {
         public string KullaniciKodu { get; set; }
-        public string Sifre { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
-        public string Telefon { get; set; }
-        public string Yetki { get; set; }
+        public PermissionEnum Yetki { get; set; }
     }
 }

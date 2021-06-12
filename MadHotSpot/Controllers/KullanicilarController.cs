@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MadHotSpot.Models;
+using Microsoft.AspNetCore.Identity;
 using tik4net;
 
 namespace MadHotSpot.Controllers
@@ -13,10 +14,12 @@ namespace MadHotSpot.Controllers
     {
 
         public OtelAppDbContext context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public KullanicilarController(OtelAppDbContext _context)
+        public KullanicilarController(OtelAppDbContext _context, UserManager<AppUser> userManager)
         {
             context = _context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -31,8 +34,7 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_Kullanicilar.Where(x => x.FirmaId == FirmaId).ToList();
-            
+            var data = _userManager.Users.Where(x => x.FirmaId == FirmaId).ToList();
             return Json(data);
         }
 
@@ -45,18 +47,31 @@ namespace MadHotSpot.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Kullanicilar data)
+        public async Task<IActionResult> Create(Kullanicilar request)
         {
-            context.H_Kullanicilar.Add(data);
+            var user = new AppUser
+            {
+                Email = request.Email,
+                UserName = request.KullaniciKodu,
+                Yetki = request.Yetki,
+                FirmaId = FirmaId
+            };
+
+            var result = await _userManager.CreateAsync(user, request.Password);
             return Json("True");
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(Guid KullanicilarId)
+        public async Task<IActionResult> Update(Guid KullaniciId)
         {
-            var data = context.H_Kullanicilar.FirstOrDefault(x => x.Id == KullanicilarId);
-            return PartialView("_FormPartial", data);
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == KullaniciId.ToString() && x.FirmaId == FirmaId);
+            return PartialView("_FormPartial", new Kullanicilar
+            {
+                KullaniciKodu =  user.UserName,
+                Yetki =  user.Yetki,
+                Email =  user.Email,
+            });
         }
 
         [HttpPost]
@@ -65,8 +80,7 @@ namespace MadHotSpot.Controllers
             var snc = context.H_Kullanicilar.FirstOrDefault(x => x.Id == data.Id);
 
             snc.KullaniciKodu = data.KullaniciKodu;
-            snc.Sifre = data.Sifre;
-            snc.Telefon = data.Telefon;
+            snc.Password = data.Password;
             snc.Yetki = data.Yetki;
             snc.Email = data.Email;
 

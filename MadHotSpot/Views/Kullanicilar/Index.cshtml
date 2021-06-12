@@ -8,13 +8,13 @@
         <!--begin: Datatable-->
         <table class="table table-striped- table-bordered table-hover table-checkable" id="table">
             <thead>
-                <tr>
-                    <th>Kullanıcı Kodu</th>
-                    <th>Telefon</th>
-                    <th>Email</th>
-                    <th>Yetki</th>
-                    <th width="50">İşlemler</th>
-                </tr>
+            <tr>
+                <th></th>
+                <th>Kullanıcı Kodu</th>
+                <th>Email</th>
+                <th>Yetki</th>
+                <th width="50">İşlemler</th>
+            </tr>
             </thead>
         </table>
         <!--end: Datatable-->
@@ -75,10 +75,15 @@
                             { extend: 'colvis', text: 'Göster' }
                         ],
                         columns: [
-                            { "data": "kullaniciKodu" },
-                            { "data": "telefon" },
+                            { "data": null,width:"30px" },
+                            { "data": "userName" },
                             { "data": "email" },
-                            { "data": "yetki" },
+                            {
+                                "data": "yetki",
+                                render: function (data, type, full, meta) {
+                                    return  data == 0 ? "Tam Yetki" : "Sınırlı Yetki";
+                                }
+                            },
                             {
                                 data: null,
                                 width: "210px",

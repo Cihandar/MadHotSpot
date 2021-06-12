@@ -1,4 +1,5 @@
-﻿@model MadHotSpot.Models.Kullanicilar;
+﻿
+@model MadHotSpot.Models.Kullanicilar;
 @{
 
     var action = Model == null || Model.Id == Guid.Empty ? "create" : "update";
@@ -6,7 +7,7 @@
 }
 <div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Kullanicilar/@action">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="Kullanicilar" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Kullanicilar/@action">
             @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,8 +29,8 @@
                             <div class="btn btn-success"> Oluştur </div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label asp-for="Sifre" class="form-control-label">Gün</label>
-                            <input asp-for="Sifre" type="password" class="form-control" placeholder="" />
+                            <label asp-for="Password" class="form-control-label">Gün</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="" />
 
                         </div>
                         <div class="form-group col-md-3">
@@ -38,14 +39,9 @@
                             <span asp-validation-for="Email" class="text-danger"> </span>
                         </div>
                         <div class="form-group col-md-3">
-                            <label asp-for="Telefon" class="form-control-label">Gün</label>
-                            <input asp-for="Telefon" type="number" class="form-control" placeholder="" />
-                            <span asp-validation-for="Telefon" class="text-danger"> </span>
-                        </div>
-                        <div class="form-group col-md-3">
                             <select class="form-control" asp-for="Yetki">                            
-                                <option value="TL" >Tam</option>
-                                <option value="USD">Sınırlı</option>
+                                <option value="@PermissionEnum.Admin" >Tam</option>
+                                <option value="@PermissionEnum.Modarator">Sınırlı</option>
                             </select>
                         </div>
 
