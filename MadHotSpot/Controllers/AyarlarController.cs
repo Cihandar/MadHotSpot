@@ -46,17 +46,17 @@ namespace MadHotSpot.Controllers
                 ayar.MikrotikIp = ayarlar.MikrotikIp;
                 ayar.MikrotikPort = ayarlar.MikrotikPort;
                 ayar.MikrotikUser = ayarlar.MikrotikUser;
-                ayar.MikrotikPass = ayarlar.MikrotikPass;
+                if (!string.IsNullOrEmpty(ayarlar.MikrotikIp)) ayar.MikrotikPass = ayarlar.MikrotikPass;
                 ayar.MikrotikDefaultSifre = ayarlar.MikrotikDefaultSifre;
                 ayar.SinirsizAktif = ayarlar.SinirsizAktif;
                 ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
                 ayar.MikrotikHotspotAdi = ayarlar.MikrotikHotspotAdi;
                 ayar.MikrotikProfilAdi = ayarlar.MikrotikProfilAdi;
 
-               context.SaveChanges();
- 
-                    return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
-              
+                context.SaveChanges();
+
+                return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
+
             }
             catch (Exception)
             {
