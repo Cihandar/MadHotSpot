@@ -45,7 +45,7 @@ namespace MadHotSpot.Controllers
                 else
                 {
                     FirmaId = user.FirmaId;
-
+                    ViewBag.PermissionEnum = user.Yetki;
 
                     //_onlineUser.NameSurname = user.Name;
                     //_onlineUser.ProfilePicture = user.AvatarUrl;

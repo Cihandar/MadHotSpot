@@ -52,27 +52,30 @@
                     </a>
                 </li>
 
+                @if (ViewBag.PermissionEnum == PermissionEnum.Admin)
+                {
+                    <li class="nav-item">
+                        <a href="/Kullanicilar" class="nav-link">
+                            <i class="far fa fa-user nav-icon"></i>
+                            <p>
+                                Kullanıcılar
 
-                <li class="nav-item">
-                    <a href="/Kullanicilar" class="nav-link">
-                        <i class="far fa fa-user nav-icon"></i>
-                        <p>
-                            Kullanıcılar
+                            </p>
 
-                        </p>
+                        </a>
+                    </li>
 
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="/Ayarlar" class="nav-link">
+                            <i class="far fa fa-cubes nav-icon"></i>
+                            <p>
+                                Ayarlar
+                            </p>
 
-                <li class="nav-item">
-                    <a href="/Ayarlar" class="nav-link">
-                        <i class="far fa fa-cubes nav-icon"></i>
-                        <p>
-                            Ayarlar
-                        </p>
-
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                }
+         
 
                 <li class="nav-item">
                     <a href="#" id="BtnSignOut" class="nav-link">
