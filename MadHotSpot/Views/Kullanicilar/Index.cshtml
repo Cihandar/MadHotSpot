@@ -28,12 +28,13 @@
         });
 
         var GetData = function () {
+            Notiflix.Block.Standard('.content');
             $.ajax({
                 url: "/Kullanicilar/GetAll",
                 type: "get",
                 dataType: "json",
                 complete: function () {
-                    SeridenApp.Yukleniyor.Gizle();
+                    Notiflix.Block.Remove("*", 0);
                 },
                 success: function (data) {
                     var dataTable = $('#table').DataTable({
@@ -107,6 +108,10 @@
             });
         };
 
+
+        function datatableUpdate() {
+            GetData();
+        }
     </script>
 
 }

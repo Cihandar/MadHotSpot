@@ -130,7 +130,7 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 #table_next {
-    margin-right: 40px !important;
+    margin-right: 33px !important;
 }
 
 .form-control[type="checkbox"] {
@@ -138,5 +138,16 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 .page-link {
-    padding: .1rem .35rem !important; 
+    padding: .2rem .35rem !important;
+    font-size: 12px;
+}
+
+.page-item.active .page-link {
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}
+
+.seridenApp-datatables-delete {
+    background-color: #bd2130 !important;
+    border-color: #bd2130 !important;
 }

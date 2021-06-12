@@ -1,6 +1,6 @@
 ﻿
 function ModalCallWithUrl(url, id, formId) {
-    $.get(url, { id: formId }, function (data, status) {
+    $.get(url, { id: id }, function (data, status) {
         $("body").append(data);
         $("#" + formId).modal("show");
         //$.validator.unobtrusive.parse('form');

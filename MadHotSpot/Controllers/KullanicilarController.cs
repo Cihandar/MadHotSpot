@@ -40,9 +40,9 @@ namespace MadHotSpot.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Create(Guid KullanicilarId)
+        public async Task<IActionResult> Create(Guid Id)
         {
-            var data = context.H_Kullanicilar.FirstOrDefault(x => x.Id == KullanicilarId);
+            var data = context.H_Kullanicilar.FirstOrDefault(x => x.Id == Id);
             return PartialView("_FormPartial", data);
         }
 
@@ -58,16 +58,17 @@ namespace MadHotSpot.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
-            return Json("True");
+            return Json(new Response { Success = result.Succeeded, Message = "Kayıt Başarılı" });
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(Guid KullaniciId)
+        public async Task<IActionResult> Update(Guid Id)
         {
-            var user = _userManager.Users.FirstOrDefault(x => x.Id == KullaniciId.ToString() && x.FirmaId == FirmaId);
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Id.ToString() && x.FirmaId == FirmaId);
             return PartialView("_FormPartial", new Kullanicilar
             {
+                Id = Guid.Parse(user.Id),
                 KullaniciKodu =  user.UserName,
                 Yetki =  user.Yetki,
                 Email =  user.Email,
@@ -77,19 +78,26 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Kullanicilar data)
         {
-            var snc = context.H_Kullanicilar.FirstOrDefault(x => x.Id == data.Id);
-
-            snc.KullaniciKodu = data.KullaniciKodu;
-            snc.Password = data.Password;
-            snc.Yetki = data.Yetki;
-            snc.Email = data.Email;
-
-            var result = context.SaveChanges();
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == data.Id.ToString() && x.FirmaId == FirmaId);
+            user.Yetki = data.Yetki;
+             await _userManager.UpdateAsync(user);
 
 
-            return Json(result);
+            return Json(new Response { Success = true, Message = "Kayıt Başarılı" });
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Id.ToString() && x.FirmaId == FirmaId);
+            if (user != null)
+            {
+                var response = await _userManager.DeleteAsync(user);
+                return Ok(new Response {Success = response.Succeeded, Message = "Kayıt Başarılı"});
+            }
+            return Ok(new Response { Success = false, Message = "Bir Sorun Oluştu" });
+        }
 
 
         public IActionResult TestMikrotik(Ayarlar ayar)

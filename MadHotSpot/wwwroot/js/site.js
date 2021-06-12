@@ -4,24 +4,59 @@
 // Write your JavaScript code.
 
 function GridIslemlerButtons(data, type, full, meta, updateeUrl, deleteUrl) {
-    return '<button class="btn btn-success font-weight-bold btn-pill mr-2 seridenApp-datatables-update  min-w-90px" style="background:#31C241 !important" title="Düzenle" data-endpoint="' + updateeUrl + '" data-id="' +
+    return '<button class="btn btn-info font-weight-bold btn-pill mr-2 seridenApp-datatables-update  min-w-90px" title="Düzenle" data-endpoint="' + updateeUrl + '" data-id="' +
         full.id +
         '">Güncelle</button>' +
-        '<button  class="btn btn-danger font-weight-bold btn-pill mt-1 mr-2 seridenApp-datatables-delete  min-w-90px" title = "Sil" style="background:#FF4301 !important"  data-endpoint="' + deleteUrl + '" data-id="' + full.id + '">Sil</button> ';
+        '<button  class="btn btn-danger font-weight-bold btn-pill  mr-2 seridenApp-datatables-delete  min-w-90px" title = "Sil" data-endpoint="' + deleteUrl + '" data-id="' + full.id + '">Sil</button> ';
 }
 
 
 $(document).on("click", ".seridenApp-datatables-create", function () {
-    debugger;
     var element = $(this);
     ModalCallWithUrl(element.data("endpoint"), null, "crud-modal");
+
+});
+
+$(document).on("click", ".seridenApp-datatables-update", function () {
+    var element = $(this);
+    ModalCallWithUrl(element.data("endpoint"), $(this).data("id") , "crud-modal");
+
+});
+
+
+$(document).on("click", ".seridenApp-datatables-delete", function () {
+    var element = $(this);
+    Notiflix.Confirm.Show("Uyarı", 'Kaydı Silmek istiyor musunuz?', 'Evet', 'Hayır',
+        function () { // Yes button 
+            Notiflix.Block.Standard('.content');
+            $.ajax({
+                type: "post",
+                url: element.data("endpoint"),
+                data: { Id: element.data("id") },
+                success: function (result) {
+
+                    if (result.success) {
+                        Notiflix.Notify.Success(result.message);
+                        if (GetData && typeof GetData === 'function') {
+                            GetData();
+                        }
+                    } else {
+                        Notiflix.Notify.Failure(result.message);
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
+
+            });
+        }, function () { // No button 
+
+        });
 
 });
 
 
 // Ajax Form OnFailure on
 var OtelAppOnFailure = function (data) {
-    var failMessage = ajaxErrorMessage;
+    var failMessage = "";
     if (data && data.responseJSON && data.responseJSON.message && data.responseJSON.message.length > 0) {
         failMessage = data.responseJSON.message;
     }
