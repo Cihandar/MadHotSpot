@@ -43,7 +43,7 @@ var OtelAppOnComplete = function (id, delay, callback) {
 };
 
 var OtelAppOnSuccess = function (data, callback) {
- 
+
     if (data.success) { // api success
         Notiflix.Notify.Success(data.message);
 
@@ -69,7 +69,7 @@ var OtelAppOnSuccess = function (data, callback) {
     // api error
     else if (data.success !== undefined && !data.success) {
 
- 
+
         Notiflix.Notify.Failure(data.message);
 
     } else { // api else
@@ -77,10 +77,37 @@ var OtelAppOnSuccess = function (data, callback) {
     }
 };
 
-$(document).on("click","#BtnSignOut",function() {
+$(document).on("click", "#BtnSignOut", function () {
     Notiflix.Confirm.Show("Uyarı", 'Çıkış Yapmak istiyor musunuz?', 'Evet', 'Hayır',
         function () { // Yes button 
             window.location.href = "/Auth/Logout";
+        }, function () { // No button 
+
+        });
+
+});
+
+$(document).on("click", "#InterSatisIade", function () {
+    id = $(this).data("id");
+    Notiflix.Confirm.Show("Uyarı", 'İade Yapılacak. Emin misiniz ?', 'Evet', 'Hayır',
+        function () { // Yes button 
+            Notiflix.Block.Standard('.content');
+            $.ajax({
+                type: "post",
+                url: "InternetSatis/Iade",
+                data: { Id:id },
+                success: function (result) {
+
+                    if (result.success) {
+                        Notiflix.Notify.Success(result.message);
+                        yenile();
+                    } else {
+                        Notiflix.Notify.Failure(result.message);
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
+
+            });
         }, function () { // No button 
 
         });
@@ -96,5 +123,9 @@ function RandomPassCreator(length) {
             charactersLength));
     }
     return result;
+}
+
+function IadeYap() {
+
 }
 

@@ -13,12 +13,12 @@ namespace MadHotSpot.Models
         public string Telefon { get; set; }
         public string Odano { get; set; }
         public double Tutar { get; set; }
-        public double AlinanTutar { get; set; }
+      //  public double AlinanTutar { get; set; }
         public string Doviz { get; set; }
         public int Gun { get; set; }
         public DateTime BaslamaTarihi { get; set; }
         public DateTime BitisTarihi { get; set; }
         public bool Aktarildi { get; set; }
-
+        public bool Iade { get; set; }
     }
 }

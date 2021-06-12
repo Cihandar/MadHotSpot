@@ -28,7 +28,7 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now).OrderBy(x => x.BaslamaTarihi).ToList();
+            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now && x.Iade==false).OrderBy(x => x.BaslamaTarihi).ToList();
             // return Json(data);
             return Json(data);
         }
@@ -60,7 +60,7 @@ namespace MadHotSpot.Controllers
                 satis.InternetSatis.FirmaId = FirmaId;
                 satis.InternetSatis.BaslamaTarihi = DateTime.Now;
                 satis.InternetSatis.BitisTarihi = DateTime.Now.AddDays(satis.InternetSatis.Gun);
-
+                satis.InternetSatis.Iade = false;
 
 
                 if (AddUserMikrotik(context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId), satis.InternetSatis))
@@ -74,6 +74,34 @@ namespace MadHotSpot.Controllers
                 {
                     return Ok(new Response { Success = false, Message = "Mikrotikden Hata Döndü. Kullanıcı Eklenemedi" });
                 }
+            }
+            catch (Exception ex)
+            {
+                return Ok(new Response { Success = false, Message = "Hata Döndü. " + ex.Message }); ;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Iade(InternetSatis satis)
+        {
+            try
+            {
+
+             var data =   context.H_InternetSatis.FirstOrDefault(x => x.Id == satis.Id);
+
+                if(data!=null)
+                {
+                    data.Iade = true;
+                    context.SaveChanges();
+                    return Ok(new Response { Success = true, Message = "Iade Yapıldı." });
+                }else
+                {
+                    return Ok(new Response { Success = false, Message = "Kayıt Bulunamadı." });
+                }
+                
+
+
+ 
             }
             catch (Exception ex)
             {
