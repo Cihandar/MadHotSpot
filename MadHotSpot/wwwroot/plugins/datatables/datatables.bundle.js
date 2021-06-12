@@ -15484,10 +15484,10 @@ return DataTable;
 var defaults = {
 	"language": {
 		"paginate": {
-			"first": '<i class="ki ki-double-arrow-back"></i>',
-			"last": '<i class="ki ki-double-arrow-next"></i>',
-			"next": '<i class="ki ki-arrow-next"></i>',
-			"previous": '<i class="ki ki-arrow-back"></i>'
+			"first": '<i class="fa fa-step-backward"></i>',
+			"last": '<i class="fa fa-step-forward"></i>',
+			"next": '<i class="fa fa-arrow-right"></i>',
+			"previous": '<i class="fa fa-arrow-left"></i>'
 		}
 	}
 };
@@ -15496,10 +15496,10 @@ if (KTUtil.isRTL()) {
 	defaults = {
 		"language": {
 			"paginate": {
-				"first": '<i class="ki ki-double-arrow-next"></i>',
-				"last": '<i class="ki ki-double-arrow-back"></i>',
-				"next": '<i class="ki ki-arrow-back"></i>',
-				"previous": '<i class="ki ki-arrow-next"></i>'
+				"first": '<i class="fa fa-step-forward"></i>',
+				"last": '<i class="fa fa-step-backward"></i>',
+				"next": '<i class="fa fa-arrow-left"></i>',
+				"previous": '<i class="fa fa-arrow-right"></i>'
 			}
 		}
 	}

@@ -90,16 +90,19 @@
                                     <span asp-validation-for="GunlukFiyatUSD" class="text-danger"> </span>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label asp-for="SinirsizAktif" class="form-control-label">Sınırsız Aktif</label>
-                                    <input maxlength="11" asp-for="SinirsizAktif" class="form-control" placeholder="" />
-                                    <span asp-validation-for="SinirsizAktif" class="text-danger"> </span>
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="SinirsizAktif" class="text-danger"> </span>
+                                        <label asp-for="SinirsizAktif" class="form-control-label">Sınırsız Aktif</label>
+                                        <input maxlength="11" asp-for="SinirsizAktif" class="ml-2" placeholder="" />
+                                    </div>
                                 </div>
                                 <div class="form-group col-12">
-                                    <label asp-for="AdSoyadZorunlu" class="form-control-label">Ad Soyad Zorunlu</label>
-                                    <input maxlength="11" asp-for="AdSoyadZorunlu" class="form-control" placeholder="" />
-                                    <span asp-validation-for="AdSoyadZorunlu" class="text-danger"> </span>
+                                    <div class="icheck-primary d-inline">
+                                        <label asp-for="AdSoyadZorunlu" class="form-control-label">Ad Soyad Zorunlu?</label>
+                                        <input maxlength="11" asp-for="AdSoyadZorunlu" class="ml-2" placeholder=""/>
+                                        <span asp-validation-for="AdSoyadZorunlu" class="text-danger"> </span>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -84,7 +84,7 @@
     /* border-color: #28a745; */
     outline: 0 !important;
     box-shadow: inset 0 0 0 transparent !important;
-    border-bottom: 5px solid #28a745 !important;
+    border-bottom: .13rem solid #28a745 !important;
 }
 
 /*.form-control {
@@ -131,4 +131,12 @@ div.dataTables_wrapper div.dataTables_filter {
 
 #table_next {
     margin-right: 40px !important;
+}
+
+.form-control[type="checkbox"] {
+    height: calc(1.25rem + 2px) !important;
+}
+
+.page-link {
+    padding: .1rem .35rem !important; 
 }
