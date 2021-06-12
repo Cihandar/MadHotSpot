@@ -90,11 +90,17 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Guid Id)
         {
-            var user = _userManager.Users.FirstOrDefault(x => x.Id == Id.ToString() && x.FirmaId == FirmaId);
-            if (user != null)
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Id.ToString()  && x.FirmaId == FirmaId);
+            if (user != null && user.UserName != HttpContext.User.Identity.Name)
             {
                 var response = await _userManager.DeleteAsync(user);
                 return Ok(new Response {Success = response.Succeeded, Message = "Kayıt Başarılı"});
+            }
+
+            if (user.UserName == HttpContext.User.Identity.Name)
+            {
+                return Ok(new Response { Success = false, Message = "Online User Kendini Silemez!" });
             }
             return Ok(new Response { Success = false, Message = "Bir Sorun Oluştu" });
         }
