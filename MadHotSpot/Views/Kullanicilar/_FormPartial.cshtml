@@ -6,7 +6,7 @@
 }
 <div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, dataTableReload)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Kullanicilar/@action">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Kullanicilar/@action">
             @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">

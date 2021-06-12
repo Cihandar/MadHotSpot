@@ -43,8 +43,18 @@
                                     <span asp-validation-for="MikrotikPass" class="text-danger"> </span>
                                 </div>
                                 <div class="form-group col-12">
+                                    <label asp-for="MikrotikHotspotAdi" class="form-control-label">Hotspot Adı</label>
+                                    <input maxlength="11" asp-for="MikrotikHotspotAdi" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikHotspotAdi" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label asp-for="MikrotikProfilAdi" class="form-control-label">Profil Adı</label>
+                                    <input maxlength="11" asp-for="MikrotikProfilAdi" class="form-control" placeholder="" />
+                                    <span asp-validation-for="MikrotikProfilAdi" class="text-danger"> </span>
+                                </div>
+                                <div class="form-group col-12">
                                     <label asp-for="MikrotikDefaultSifre" class="form-control-label">Default Giriş Şifresi</label>
-                                    <input maxlength="11" asp-for="MikrotikDefaultSifre" type="password" class="form-control" placeholder="" />
+                                    <input maxlength="11" asp-for="MikrotikDefaultSifre" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikDefaultSifre" class="text-danger"> </span>
                                 </div>
                                 <div class="form-group col-12">

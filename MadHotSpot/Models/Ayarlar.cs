@@ -17,6 +17,9 @@ namespace MadHotSpot.Models
         public string MikrotikPort { get; set; }
         public string MikrotikUser { get; set; }
         public string MikrotikPass { get; set; }
+        public string MikrotikHotspotAdi { get; set; }
+        public string MikrotikProfilAdi { get; set; }
+
 
         public string MikrotikDefaultSifre { get; set; }
 

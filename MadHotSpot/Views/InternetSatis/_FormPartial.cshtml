@@ -6,7 +6,7 @@
 }
 <div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, dataTableReload)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/InternetSatis/@action">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal',10,yenile)" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/InternetSatis/@action">
             @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">
@@ -19,7 +19,6 @@
                         <input type="hidden" class="form-control" asp-for="Ayarlar.GunlukFiyatTL" id="TLtutar">
                         <input type="hidden" class="form-control" asp-for="Ayarlar.GunlukFiyatEURO" id="Eurotutar">
                         <input type="hidden" class="form-control" asp-for="Ayarlar.GunlukFiyatUSD" id="USDtutar">
-
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -76,7 +75,7 @@
                     </div>
                     
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="InternetSatis.AdSoyad" class="form-control-label">Ad Soyad</label>
@@ -84,12 +83,20 @@
                                 <span asp-validation-for="InternetSatis.AdSoyad" class="text-danger"> </span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="InternetSatis.VatNo" class="form-control-label">Vatandaşlık Numarası</label>
                                 <input asp-for="InternetSatis.VatNo" class="form-control" placeholder="" />
                                 <span asp-validation-for="InternetSatis.VatNo" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="InternetSatis.Telefon" class="form-control-label">Telefon</label>
+                                <input asp-for="InternetSatis.Telefon" class="form-control" placeholder="" />
+                                <span asp-validation-for="InternetSatis.Telefon" class="text-danger"> </span>
                             </div>
                         </div>
                     </div>
@@ -179,8 +186,8 @@
                 break;
 
             case "EURO":
-                var eurotutar = $("#EUROtutar").val();
-                tutar = eurotutar * gun;
+                    var eurotutar = $("#Eurotutar").val();
+                    tutar = eurotutar * gun;
                 break;
 
             case "USD":
@@ -194,9 +201,12 @@
 
 
         function CreateRandomPass() {
-            $("#InternetSatis_Sifre").val(RandomPassCreator(6));
+           $("#InternetSatis_Sifre").val(RandomPassCreator(6).toUpperCase());
         }
 
+        $(document).ready(function () {
+            CreateRandomPass();
+        });
     </script>
 
 

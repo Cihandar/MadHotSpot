@@ -32,7 +32,7 @@ namespace MadHotSpot.Controllers
         public JsonResult GetAll()
         {
             var data = context.H_Kullanicilar.Where(x => x.FirmaId == FirmaId).ToList();
-   
+            
             return Json(data);
         }
 

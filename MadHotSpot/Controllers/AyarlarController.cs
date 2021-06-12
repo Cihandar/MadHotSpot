@@ -50,6 +50,8 @@ namespace MadHotSpot.Controllers
                 ayar.MikrotikDefaultSifre = ayarlar.MikrotikDefaultSifre;
                 ayar.SinirsizAktif = ayarlar.SinirsizAktif;
                 ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
+                ayar.MikrotikHotspotAdi = ayarlar.MikrotikHotspotAdi;
+                ayar.MikrotikProfilAdi = ayarlar.MikrotikProfilAdi;
 
                context.SaveChanges();
  

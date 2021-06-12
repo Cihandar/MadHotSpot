@@ -38,9 +38,14 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(Guid InternetSatisId)
         {
+
+
             InternetSatisViewModel satis = new InternetSatisViewModel();
             satis.InternetSatis = context.H_InternetSatis.FirstOrDefault(x => x.Id == InternetSatisId);
             satis.Ayarlar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+
+
+
 
             return PartialView("_FormPartial", satis);
         }
@@ -48,14 +53,28 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(InternetSatisViewModel satis)
         {
-            try {
+            try
+            {
+
+
                 satis.InternetSatis.FirmaId = FirmaId;
                 satis.InternetSatis.BaslamaTarihi = DateTime.Now;
                 satis.InternetSatis.BitisTarihi = DateTime.Now.AddDays(satis.InternetSatis.Gun);
-            context.H_InternetSatis.Add(satis.InternetSatis);
-            context.SaveChanges();
-            return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
-            }     
+
+
+
+                if (AddUserMikrotik(context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId), satis.InternetSatis))
+                {
+
+                    context.H_InternetSatis.Add(satis.InternetSatis);
+                    context.SaveChanges();
+                    return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
+                }
+                else
+                {
+                    return Ok(new Response { Success = false, Message = "Mikrotikden Hata Döndü. Kullanıcı Eklenemedi" });
+                }
+            }
             catch (Exception ex)
             {
                 return Ok(new Response { Success = false, Message = "Hata Döndü. " + ex.Message }); ;
@@ -63,7 +82,30 @@ namespace MadHotSpot.Controllers
         }
 
 
+        public bool AddUserMikrotik(Ayarlar ayar,InternetSatis satis)
+        {
+            try
+            {
+                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
+                {
+                    if (!conn.IsOpened) conn.Open(ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass);
+                    ITikCommand cmd = conn.CreateCommand("/ip/hotspot/user/add",
+                   conn.CreateParameter("server", ayar.MikrotikHotspotAdi),
+                   conn.CreateParameter("profile", ayar.MikrotikProfilAdi),
+                   conn.CreateParameter("name", satis.Sifre),
+                   conn.CreateParameter("password", ayar.MikrotikDefaultSifre));
+                    cmd.ExecuteNonQuery();
 
+                    conn.Close();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
 
         public IActionResult TestMikrotik(Ayarlar ayar)
         {
