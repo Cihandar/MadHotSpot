@@ -28,8 +28,17 @@ namespace MadHotSpot.Controllers
                 var ssee =  HttpContext.RequestServices.GetService<UserManager<AppUser>>();
                 var _userManager = context.HttpContext.RequestServices.GetService<UserManager<AppUser>>();
                 var user = _userManager.FindByEmailAsync(context.HttpContext.User.Identity.Name).Result;
+               
                 if (user == null)
                 {
+                    user = _userManager.FindByNameAsync(context.HttpContext.User.Identity.Name).Result;
+
+                    if(user!=null)
+                    {
+                        FirmaId = user.FirmaId;
+                        return;
+                    }
+
                     context.Result = new RedirectToRouteResult("Home");
                     return;
                 }
