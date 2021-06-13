@@ -102,18 +102,10 @@ namespace MadHotSpot.Controllers
                 {
                     using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                     {
-                        var user = new tik4net.Objects.Ip.Hotspot.HotspotUser()
-                        {
-             
-                            Name = satis.Sifre
-                         
-                        };
-
-                        conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>() ;
-                        conn.Delete(user.Id);
+   
+                        var user =   conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", data.Sifre)).FirstOrDefault();
+                        conn.Delete(user);
                     }
-
-
 
                     data.Iade = true;
                     context.SaveChanges();
