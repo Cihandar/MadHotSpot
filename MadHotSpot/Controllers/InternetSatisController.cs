@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MadHotSpot.Models;
 using tik4net;
+using tik4net.Api;
+using tik4net.Objects;
+using tik4net.Objects.Ip;
+using tik4net.Objects.Ip.Firewall;
+using tik4net.Objects.Queue;
+using tik4net.Objects.System;
 
 namespace MadHotSpot.Controllers
 {
@@ -28,7 +34,7 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now && x.Iade==false).OrderBy(x => x.BaslamaTarihi).ToList();
+            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now && x.Iade == false).OrderBy(x => x.BaslamaTarihi).ToList();
             // return Json(data);
             return Json(data);
         }
@@ -87,21 +93,40 @@ namespace MadHotSpot.Controllers
             try
             {
 
-             var data =   context.H_InternetSatis.FirstOrDefault(x => x.Id == satis.Id);
+                var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
 
-                if(data!=null)
+                var data = context.H_InternetSatis.FirstOrDefault(x => x.Id == satis.Id);
+
+
+                if (data != null)
                 {
+                    using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
+                    {
+                        var user = new tik4net.Objects.Ip.Hotspot.HotspotUser()
+                        {
+             
+                            Name = satis.Sifre
+                         
+                        };
+
+                        conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>() ;
+                        conn.Delete(user.Id);
+                    }
+
+
+
                     data.Iade = true;
                     context.SaveChanges();
                     return Ok(new Response { Success = true, Message = "Iade Yapıldı." });
-                }else
+                }
+                else
                 {
                     return Ok(new Response { Success = false, Message = "Kayıt Bulunamadı." });
                 }
-                
 
 
- 
+
+
             }
             catch (Exception ex)
             {
@@ -110,21 +135,38 @@ namespace MadHotSpot.Controllers
         }
 
 
-        public bool AddUserMikrotik(Ayarlar ayar,InternetSatis satis)
+        public bool AddUserMikrotik(Ayarlar ayar, InternetSatis satis)
         {
             try
             {
                 using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                 {
-                    if (!conn.IsOpened) conn.Open(ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass);
-                    ITikCommand cmd = conn.CreateCommand("/ip/hotspot/user/add",
-                   conn.CreateParameter("server", ayar.MikrotikHotspotAdi),
-                   conn.CreateParameter("profile", ayar.MikrotikProfilAdi),
-                   conn.CreateParameter("name", satis.Sifre),
-                   conn.CreateParameter("password", ayar.MikrotikDefaultSifre));
-                    cmd.ExecuteNonQuery();
 
-                    conn.Close();
+                    var sure = satis.Gun * 24;
+                    var user = new tik4net.Objects.Ip.Hotspot.HotspotUser()
+                    {
+                        Profile = ayar.MikrotikProfilAdi,
+                        Server = ayar.MikrotikHotspotAdi,
+                        Name = satis.Sifre,
+                        Password = ayar.MikrotikDefaultSifre,
+                        LimitUptime = sure.ToString() + ":00:00"
+                    };
+
+                    conn.Save(user);
+
+
+
+
+                    // if (!conn.IsOpened) conn.Open(ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass);
+                    // ITikCommand cmd = conn.CreateCommand("/ip/hotspot/user/add",
+                    //conn.CreateParameter("server", ayar.MikrotikHotspotAdi),
+                    //conn.CreateParameter("profile", ayar.MikrotikProfilAdi),
+                    //conn.CreateParameter("name", satis.Sifre),
+                    //conn.CreateParameter("password", ayar.MikrotikDefaultSifre));
+                    // conn.CreateParameter("LimitUptime", "01:00:00");
+                    // cmd.ExecuteNonQuery();
+
+                    // conn.Close();
                     return true;
                 }
             }
@@ -151,7 +193,7 @@ namespace MadHotSpot.Controllers
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);                
+                return Json(ex.Message);
             }
         }
 
