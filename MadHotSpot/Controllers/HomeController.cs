@@ -7,14 +7,95 @@ using Microsoft.AspNetCore.Mvc;
 using MadHotSpot.Models;
 using Microsoft.AspNetCore.Authorization;
 using tik4net;
+using tik4net.Api;
+using tik4net.Objects;
+using tik4net.Objects.Ip;
+using tik4net.Objects.Ip.Firewall;
+using tik4net.Objects.Queue;
+using tik4net.Objects.System;
+using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace MadHotSpot.Controllers
 {
     public class HomeController : BaseController
     {
+
+        public OtelAppDbContext context;
+        private IConfiguration config;
+        public HomeController(OtelAppDbContext _context, IConfiguration _configuration)
+        {
+            context = _context;
+            config = _configuration;
+        }
+
         public IActionResult Index()
         {
+        
             return View();
+        }
+
+
+        public async Task<IActionResult> get_Hotspot_user(bool hepsi)
+        {
+            try
+            {
+                var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+
+
+                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
+                {
+
+                   if(hepsi)
+                    {
+                        var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>().ToList();
+                        return Ok(new Response { Success = true, KullaniciSayisi = user.Count });
+                    }
+                    else
+                    {
+                        var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotActive>().ToList();
+                        return Ok(new Response { Success = true, KullaniciSayisi = user.Count });
+                    }
+                  
+                    
+                }
+
+             
+            }
+            catch (Exception ex)
+            {
+                return Ok(new Response { Success = false, Message = ex.Message,KullaniciSayisi=0 });             
+            }
+
+        }
+
+        public JsonResult get_dailycash()
+        {
+            var data = new List<ViewKasa>();
+            try
+            {
+
+                SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
+                SqlCommand cmd = new SqlCommand("Select SUM(Bakiye) Bakiye from QV_KASA where Tarih=CONVERT(date,getdate()) and FirmaId='" + FirmaId + "' Order by Doviz Desc", con);
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var kasa = new ViewKasa();
+                    kasa.Bakiye = dr.GetFieldValue<double>(dr.GetOrdinal("Bakiye"));
+
+                    data.Add(kasa);
+                }
+
+                con.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                data = null;
+            }
+            return Json(data);
         }
 
         public IActionResult About()

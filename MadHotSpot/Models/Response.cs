@@ -47,6 +47,7 @@ namespace MadHotSpot.Models
         public double IadeTutar { get; set; }
         public double IadeGun { get; set; }
         public string Doviz { get; set; }
+        public int KullaniciSayisi { get; set; }
     }
 
 
