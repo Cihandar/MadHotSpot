@@ -69,19 +69,20 @@ namespace MadHotSpot.Controllers
 
         }
 
-        public JsonResult get_dailycash()
+        public async Task<IActionResult> get_dailycash()
         {
             var data = new List<ViewKasa>();
             try
             {
 
                 SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
-                SqlCommand cmd = new SqlCommand("Select SUM(Bakiye) Bakiye from QV_KASA where Tarih=CONVERT(date,getdate()) and FirmaId='" + FirmaId + "' Order by Doviz Desc", con);
+                SqlCommand cmd = new SqlCommand("Select Doviz,SUM(Bakiye) Bakiye from QV_KASA where Tarih=CONVERT(date,getdate()) and FirmaId='" + FirmaId + "' Group by Doviz Order by Doviz Desc", con);
                 con.Open();
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     var kasa = new ViewKasa();
+                    kasa.Doviz = dr.GetFieldValue<string>(dr.GetOrdinal("Doviz"));
                     kasa.Bakiye = dr.GetFieldValue<double>(dr.GetOrdinal("Bakiye"));
 
                     data.Add(kasa);
@@ -93,9 +94,19 @@ namespace MadHotSpot.Controllers
             }
             catch (Exception ex)
             {
-                data = null;
+                return Ok(new Response { Success = false, Message = ex.Message });
             }
-            return Json(data);
+
+            string tl = "0 ₺", usd = "0 $", euro = "0 €";
+            foreach (var  x in data)
+            {
+                if (x.Doviz == "TL") tl = x.Bakiye.ToString() + " ₺";
+                if (x.Doviz == "USD") usd = x.Bakiye.ToString() + " $";
+                if (x.Doviz == "EURO") euro = x.Bakiye.ToString() + " €";
+
+            }
+
+            return Ok(new Response { Success = true, Message = tl + " / " + euro + " / " + usd });
         }
 
         public IActionResult About()

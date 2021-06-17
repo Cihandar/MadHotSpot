@@ -5,18 +5,18 @@
 }
 
 <div class="row">
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-6" >
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>150</h3>
+                <h3 id="t_user">0</h3>
 
                 <p>Toplam Kullanıcı Sayısı</p>
             </div>
             <div class="icon">
                 <i class="far fa fa-user"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="javascript:;" onclick="gethotspotuser('true','#t_user','bg-info')" class="small-box-footer">Yenile <i class="fas fa-sync"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -24,14 +24,14 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53</h3>
+                <h3 id="a_user">0</h3>
 
                 <p>Şuan Aktif Kullanıcı Sayısı</p>
             </div>
             <div class="icon">
                 <i class="far fa fa-wifi"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="javascript:;" onclick="gethotspotuser('false','#a_user','bg-success')" class="small-box-footer">Yenile <i class="fas fa-sync"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -39,14 +39,14 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3 class="mb-3"><h4>430 ₺ / 120 € / 230 $</h4></h3>
+                <h3 class="mb-3"><h4 id="t_gelir">0 ₺ / 0 € / 0 $</h4></h3>
 
                 <p>Günlük Toplam Satış</p>
             </div>
             <div class="icon">
                 <i class="far fa fa-money-bill"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="javascript:;" onclick="getkasa('#t_gelir','bg-warning')" class="small-box-footer">Yenile <i class="fas fa-sync"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -96,6 +96,52 @@
 @section Scripts
 {
     <script>
+
+
+        $(document).ready(function () {
+
+            gethotspotuser("true", "#t_user", "bg-info");
+            gethotspotuser("false", "#a_user", "bg-success");
+            getkasa("#t_gelir", "bg-warning");
+        });
+
+        function gethotspotuser(Hepsi, elementid, Class) {
+            Notiflix.Block.Standard('.' + Class);
+            $.ajax({
+                type: "post",
+                url: "Home/get_Hotspot_user",
+                data: { hepsi: Hepsi },
+                success: function (result) {
+
+                    if (result.success) {
+                        $(elementid).html(result.kullaniciSayisi);
+                    } else {
+                        $(elementid).html("0");
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
+
+            });
+        }
+
+        function getkasa(elementid, Class) {
+            Notiflix.Block.Standard('.' + Class);
+            $.ajax({
+                type: "post",
+                url: "Home/get_dailycash",
+                data: {  },
+                success: function (result) {
+
+                    if (result.success) {
+                        $(elementid).html(result.message);
+                    } else {
+                        $(elementid).html("0");
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
+
+            });
+        }
 
         $(function() {
             /* ChartJS
