@@ -147,5 +147,46 @@ namespace MadHotSpot.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public async Task<IActionResult> DailyTotalCost()
+        {
+            var data = new List<ViewKasa>();
+            try
+            {
+                SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
+                SqlCommand cmd = new SqlCommand("Select Doviz,Satis,Iade,Bakiye ,Tarih from QV_KASA  where FirmaId='" + FirmaId + "' Order by Doviz Desc", con);
+                con.Open();
+                var dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    var kasa = new ViewKasa();
+                    kasa.Doviz = dr.GetFieldValue<string>(dr.GetOrdinal("Doviz"));
+                    kasa.Satis = dr.GetFieldValue<double>(dr.GetOrdinal("Satis"));
+                    kasa.Iade = dr.GetFieldValue<double>(dr.GetOrdinal("Iade"));
+                    kasa.Bakiye = dr.GetFieldValue<double>(dr.GetOrdinal("Bakiye"));
+                    kasa.Tarih = dr.GetFieldValue<DateTime>(dr.GetOrdinal("Tarih"));
+                    data.Add(kasa);
+                }
+                con.Close();
+
+                data = data.GroupBy(x => x.Tarih.Date).Select(x => new ViewKasa
+                {
+                    Tarih = x.Key,
+                    Doviz = x.FirstOrDefault().Doviz,
+                    Iade = x.FirstOrDefault().Iade,
+                    Satis = x.FirstOrDefault().Satis,
+                    Bakiye = x.FirstOrDefault().Bakiye,
+                }).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                data = null;
+
+            }
+
+            return Ok(new Response { Success = false, Message = "Iade Yapılamadı. Hata!!", Result = data });
+
+        }
     }
 }

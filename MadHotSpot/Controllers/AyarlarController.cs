@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MadHotSpot.Models;
 using tik4net;
+using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace MadHotSpot.Controllers
 {
@@ -13,10 +15,12 @@ namespace MadHotSpot.Controllers
     {
 
         public OtelAppDbContext context;
+        private IConfiguration config;
 
-        public AyarlarController(OtelAppDbContext _context)
+        public AyarlarController(OtelAppDbContext _context, IConfiguration _configuration)
         {
             context = _context;
+            config = _configuration;
         }
 
         public IActionResult Index()
@@ -100,5 +104,7 @@ namespace MadHotSpot.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+      
     }
 }
