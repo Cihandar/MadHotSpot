@@ -124,28 +124,47 @@ $(document).on("click", "#BtnSignOut", function () {
 
 $(document).on("click", "#InterSatisIade", function () {
     id = $(this).data("id");
-    Notiflix.Confirm.Show("Uyarı", 'İade Yapılacak. Emin misiniz ?', 'Evet', 'Hayır',
-        function () { // Yes button 
-            Notiflix.Block.Standard('.content');
-            $.ajax({
-                type: "post",
-                url: "InternetSatis/Iade",
-                data: { Id:id },
-                success: function (result) {
+    Notiflix.Block.Standard('.content');
+    $.ajax({
+        type: "post",
+        url: "InternetSatis/IadeHesapla",
+        data: { Id: id },
+        success: function (result) {
 
-                    if (result.success) {
-                        Notiflix.Notify.Success(result.message);
-                        yenile();
-                    } else {
-                        Notiflix.Notify.Failure(result.message);
-                    }
-                    Notiflix.Block.Remove("*", 0);
-                }
+            if (result.success) {
 
-            });
-        }, function () { // No button 
+                Notiflix.Confirm.Show("Uyarı", 'İade Yapılacak.<br>Iade Gün : '+ result.iadeGun +' Iade Tutar : '+result.iadeTutar +' '+ result.doviz +'  İadeye Devam Edilsin mi ?', 'Evet', 'Hayır',
+                    function () { // Yes button          
+                        Notiflix.Block.Standard('.content');
+                        $.ajax({
+                            type: "post",
+                            url: "InternetSatis/Iade",
+                            data: { Id: id },
+                            success: function (result) {
 
-        });
+                                if (result.success) {
+                                    Notiflix.Notify.Success(result.message);
+                                    yenile();
+                                } else {
+                                    Notiflix.Notify.Failure(result.message);
+                                }
+                                Notiflix.Block.Remove("*", 0);
+                            }
+
+                        });
+                    }, function () { // No button 
+                        Notiflix.Notify.Failure("İşlem iptal Edildi");
+                    });
+ 
+            } else {
+                Notiflix.Notify.Failure(result.message);
+            }
+            Notiflix.Block.Remove("*", 0);
+        }
+
+    });
+
+
 
 });
 

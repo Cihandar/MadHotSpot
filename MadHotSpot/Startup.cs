@@ -61,7 +61,7 @@ namespace MadHotSpot
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                options.ExpireTimeSpan = TimeSpan.FromDays(365);
                 options.LoginPath = "/Auth/Login";
                 options.LogoutPath = "/Auth/Logout";
                 options.AccessDeniedPath = "/Auth/AccessDenied";
@@ -70,7 +70,7 @@ namespace MadHotSpot
                     IsEssential = true, // required for auth to work without explicit user consent; adjust to suit your privacy policy,
                     Name = ".MadHotSpot.Session",
                     HttpOnly =  false,
-                    Expiration = TimeSpan.FromMinutes(20),
+                    Expiration = TimeSpan.FromDays(365),
                     SecurePolicy = CookieSecurePolicy.Always
 
 

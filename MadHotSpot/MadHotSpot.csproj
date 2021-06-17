@@ -33,6 +33,10 @@
 
   <ItemGroup>
     <None Include="wwwroot\js\pages\Auth\index.js" />
+    <None Include="wwwroot\plugins\chart.js\Chart.bundle.js" />
+    <None Include="wwwroot\plugins\chart.js\Chart.bundle.min.js" />
+    <None Include="wwwroot\plugins\chart.js\Chart.js" />
+    <None Include="wwwroot\plugins\chart.js\Chart.min.js" />
     <None Include="wwwroot\plugins\datatables-new\DataTables-1.10.25\js\dataTables.bootstrap.js" />
     <None Include="wwwroot\plugins\datatables-new\DataTables-1.10.25\js\dataTables.bootstrap.min.js" />
     <None Include="wwwroot\plugins\datatables-new\DataTables-1.10.25\js\dataTables.bootstrap4.js" />

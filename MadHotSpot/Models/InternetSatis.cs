@@ -20,5 +20,7 @@ namespace MadHotSpot.Models
         public DateTime BitisTarihi { get; set; }
         public bool Aktarildi { get; set; }
         public bool Iade { get; set; }
+        public double IadeEdilenTutar { get; set; }
+        public string IadeEdilenDoviz { get; set; }
     }
 }

@@ -16,7 +16,7 @@ function redirectUrl() {
 
 function dataTableReload() {
     Notiflix.Report.Success('Kaydınız yapıldı..',
-        '<b>Otel Kodunuz mail adresinize gönderildi.Göndermiş olduğumuz bu kodla giriş yapabilirsiniz</b>',
+        '<b>Firma Kodunuz mail adresinize gönderildi.Göndermiş olduğumuz bu kodla giriş yapabilirsiniz</b>',
         'Giriş Sayfasına Git',
         function () {
             window.location.reload();

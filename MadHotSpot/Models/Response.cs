@@ -43,6 +43,10 @@ namespace MadHotSpot.Models
         public string RedirectUrl { get; set; }
 
         public Guid RestaurantId { get; set; }
+
+        public double IadeTutar { get; set; }
+        public double IadeGun { get; set; }
+        public string Doviz { get; set; }
     }
 
 
