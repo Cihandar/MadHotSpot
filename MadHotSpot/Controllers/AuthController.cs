@@ -42,6 +42,14 @@ namespace MadHotSpot.Controllers
             {
                 var firma = _context.H_Firmalar.Where(x => x.FirmaKodu == request.FirmaKodu).FirstOrDefault();
 
+                if(firma.BitisTarihi<DateTime.Now)
+                {
+                    ajaxResult.Success = false;
+                    ajaxResult.Message = "Lisans Süreniz Bitmiştir. Lütfen Lisansınızı Yenileyin. ";
+                    return Ok(ajaxResult);
+                }
+
+
                 var user = _userManager.Users.Where(x => x.FirmaId == firma.Id && request.UserName == x.UserName).FirstOrDefault();
               
                 if (user == null)
@@ -116,17 +124,7 @@ namespace MadHotSpot.Controllers
 
                     _context.SaveChanges();
 
-                    //var OtelBilgiAddSnc = await _mediator.Send(new OtelBilgiCreateCommand { Email = request.Email, OdaSayisi = request.OdaSayisi, HotelId = Oteller.Id, OtelAdi = request.OtelAdi, Tel = request.Telefon });
-
-                    //if (OtelBilgiAddSnc.Success)
-                    //{
-                    //    SendEmail email = new SendEmail();
-                    //    if (email.Send(request.Email, "AppHotelManager'a HoşGeldiniz..", "", request.Email, request.HotelCode, request.Password, "IlkKayit"))
-                    //    {
-
-                    //    }
-                    //}
-
+ 
                     SendEmail mail = new SendEmail();
 
                     mail.Send(request.Email,"Online Hotspot Giriş Bilgileri","", request.Email, request.FirmaKodu.ToString(), request.Password, "IlkKayit");

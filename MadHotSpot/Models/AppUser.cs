@@ -15,5 +15,6 @@ namespace MadHotSpot.Models
         public byte Status { get; set; }
         public Guid FirmaId { get; set; }
         public PermissionEnum Yetki { get; set; }
+        public bool admin { get; set; }
     }
 }

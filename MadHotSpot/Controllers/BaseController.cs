@@ -19,7 +19,7 @@ namespace MadHotSpot.Controllers
     {
 
         public static Guid FirmaId { get; set; }
-        
+        public bool admin { get; set; }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
 
@@ -36,6 +36,8 @@ namespace MadHotSpot.Controllers
                     if(user!=null)
                     {
                         FirmaId = user.FirmaId;
+                        ViewBag.Admin = user.admin;
+                        admin = user.admin;
                         return;
                     }
 
@@ -46,7 +48,8 @@ namespace MadHotSpot.Controllers
                 {
                     FirmaId = user.FirmaId;
                     ViewBag.PermissionEnum = user.Yetki;
-
+                    ViewBag.Admin = user.admin;
+                    admin = user.admin;
                     //_onlineUser.NameSurname = user.Name;
                     //_onlineUser.ProfilePicture = user.AvatarUrl;
                     //_onlineUser.RestaurantId = user.RestorantId;
