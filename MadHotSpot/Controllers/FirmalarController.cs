@@ -35,7 +35,7 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_Firmalar.ToList();
+            var data = context.H_Firmalar.Where(x=> x.FirmaKodu !=6807).ToList().OrderBy(x=> x.BitisTarihi);
             return Json(data);
         }
 

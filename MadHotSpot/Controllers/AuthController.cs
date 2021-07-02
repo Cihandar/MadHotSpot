@@ -49,6 +49,14 @@ namespace MadHotSpot.Controllers
                     return Ok(ajaxResult);
                 }
 
+                if (!firma.Aktif)
+                {
+                    ajaxResult.Success = false;
+                    ajaxResult.Message = "Lisansınız Pasifleştirilmiştir.. Lütfen Bizimle İletişime Geçin..  ";
+                    return Ok(ajaxResult);
+                }
+
+
 
                 var user = _userManager.Users.Where(x => x.FirmaId == firma.Id && request.UserName == x.UserName).FirstOrDefault();
               
@@ -89,6 +97,9 @@ namespace MadHotSpot.Controllers
 
             try
             {
+                request.BaslamaTarihi = DateTime.Now;
+                request.BitisTarihi = DateTime.Now.AddMonths(1);
+                request.Aktif = true;
 
                 request.FirmaKodu= new Random().Next(1000, 9999);
                 _context.H_Firmalar.Add(request);

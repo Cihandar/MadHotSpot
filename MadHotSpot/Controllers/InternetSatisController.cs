@@ -153,10 +153,27 @@ namespace MadHotSpot.Controllers
  
                     using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                     {
-   
-                        var user =   conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", sifre)).FirstOrDefault();
-                        conn.Delete(user);
-                    }
+
+                     var active = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotActive>().SingleOrDefault(ha => ha.UserName == sifre);
+                    //conn.Delete(active);
+
+                     ITikCommand cmd = conn.CreateCommand("/ip/hotspot/active/remove",
+                     conn.CreateParameter(".id", active.Id));
+                     cmd.ExecuteNonQuery();
+
+                    var user =   conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", sifre)).FirstOrDefault();
+                    conn.Delete(user);
+
+
+
+               
+
+                    //cmd = conn.CreateCommand("/ip/hotspot/cookies/removee",
+                    //conn.CreateParameter("numbers", sifre));
+                    //cmd.ExecuteNonQuery();
+
+
+                }
 
              
                     context.SaveChanges();
