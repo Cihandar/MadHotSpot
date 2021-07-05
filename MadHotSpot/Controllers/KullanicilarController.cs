@@ -49,10 +49,14 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Kullanicilar request)
         {
+
+            var checkuser = _userManager.Users.FirstOrDefault(x => (x.Email == request.Email || x.UserName == x.UserName) && x.FirmaId == FirmaId);
+            if(checkuser !=null) return Json(new Response { Success = false, Message = "Sistemde aynı kullanıcı adı veya mail adresi mevcut" });
+
             var user = new AppUser
             {
                 Email = request.Email,
-                UserName = request.KullaniciKodu,
+                UserName = request.Email,
                 Yetki = request.Yetki,
                 FirmaId = FirmaId
             };

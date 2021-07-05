@@ -48,7 +48,7 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="InternetSatis.Gun" class="form-control-label">Gün</label>
-                                <input asp-for="InternetSatis.Gun" onchange="hesapla()" type="number" class="form-control" placeholder="" id="gun" />
+                                <input asp-for="InternetSatis.Gun" onchange="hesapla()" type="number" min="1" max="999"   class="form-control" placeholder="" id="gun" />
                                 <span asp-validation-for="InternetSatis.Gun" class="text-danger"> </span>
                             </div>
                         </div>
@@ -176,6 +176,7 @@
     <script>
 
         function hesapla() {
+            if ($("#gun").val() < 1) $("#gun").val("1");
             var gun = $("#gun").val();
             var tutar = 0;
             switch ($("#doviz").val()) {
@@ -206,6 +207,7 @@
 
         $(document).ready(function () {
             CreateRandomPass();
+            if ($("#gun").val() < 1) $("#gun").val("1");
         });
     </script>
 

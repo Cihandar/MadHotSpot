@@ -97,6 +97,9 @@ namespace MadHotSpot.Controllers
 
             try
             {
+
+               
+
                 request.BaslamaTarihi = DateTime.Now;
                 request.BitisTarihi = DateTime.Now.AddMonths(1);
                 request.Aktif = true;

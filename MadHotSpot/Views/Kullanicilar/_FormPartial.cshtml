@@ -11,7 +11,7 @@
             @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Market Tanımları</h5>
+                    <h5 class="modal-title">Kullanıcı Tanımları</h5>
                     <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
                 </div>
                 <div class="modal-body">
@@ -23,9 +23,9 @@
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
-                                <label asp-for="KullaniciKodu" class="form-control-label">Kullanıcı Adı</label>
-                                <input asp-for="KullaniciKodu" class="form-control" placeholder="" />
-                                <span asp-validation-for="KullaniciKodu" class="text-danger"> </span>
+                                <label asp-for="Email" class="form-control-label">Email</label>
+                                <input asp-for="Email" class="form-control" placeholder="" />
+                                <span asp-validation-for="Email" class="text-danger"> </span>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -37,14 +37,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <!--<div class="col-sm-6">-->
                             <!-- text input -->
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label asp-for="Email" class="form-control-label">E-mail</label>
                                 <input asp-for="Email" type="text" class="form-control" placeholder="" />
                                 <span asp-validation-for="Email" class="text-danger"> </span>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">

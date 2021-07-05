@@ -141,7 +141,28 @@ namespace MadHotSpot.Controllers
 
             return new Response { Success = true, IadeGun = kalangun.Days, IadeTutar = iadetutar, Doviz = data.Doviz };
         }
-
+        public bool ActiveUserDelete(string sifre)
+        {
+            try
+            {
+                var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
+                {
+                    var active = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotActive>().SingleOrDefault(ha => ha.UserName == sifre);
+                    if (active != null)
+                    {
+                        ITikCommand cmd = conn.CreateCommand("/ip/hotspot/active/remove",
+                        conn.CreateParameter(".id", active.Id));
+                        cmd.ExecuteNonQuery();
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
    
         public bool MikrotikIade(string sifre)
         {
@@ -154,12 +175,9 @@ namespace MadHotSpot.Controllers
                     using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                     {
 
-                     var active = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotActive>().SingleOrDefault(ha => ha.UserName == sifre);
+                    ActiveUserDelete(sifre); 
                     //conn.Delete(active);
 
-                     ITikCommand cmd = conn.CreateCommand("/ip/hotspot/active/remove",
-                     conn.CreateParameter(".id", active.Id));
-                     cmd.ExecuteNonQuery();
 
                     var user =   conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", sifre)).FirstOrDefault();
                     conn.Delete(user);
@@ -177,6 +195,7 @@ namespace MadHotSpot.Controllers
 
              
                     context.SaveChanges();
+
                 return true;
             
 
