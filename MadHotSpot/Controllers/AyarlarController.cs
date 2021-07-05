@@ -30,10 +30,17 @@ namespace MadHotSpot.Controllers
             return View(data);
  
         }
- 
+
+        public IActionResult FirmaAl()
+        {
+            var firma = context.H_Firmalar.FirstOrDefault(x => x.Id == FirmaId);
+
+            return Json(firma);
+        }
 
         #region Update
- 
+
+
 
         [HttpPost]
         public async Task<IActionResult> Update(Ayarlar ayarlar)
@@ -56,6 +63,7 @@ namespace MadHotSpot.Controllers
                 ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
                 ayar.MikrotikHotspotAdi = ayarlar.MikrotikHotspotAdi;
                 ayar.MikrotikProfilAdi = ayarlar.MikrotikProfilAdi;
+                ayar.IadeAktif = ayarlar.IadeAktif;
 
                 context.SaveChanges();
 

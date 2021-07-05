@@ -25,6 +25,7 @@
         <!--end: Datatable-->
     </div>
 </div>
+ 
 @section Scripts
 {
     <script>
@@ -120,11 +121,21 @@
                                 targets: -1,
                                 orderable: false,
                                 render: function (data, type, full, meta) {
-                                    return '<button id="printbuton" class="btn btn-secondary fas fa-print font-weight-bold btn-pill mt-1 mr-2    min-w-90px" title = "Print" style="background:#ffc107 !important"  data-endpoint="" data-id="' + full.id + '" data-sifre="' + full.sifre + '" data-start="' + moment(full.baslamaTarihi).format("DD.MM.YYYY") + '" data-end="' + moment(full.bitisTarihi).format("DD.MM.YYYY")  +'" ></button> ' +
-                                        '<button  id="InterSatisIade" class="btn btn-secondary fas fa-undo-alt font-weight-bold btn-pill mt-1 mr-2    min-w-90px" title = "İade" style="background:#FF4301 !important"  data-endpoint="" data-id="' + full.id + '"> İade</button> ';
+                                    if (!data.iade) {
+                                        return '<button id="printbuton" class="btn btn-secondary fas fa-print font-weight-bold btn-pill mt-1 mr-2    min-w-90px" title = "Print" style="background:#ffc107 !important"  data-endpoint="" data-id="' + full.id + '" data-sifre="' + full.sifre + '" data-start="' + moment(full.baslamaTarihi).format("DD.MM.YYYY") + '" data-end="' + moment(full.bitisTarihi).format("DD.MM.YYYY") + '" ></button> ' +
+                                            '<button  id="InterSatisIade" class="btn btn-secondary fas fa-undo-alt font-weight-bold btn-pill mt-1 mr-2    min-w-90px" title = "İade" style="background:#FF4301 !important"  data-endpoint="" data-id="' + full.id + '"> İade</button> ';
+                                    } else {
+                                        return '<button   class="btn btn-secondary  font-weight-bold btn-pill mt-1 mr-2    min-w-90px" title = "İade"   data-endpoint="" > İade Yapıldı ! </button> ';
+                                    }
+                       
                                 }
                             }
                         ],
+                        "createdRow": function (row, data, dataIndex) {
+                            if (data.iade) {
+                                $(row).css({ "background-color": "#FFCFCF" });
+                            }
+                        },
                         data: data
                     });
 
@@ -146,17 +157,20 @@
             Print($(this).data("sifre"), $(this).data("start"), $(this).data("end"));
         });
 
-        function Print(sifre,start,end) {
+        function Print(sifre, start, end) {
+ 
             var pw = window.open('', '');
 
-            pw.document.write("<html><head><title></title></head><body style='width:250px; font-size:18px;' onload='window.print(); window.close();'>");
+            pw.document.write("<html><head><title></title></head><body style='width:250px; font-size:18px;  margin-bottom:100px' onload='window.print(); window.close();'>");
             pw.document.write("<style>html, body {width: 70mm;height: 100 %;position: absolute;}</style>");
 
+            pw.document.write("<center><h3>" + '@ViewBag.FirmaAdi' + "</h3></center>");
             pw.document.write("<hr>");
             pw.document.write("<div class='col-12' style='text-align: center;'><b>Şifre/Password</b><br>" + sifre + "</div>");
             pw.document.write("<hr>");
             pw.document.write("<div class='col-12' '><b>Başlangıç/Start : </b>" + start + "</div>");
             pw.document.write("<div class='col-12' '><b>Bitiş/End : </b>" + end + "</div>");
+
  
 
 

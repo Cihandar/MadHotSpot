@@ -27,6 +27,8 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
+            var firma = context.H_Firmalar.FirstOrDefault(x => x.Id == FirmaId);
+            ViewBag.FirmaAdi = firma.FirmaAdi;
 
             return View();
         }
@@ -34,7 +36,7 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now && x.Iade == false).OrderBy(x => x.BaslamaTarihi).ToList();
+            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now ).OrderBy(x => x.BaslamaTarihi).ToList();
             // return Json(data);
             return Json(data);
         }
@@ -126,6 +128,9 @@ namespace MadHotSpot.Controllers
         
         private Response Prvt_IadeHesapla(InternetSatis satis)
         {
+            var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+            if(! ayar.IadeAktif) return new Response { Success = false, Message = "Iade Aktif Değil.. Iade yapılmadı !.. " };
+
             var data = context.H_InternetSatis.FirstOrDefault(x => x.Id == satis.Id);
 
             if (DateTime.Now.Date == data.BitisTarihi.Date)  //Son gün İade yapılmaz. Kontrol..
@@ -170,10 +175,13 @@ namespace MadHotSpot.Controllers
             {
 
                 var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
- 
- 
+
+
+
                     using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                     {
+
+                  
 
                     ActiveUserDelete(sifre); 
                     //conn.Delete(active);

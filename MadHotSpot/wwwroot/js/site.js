@@ -121,6 +121,18 @@ $(document).on("click", "#BtnSignOut", function () {
         });
 
 });
+var Firma;
+function FirmaAl() {
+   
+    $.ajax({
+        type: "get",
+        url: "Ayarlar/FirmaAl",
+        success: function (result) {
+            Firma=result;
+        }
+    });
+
+}
 
 $(document).on("click", "#InterSatisIade", function () {
     id = $(this).data("id");

@@ -70,7 +70,7 @@
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h5 class="box-title">Tarife ve Diğer Ayarlar</h5>
+                            <h5 class="box-title">Tarife Ayarları</h5>
                         </div>
                         <div class="box-body">
                             <div class="row">
@@ -90,6 +90,27 @@
                                     <input maxlength="11" asp-for="GunlukFiyatUSD" class="form-control" placeholder="$" />
                                     <span asp-validation-for="GunlukFiyatUSD" class="text-danger"> </span>
                                 </div>
+ 
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Diğer Ayarlar</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+
+                                <div class="form-group col-12"  >
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="IadeAktif" class="text-danger"></span>
+                                        <label asp-for="IadeAktif" class="form-control-label">İade Aktif</label>
+                                        <input maxlength="11" asp-for="IadeAktif" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+
                                 <div class="form-group col-12" style="display:none;">
                                     <div class="icheck-primary d-inline">
                                         <span asp-validation-for="SinirsizAktif" class="text-danger"> </span>
@@ -100,13 +121,14 @@
                                 <div class="form-group col-12" style="display:none;">
                                     <div class="icheck-primary d-inline">
                                         <label asp-for="AdSoyadZorunlu" class="form-control-label">Ad Soyad Zorunlu?</label>
-                                        <input maxlength="11" asp-for="AdSoyadZorunlu" class="ml-2" placeholder=""/>
+                                        <input maxlength="11" asp-for="AdSoyadZorunlu" class="ml-2" placeholder="" />
                                         <span asp-validation-for="AdSoyadZorunlu" class="text-danger"> </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
 

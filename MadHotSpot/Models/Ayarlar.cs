@@ -25,5 +25,7 @@ namespace MadHotSpot.Models
 
         public bool AdSoyadZorunlu { get; set; }
 
+        public bool IadeAktif { get; set; }
+
     }
 }

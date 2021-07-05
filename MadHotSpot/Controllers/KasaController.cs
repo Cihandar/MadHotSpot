@@ -30,13 +30,13 @@ namespace MadHotSpot.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetAll()
+        public JsonResult GetAll(DateTime tarih)
         {
             var data = new List<ViewKasa>();
             try
             {
                 SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
-                SqlCommand cmd = new SqlCommand("Select Doviz,Satis,Iade,Bakiye from QV_KASA where Tarih=CONVERT(date,getdate()) and FirmaId='" + FirmaId + "' Order by Doviz Desc", con);
+                SqlCommand cmd = new SqlCommand("Select Doviz,Satis,Iade,Bakiye from QV_KASA where Tarih=CONVERT(date,'"+tarih.Date+"') and FirmaId='" + FirmaId + "' Order by Doviz Desc", con);
                 con.Open();
                 var dr = cmd.ExecuteReader();
                 while (dr.Read())
