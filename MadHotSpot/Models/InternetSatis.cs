@@ -22,5 +22,7 @@ namespace MadHotSpot.Models
         public bool Iade { get; set; }
         public double IadeEdilenTutar { get; set; }
         public string IadeEdilenDoviz { get; set; }
+        public bool Tarife { get; set; }
+        public Guid TarifeId { get; set; }
     }
 }

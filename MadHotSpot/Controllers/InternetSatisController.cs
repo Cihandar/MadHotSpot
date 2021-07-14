@@ -51,7 +51,8 @@ namespace MadHotSpot.Controllers
             InternetSatisViewModel satis = new InternetSatisViewModel();
             satis.InternetSatis = context.H_InternetSatis.FirstOrDefault(x => x.Id == InternetSatisId);
             satis.Ayarlar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
-
+            satis.Tarifeler = context.H_Tarifeler.Where(x => x.FirmaId == FirmaId && x.Aktif == true).ToList();
+            
 
 
 
@@ -69,6 +70,8 @@ namespace MadHotSpot.Controllers
                 satis.InternetSatis.BaslamaTarihi = DateTime.Now;
                 satis.InternetSatis.BitisTarihi = DateTime.Now.AddDays(satis.InternetSatis.Gun);
                 satis.InternetSatis.Iade = false;
+                
+
 
 
                 if (AddUserMikrotik(context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId), satis.InternetSatis))

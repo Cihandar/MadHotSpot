@@ -11,7 +11,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">İnternet Satış Tanımları</h5>
-                    <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
+                    <button  type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
                 </div>
                 <div class="modal-body">
                     <div class="hidden">
@@ -43,12 +43,32 @@
                             </div>
                         </div>
                     </div>
+                    @if(Model.Ayarlar.TarifeAktif)
+                    { 
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="InternetSatis.Tarife" class="form-control-label">Tarifeli Satış</label>
+                                <input asp-for="InternetSatis.Tarife" onchange="TarifeAktif()" class="form-control" placeholder="" id="tarife" />
+                                <span asp-validation-for="InternetSatis.Tarife" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label asp-for="InternetSatis.TarifeId" class="form-control-label">Tarife Seç</label>
+                            <select asp-for="InternetSatis.TarifeId" onchange="TarifeSec()" class="form-control" data-placeholder="" disabled asp-items="@(new SelectList(Model.Tarifeler,"Id","TarifeAdi"))" id="cmbtarife">
+                                <option value="0">Tarife Seç</option>
+                            </select>
+                            <span asp-validation-for="InternetSatis.TarifeId" class="text-danger"> </span>
+                        </div>
+                    </div>
+                    }
                     <div class="row">
                         <div class="col-sm-4">
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="InternetSatis.Gun" class="form-control-label">Gün</label>
-                                <input asp-for="InternetSatis.Gun" onchange="hesapla()" type="number" min="1" max="999"   class="form-control" placeholder="" id="gun" />
+                                <input asp-for="InternetSatis.Gun" onchange="hesapla()" type="number" min="1" max="999" class="form-control" placeholder="" id="gun" />
                                 <span asp-validation-for="InternetSatis.Gun" class="text-danger"> </span>
                             </div>
                         </div>
@@ -67,13 +87,13 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="InternetSatis.Tutar" class="form-control-label">Tutar</label>
-                                <input asp-for="InternetSatis.Tutar" type="number" class="form-control" placeholder="" readonly id="tutar"/>
+                                <input asp-for="InternetSatis.Tutar" type="number" class="form-control" placeholder="" readonly id="tutar" />
                                 <span asp-validation-for="InternetSatis.Tutar" class="text-danger"> </span>
                             </div>
                         </div>
-                     
+
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm-4">
                             <!-- text input -->
@@ -100,66 +120,66 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm-12">
                             <!-- text input -->
-                    
+
                         </div>
                     </div>
 
                     @*<div class="row">
 
-                        <div class="form-group col-md-2">
-                            <label asp-for="InternetSatis.Sifre" class="form-control-label">Şifre</label>
-                            <input asp-for="InternetSatis.Sifre" class="form-control" placeholder="" />
-                            <span asp-validation-for="InternetSatis.Sifre" class="text-danger"> </span>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <div class="btn btn-success"> Oluştur </div>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label asp-for="InternetSatis.Gun" class="form-control-label">Gün</label>
-                            <input asp-for="InternetSatis.Gun" onchange="hesapla()" type="number" class="form-control" placeholder="" id="gun" />
-                            <span asp-validation-for="InternetSatis.Gun" class="text-danger"> </span>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label asp-for="InternetSatis.Tutar" class="form-control-label">Gün</label>
-                            <input asp-for="InternetSatis.Tutar" type="number" class="form-control" placeholder="" readonly id="tutar" />
-                            <span asp-validation-for="InternetSatis.Tutar" class="text-danger"> </span>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label asp-for="InternetSatis.Doviz" class="form-control-label">Döviz</label>
-                            <select class="form-control" id="doviz" asp-for="InternetSatis.Doviz" onchange="hesapla()">
-                                <option value="TL">TL</option>
-                                <option value="USD">USD</option>
-                                <option value="EURO">EURO</option>
-                            </select>
-                        </div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="InternetSatis.Sifre" class="form-control-label">Şifre</label>
+                                <input asp-for="InternetSatis.Sifre" class="form-control" placeholder="" />
+                                <span asp-validation-for="InternetSatis.Sifre" class="text-danger"> </span>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <div class="btn btn-success"> Oluştur </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="InternetSatis.Gun" class="form-control-label">Gün</label>
+                                <input asp-for="InternetSatis.Gun" onchange="hesapla()" type="number" class="form-control" placeholder="" id="gun" />
+                                <span asp-validation-for="InternetSatis.Gun" class="text-danger"> </span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="InternetSatis.Tutar" class="form-control-label">Gün</label>
+                                <input asp-for="InternetSatis.Tutar" type="number" class="form-control" placeholder="" readonly id="tutar" />
+                                <span asp-validation-for="InternetSatis.Tutar" class="text-danger"> </span>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="InternetSatis.Doviz" class="form-control-label">Döviz</label>
+                                <select class="form-control" id="doviz" asp-for="InternetSatis.Doviz" onchange="hesapla()">
+                                    <option value="TL">TL</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EURO">EURO</option>
+                                </select>
+                            </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-3">
-                            <label asp-for="InternetSatis.AdSoyad" class="form-control-label">Ad Soyad</label>
-                            <input asp-for="InternetSatis.AdSoyad" class="form-control" placeholder="" />
-                            <span asp-validation-for="InternetSatis.AdSoyad" class="text-danger"> </span>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label asp-for="InternetSatis.VatNo" class="form-control-label">Vatandaşlık Numarası</label>
-                            <input asp-for="InternetSatis.VatNo" class="form-control" placeholder="" />
-                            <span asp-validation-for="InternetSatis.VatNo" class="text-danger"> </span>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label asp-for="InternetSatis.Telefon" class="form-control-label">Vatandaşlık Numarası</label>
-                            <input asp-for="InternetSatis.Telefon" class="form-control" placeholder="" />
-                            <span asp-validation-for="InternetSatis.Telefon" class="text-danger"> </span>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label asp-for="InternetSatis.Odano" class="form-control-label">Odano</label>
-                            <input asp-for="InternetSatis.Odano" class="form-control" placeholder="" />
-                            <span asp-validation-for="InternetSatis.Odano" class="text-danger"> </span>
-                        </div>
-                    </div>*@
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="InternetSatis.AdSoyad" class="form-control-label">Ad Soyad</label>
+                                <input asp-for="InternetSatis.AdSoyad" class="form-control" placeholder="" />
+                                <span asp-validation-for="InternetSatis.AdSoyad" class="text-danger"> </span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="InternetSatis.VatNo" class="form-control-label">Vatandaşlık Numarası</label>
+                                <input asp-for="InternetSatis.VatNo" class="form-control" placeholder="" />
+                                <span asp-validation-for="InternetSatis.VatNo" class="text-danger"> </span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="InternetSatis.Telefon" class="form-control-label">Vatandaşlık Numarası</label>
+                                <input asp-for="InternetSatis.Telefon" class="form-control" placeholder="" />
+                                <span asp-validation-for="InternetSatis.Telefon" class="text-danger"> </span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="InternetSatis.Odano" class="form-control-label">Odano</label>
+                                <input asp-for="InternetSatis.Odano" class="form-control" placeholder="" />
+                                <span asp-validation-for="InternetSatis.Odano" class="text-danger"> </span>
+                            </div>
+                        </div>*@
 
 
 
@@ -173,13 +193,73 @@
         </form>
     </div>
 </div>
-    <script>
+<script>
 
-        function hesapla() {
-            if ($("#gun").val() < 1) $("#gun").val("1");
-            var gun = $("#gun").val();
-            var tutar = 0;
+    var tl = 0;
+    var usd = 0;
+    var euro = 0;
+
+                        function TarifeSec() {
+
+                            if ($("#cmbtarife").val() != "0") {
+                                $("#kaydet").prop("disabled", false);
+                                Notiflix.Block.Standard('.modal-dialog');
+                                $.ajax({
+                                    type: "get",
+                                    url: "Tarifeler/GetTarife",
+                                    data: { Id: $("#cmbtarife").val() },
+                                    success: function (result) {
+
+                                        if (result != null) {
+
+                                            tl = result.tlFiyat;
+                                            euro = result.euroFiyat;
+                                            usd = result.usdFiyat;
+
+                                            $("#gun").val(result.gun);
+                                            hesapla();
+
+                                        }
+
+
+                                    }
+
+                                });
+                                Notiflix.Block.Remove("*", 0);
+                            } else {
+                               
+                                $("#kaydet").prop("disabled",true);
+                            }
+
+                        }
+ 
+
+    function hesapla() {
+
+        if ($("#tarife").is(":checked")) {
             switch ($("#doviz").val()) {
+
+                case "TL":
+                    $("#tutar").val(tl);
+                    break;
+
+                case "EURO":
+                    $("#tutar").val(euro);
+                    break;
+
+                case "USD":
+                    $("#tutar").val(usd);
+                    break;
+            }
+        } else {
+
+     
+
+        if ($("#gun").val() < 1) $("#gun").val("1");
+
+        var gun = $("#gun").val();
+        var tutar = 0;
+        switch ($("#doviz").val()) {
 
             case "TL":
                 var tltutar = $("#TLtutar").val();
@@ -187,29 +267,47 @@
                 break;
 
             case "EURO":
-                    var eurotutar = $("#Eurotutar").val();
-                    tutar = eurotutar * gun;
+                var eurotutar = $("#Eurotutar").val();
+                tutar = eurotutar * gun;
                 break;
 
             case "USD":
                 var usdtutar = $("#USDtutar").val();
                 tutar = usdtutar * gun;
                 break;
+        }
+
+        $("#tutar").val(tutar);
+        }
+    }
+
+
+    function CreateRandomPass() {
+        $("#InternetSatis_Sifre").val(RandomPassCreator(7).toUpperCase());
+    }
+
+    $(document).ready(function () {
+        CreateRandomPass();
+        if ($("#gun").val() < 1) $("#gun").val("1");
+        hesapla();
+
+        $("#tarife").click(function () {
+            if ($(this).is(":checked")) {
+                $("#cmbtarife").prop("disabled", false);
+                $("#gun").prop("readonly", true);
+                if ($("#cmbtarife").val() == "0") $("#kaydet").prop("disabled", true); else $("#kaydet").prop("disabled", false);
+                hesapla();
+
+            } else {
+                $("#cmbtarife").prop("disabled", true);
+                $("#gun").prop("readonly", false);
+                $("#gun").val("1");
+                $("#kaydet").prop("disabled", false);
+                hesapla();
             }
-
-            $("#tutar").val(tutar);
-        }
-
-
-        function CreateRandomPass() {
-           $("#InternetSatis_Sifre").val(RandomPassCreator(7).toUpperCase());
-        }
-
-        $(document).ready(function () {
-            CreateRandomPass();
-            if ($("#gun").val() < 1) $("#gun").val("1");
-            hesapla();
         });
-    </script>
+
+    });
+</script>
 
 

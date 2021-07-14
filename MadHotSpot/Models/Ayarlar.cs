@@ -27,5 +27,7 @@ namespace MadHotSpot.Models
 
         public bool IadeAktif { get; set; }
 
+        public bool TarifeAktif { get; set; }
+
     }
 }

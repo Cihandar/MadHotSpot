@@ -27,6 +27,7 @@ namespace MadHotSpot.Controllers
         {
             var data = context.H_Ayarlar.FirstOrDefault(x=>x.FirmaId == FirmaId);
             // return Json(data);
+            data.MikrotikPass = null;
             return View(data);
  
         }
@@ -57,13 +58,14 @@ namespace MadHotSpot.Controllers
                 ayar.MikrotikIp = ayarlar.MikrotikIp;
                 ayar.MikrotikPort = ayarlar.MikrotikPort;
                 ayar.MikrotikUser = ayarlar.MikrotikUser;
-                if (!string.IsNullOrEmpty(ayarlar.MikrotikIp)) ayar.MikrotikPass = ayarlar.MikrotikPass;
+                if (!string.IsNullOrEmpty(ayarlar.MikrotikPass)) ayar.MikrotikPass = ayarlar.MikrotikPass;
                 ayar.MikrotikDefaultSifre = ayarlar.MikrotikDefaultSifre;
                 ayar.SinirsizAktif = ayarlar.SinirsizAktif;
                 ayar.AdSoyadZorunlu = ayarlar.AdSoyadZorunlu;
                 ayar.MikrotikHotspotAdi = ayarlar.MikrotikHotspotAdi;
                 ayar.MikrotikProfilAdi = ayarlar.MikrotikProfilAdi;
                 ayar.IadeAktif = ayarlar.IadeAktif;
+                ayar.TarifeAktif = ayarlar.TarifeAktif;
 
                 context.SaveChanges();
 

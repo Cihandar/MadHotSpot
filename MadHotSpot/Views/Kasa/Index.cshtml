@@ -3,16 +3,22 @@
 <div class="card card-custom">
      <div class="card-header flex-wrap border-0 pt-6 pb-0">
    
-             <div class="row">
-                 <div class="col-md-2">
-                     <label class="form-control-label">Tarih</label>
-                     <input id="tarih" class="form-control datetime-" type="text" placeholder="" autocomplete="off" />
-                 </div>
-                 <div class="col-md-3">
-                     <br />
-                     <button onclick="Raporla()" class="btn btn-warning"><i class="far fa fa-search"></i>Raporla</button>
-                 </div>
+         <div class="row">
+             <div class="col-md-2">
+                 <label class="form-control-label">İlk Tarih</label>
+                 <input id="tarih" class="form-control datetime-" type="text" placeholder="" autocomplete="off" />
+
              </div>
+             <div class="col-md-2">
+                 <label class="form-control-label">Son Tarih</label>
+                 <input id="tarih2" class="form-control datetime-" type="text" placeholder="" autocomplete="off" />
+
+             </div>
+             <div class="col-md-3">
+                 <br />
+                 <button onclick="Raporla()" class="btn btn-warning"><i class="far fa fa-search"></i>Raporla</button>
+             </div>
+         </div>
      
 
         </div> 
@@ -23,6 +29,7 @@
             <thead>
                 <tr>       
                     <th></th>
+                    <th>Tarih</th>
                     <th>Doviz</th>
                     <th>Toplam Satış</th>
                     <th>Toplam Iade</th>
@@ -37,13 +44,57 @@
 {
     <script>
         $(document).ready(function () {
-     
+
+            /////RezKayitSon
+            $('#tarih2').daterangepicker({
+                "singleDatePicker": true,
+                "autoApply": true,
+
+                //"linkedCalendars": false,
+                "autoUpdateInput": false,
+                "locale": {
+                    format: 'DD.MM.YYYY',
+                    "applyLabel": "Uygula",
+                    "cancelLabel": "Vazgeç",
+                    "fromLabel": "Dan",
+                    "toLabel": "a",
+                    "customRangeLabel": "Seç",
+                    "daysOfWeek": [
+                        "Pt",
+                        "Sl",
+                        "Çr",
+                        "Pr",
+                        "Cm",
+                        "Ct",
+                        "Pz"
+                    ],
+                    "monthNames": [
+                        "Ocak",
+                        "Şubat",
+                        "Mart",
+                        "Nisan",
+                        "Mayıs",
+                        "Haziran",
+                        "Temmuz",
+                        "Ağustos",
+                        "Eylül",
+                        "Ekim",
+                        "Kasım",
+                        "Aralık"
+                    ],
+                    "firstDay": 1
+                }
+            },
+                function (chosen_date) {
+                    $('#tarih2').val(chosen_date.format('DD.MM.YYYY'));
+                }
+            );
 
             /////RezKayitSon
             $('#tarih').daterangepicker({
                 "singleDatePicker": true,
                 "autoApply": true,
-            
+
                 //"linkedCalendars": false,
                 "autoUpdateInput": false,
                 "locale": {
@@ -92,22 +143,32 @@
                 $(this).val('');
             });
 
+            $('#tarih2').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD.MM.YYYY'));
+            });
+
+            $('#tarih2').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
             $("#tarih").val('@DateTime.Now.ToString("dd.MM.yyyy")');
+            $("#tarih2").val('@DateTime.Now.ToString("dd.MM.yyyy")');
+
             Raporla();
 
         });
 
         function Raporla() {
-            GetData($("#tarih").val());
+            GetData($("#tarih").val(), $("#tarih2").val());
         }
 
-        var GetData = function (tarih) {
+        var GetData = function (tarih,tarih2) {
             $.ajax({
-                url: "/Kasa/GetAll?Tarih="+tarih,
+                url: "/Kasa/GetAll?Tarih="+tarih+"&Tarih2="+tarih2,
                 type: "get",
                 dataType: "json",
                 complete: function () {
-                
+
                 },
                 success: function (data) {
                     var dataTable = $('#table').DataTable({
@@ -129,7 +190,7 @@
                         },
                        order: [[0, 'desc']],
                         buttons: [
-             
+
                             { extend: 'print', text: 'Listeyi Yazdır' },
                             //{ extend: 'copyHtml5', text: 'Kopyala' },
                             { extend: 'excelHtml5', text: 'Excel' },
@@ -137,13 +198,24 @@
                             { extend: 'pdfHtml5', text: 'PDF' },
                            // { extend: 'colvis', text: 'Göster' }
                         ],
-                        columns: [ 
-                            { "data": null, width:0, visible:false   },
+                        columns: [
+                            { "data": null, width: 0, visible: false },
+                            {
+
+                                data: "tarih",
+                                render: function (data, type, row) {
+                                    if (type === "sort" || type === "type") {
+                                        return data;
+                                    }
+                                    return moment(data).format("DD.MM.YYYY");
+                                }
+
+                            },
                             { "data": "doviz" },
                             { "data": "satis" },
                             { "data": "iade" },
-                            { "data": "bakiye" }                
-        
+                            { "data": "bakiye" }
+
                         ],
                         data: data
                     });
@@ -157,7 +229,7 @@
             });
         };
 
- 
+
     </script>
 }
 

@@ -4,14 +4,16 @@ using MadHotSpot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MadHotSpot.Migrations
 {
     [DbContext(typeof(OtelAppDbContext))]
-    partial class OtelAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210714171927_NewTableTarifeler")]
+    partial class NewTableTarifeler
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,8 +119,6 @@ namespace MadHotSpot.Migrations
 
                     b.Property<bool>("SinirsizAktif");
 
-                    b.Property<bool>("TarifeAktif");
-
                     b.HasKey("Id");
 
                     b.ToTable("H_Ayarlar");
@@ -189,10 +189,6 @@ namespace MadHotSpot.Migrations
 
                     b.Property<bool>("Silindi");
 
-                    b.Property<bool>("Tarife");
-
-                    b.Property<Guid>("TarifeId");
-
                     b.Property<string>("Telefon");
 
                     b.Property<double>("Tutar");
@@ -233,23 +229,19 @@ namespace MadHotSpot.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("Aktif");
-
-                    b.Property<double>("EUROFiyat");
+                    b.Property<string>("Doviz");
 
                     b.Property<Guid>("FirmaId");
 
                     b.Property<int>("FirmaKodu");
 
+                    b.Property<double>("Fiyat");
+
                     b.Property<int>("Gun");
 
                     b.Property<bool>("Silindi");
 
-                    b.Property<double>("TLFiyat");
-
                     b.Property<string>("TarifeAdi");
-
-                    b.Property<double>("USDFiyat");
 
                     b.HasKey("Id");
 

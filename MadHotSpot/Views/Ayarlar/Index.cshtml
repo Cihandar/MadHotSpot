@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group col-12">
                                     <label asp-for="MikrotikPass" class="form-control-label">Şifre</label>
-                                    <input maxlength="11" asp-for="MikrotikPass" type="password" class="form-control" placeholder="" />
+                                    <input maxlength="11" asp-for="MikrotikPass"   class="form-control" placeholder="" />
                          
                                     <span asp-validation-for="MikrotikPass" class="text-danger"> </span>
                                 </div>
@@ -103,11 +103,19 @@
                         <div class="box-body">
                             <div class="row">
 
-                                <div class="form-group col-12"  >
+                                <div class="form-group col-12">
                                     <div class="icheck-primary d-inline">
                                         <span asp-validation-for="IadeAktif" class="text-danger"></span>
                                         <label asp-for="IadeAktif" class="form-control-label">İade Aktif</label>
                                         <input maxlength="11" asp-for="IadeAktif" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="TarifeAktif" class="text-danger"></span>
+                                        <label asp-for="TarifeAktif" class="form-control-label">Tarifeli Satış Aktif</label>
+                                        <input maxlength="11" asp-for="TarifeAktif" class="ml-2" placeholder="" />
                                     </div>
                                 </div>
 

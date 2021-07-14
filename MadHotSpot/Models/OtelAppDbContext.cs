@@ -23,13 +23,14 @@ namespace MadHotSpot.Models
         public DbSet<Firmalar> H_Firmalar { get; set; }
         public DbSet<InternetSatis> H_InternetSatis { get; set; }
         public DbSet<ViewKasa> H_ViewKasa { get; set; }
+        public DbSet<Tarifeler> H_Tarifeler { get; set; }
 
 
 
 
     }
 
-    
+
 
 
 

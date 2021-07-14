@@ -4,14 +4,16 @@ using MadHotSpot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MadHotSpot.Migrations
 {
     [DbContext(typeof(OtelAppDbContext))]
-    partial class OtelAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210714175034_UpdateTarifelerAddSomeThing")]
+    partial class UpdateTarifelerAddSomeThing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,8 +119,6 @@ namespace MadHotSpot.Migrations
 
                     b.Property<bool>("SinirsizAktif");
 
-                    b.Property<bool>("TarifeAktif");
-
                     b.HasKey("Id");
 
                     b.ToTable("H_Ayarlar");
@@ -188,10 +188,6 @@ namespace MadHotSpot.Migrations
                     b.Property<string>("Sifre");
 
                     b.Property<bool>("Silindi");
-
-                    b.Property<bool>("Tarife");
-
-                    b.Property<Guid>("TarifeId");
 
                     b.Property<string>("Telefon");
 

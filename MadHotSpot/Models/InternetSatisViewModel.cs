@@ -9,5 +9,6 @@ namespace MadHotSpot.Models
     {
         public InternetSatis InternetSatis { get; set; }
         public Ayarlar Ayarlar { get; set; }
+        public List<Tarifeler>  Tarifeler{ get; set; }
     }
 }
