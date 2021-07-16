@@ -4,14 +4,16 @@ using MadHotSpot.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MadHotSpot.Migrations
 {
     [DbContext(typeof(OtelAppDbContext))]
-    partial class OtelAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210716201530_UpdateAyarlarAddDiaEntegrasyon")]
+    partial class UpdateAyarlarAddDiaEntegrasyon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,34 +232,6 @@ namespace MadHotSpot.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("H_Kullanicilar");
-                });
-
-            modelBuilder.Entity("MadHotSpot.Models.Rezervasyonlar", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("AyrilisTarihi");
-
-                    b.Property<DateTime>("DogumTarihi");
-
-                    b.Property<Guid>("FirmaId");
-
-                    b.Property<int>("FirmaKodu");
-
-                    b.Property<string>("KimlikNo");
-
-                    b.Property<string>("MusteriAdi");
-
-                    b.Property<string>("Odano");
-
-                    b.Property<bool>("Silindi");
-
-                    b.Property<string>("Tcno");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("H_Rezervasyonlar");
                 });
 
             modelBuilder.Entity("MadHotSpot.Models.Tarifeler", b =>

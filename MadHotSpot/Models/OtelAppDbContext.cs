@@ -24,7 +24,7 @@ namespace MadHotSpot.Models
         public DbSet<InternetSatis> H_InternetSatis { get; set; }
         public DbSet<ViewKasa> H_ViewKasa { get; set; }
         public DbSet<Tarifeler> H_Tarifeler { get; set; }
-
+        public DbSet<Rezervasyonlar> H_Rezervasyonlar { get; set; }
 
 
 

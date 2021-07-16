@@ -39,8 +39,8 @@
                                 </div>
                                 <div class="form-group col-12">
                                     <label asp-for="MikrotikPass" class="form-control-label">Şifre</label>
-                                    <input maxlength="11" asp-for="MikrotikPass"   class="form-control" placeholder="" />
-                         
+                                    <input maxlength="11" asp-for="MikrotikPass" class="form-control" placeholder="" />
+
                                     <span asp-validation-for="MikrotikPass" class="text-danger"> </span>
                                 </div>
                                 <div class="form-group col-12">
@@ -90,11 +90,42 @@
                                     <input maxlength="11" asp-for="GunlukFiyatUSD" class="form-control" placeholder="$" />
                                     <span asp-validation-for="GunlukFiyatUSD" class="text-danger"> </span>
                                 </div>
- 
+
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" asp-for="FirmaId"  />
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Dia Entegrasyon Ayarları</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="DiaEntegrasyonAktif" class="text-danger"></span>
+                                        <label asp-for="DiaEntegrasyonAktif" class="form-control-label">Dia Misafir Entegrasyon</label>
+                                        <input maxlength="11" asp-for="DiaEntegrasyonAktif" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
 
+
+
+                                <div class="form-group col-12">
+                                    <label asp-for="DiaUrl" class="form-control-label">Dia Entegrasyon Url</label>
+                                    <input asp-for="DiaUrl" onkeyup="scripteolustur()" class="form-control" placeholder="Örn : http://demootel.dia.gen.tr/ote/KonaklayanListesi?kullaniciadi=aqua&sifre=1234" />
+                                    <span><a class="link-muted" href="https://www.diaakademi.com/bilgi-bankasi/internet-takip-cihazlarina-entegrasyon/" target="_blank">Dia'dan Url Nasıl Alınır ?</a></span>
+                                    <span asp-validation-for="DiaUrl" class="text-danger"> </span>
+                                </div>
+
+                                <div class="form-group col-12">
+
+                                    <textarea class="form-control" rows="4" readonly id="ScripteCode"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -118,6 +149,8 @@
                                         <input maxlength="11" asp-for="TarifeAktif" class="ml-2" placeholder="" />
                                     </div>
                                 </div>
+
+                                
 
                                 <div class="form-group col-12" style="display:none;">
                                     <div class="icheck-primary d-inline">
@@ -147,7 +180,7 @@
         </div>
 
     </div>
- 
+
 
 
 
@@ -178,6 +211,17 @@
 
             });
         }
+
+        function scripteolustur() {
+
+            var scripte = '/tool fetch url="https://hotspot.selinushms.com/Entegrasyon/KullaniciBas?FirmaId=data"  keep-result=no'.replace("data", $("#FirmaId").val());
+
+            $("#ScripteCode").val(scripte)
+
+        }
+        $(document).ready(function () {
+            scripteolustur();
+        });
     </script>
 
     <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>

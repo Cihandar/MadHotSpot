@@ -28,6 +28,7 @@ namespace MadHotSpot.Models
         public bool IadeAktif { get; set; }
 
         public bool TarifeAktif { get; set; }
-
+        public bool DiaEntegrasyonAktif { get; set; }
+        public string DiaUrl { get; set; }
     }
 }

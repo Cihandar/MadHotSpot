@@ -39,7 +39,7 @@ namespace MadHotSpot.Controllers
             return Json(firma);
         }
 
-        #region Update
+  
 
 
 
@@ -66,7 +66,8 @@ namespace MadHotSpot.Controllers
                 ayar.MikrotikProfilAdi = ayarlar.MikrotikProfilAdi;
                 ayar.IadeAktif = ayarlar.IadeAktif;
                 ayar.TarifeAktif = ayarlar.TarifeAktif;
-
+                ayar.DiaEntegrasyonAktif = ayarlar.DiaEntegrasyonAktif;
+                ayar.DiaUrl = ayarlar.DiaUrl;
                 context.SaveChanges();
 
                 return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
@@ -81,9 +82,7 @@ namespace MadHotSpot.Controllers
                 
            
         }
-        #endregion
  
-
         public IActionResult TestMikrotik(Ayarlar ayar)
         {
             try
