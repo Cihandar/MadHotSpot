@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="/" class="brand-link">
 
-        <span class="brand-text font-weight-light"><center><img src="~/images/SELINUSLOGO.png" width="120" /></center></span>
+        <center> <span class="brand-text font-weight-light"><img src="~/images/SELINUSLOGO.png" width="120" /></span></center>
     </a>
 
     <!-- Sidebar -->
@@ -30,70 +30,143 @@
     with font-awesome or any other icon font library -->
                 @if (!ViewBag.Admin)
                 {
-                    <li class="nav-item">
-                        <a href="/InternetSatis" class="nav-link">
-                            <i class="far fa fa-wifi nav-icon"></i>
+
+                    <!--HotSpotMenü Start-->
+                    <li class="nav-item @(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "menu-open" : "" )">
+                        <a href="#" class="nav-link">
+                            <i class="text-green nav-icon fas fa-cloud"></i>
                             <p>
-                                İnternet Satış
+                                Hotspot
+                                <i class="right fas fa-angle-left"></i>
                             </p>
-
                         </a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a href="/Kasa" class="nav-link">
-                            <i class="far fa fa-cash-register nav-icon"></i>
-                            <p>
-                                Kasa
-                            </p>
+                        <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
 
-                        </a>
+                            <li class="nav-item">
+                                <a href="/InternetSatis" class="nav-link @(Context.Request.Path.Value == "/InternetSatis"  ? " bg-blue" : "" )">
+                                    <i class="far fa fa-wifi nav-icon"></i>
+                                    <p>
+                                        İnternet Satış
+                                    </p>
+
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/Kasa" class="nav-link @(Context.Request.Path.Value == "/Kasa"  ? " bg-blue" : "" )">
+                                    <i class="far fa fa-cash-register nav-icon"></i>
+                                    <p>
+                                        Kasa
+                                    </p>
+
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/AktifKullanicilar" class="nav-link @(Context.Request.Path.Value == "/AktifKullanicilar"  ? " bg-blue" : "" )">
+                                    <i class="fas fa-signal nav-icon"></i>
+                                    <p class="text">Aktif Kullanıcılar</p>
+                                </a>
+                            </li>
+
+                        </ul>
+
                     </li>
+                    <!--HotSpotMenü End-->
+
+
+
 
 
 
                     @if (ViewBag.PermissionEnum == PermissionEnum.Admin)
                     {
-                        <li class="nav-item">
-                            <a href="/Kullanicilar" class="nav-link">
-                                <i class="far fa fa-user nav-icon"></i>
-                                <p>
-                                    Kullanıcılar
 
-                                </p>
 
-                            </a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a href="/Ayarlar" class="nav-link">
-                                <i class="far fa fa-cubes nav-icon"></i>
+                        <!--AyarlarMenü Start-->
+                        <li class="nav-item @(Context.Request.Path.Value == "/Ayarlar" || Context.Request.Path.Value == "/Tarifeler" || Context.Request.Path.Value == "/Kullanicilar"  ? " menu-open" : "" )">
+                            <a href="#" class="nav-link ">
+                                <i class="text-cyan nav-icon fas fa-cogs"></i>
                                 <p>
                                     Ayarlar
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
-
                             </a>
+
+                            <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/Ayarlar" || Context.Request.Path.Value == "/Tarifeler" || Context.Request.Path.Value == "/Kullanicilar"  ? "display: block;" : "display: none;" ) ">
+
+
+                                <li class="nav-item">
+                                    <a href="/Ayarlar" class="nav-link @(Context.Request.Path.Value == "/Ayarlar"  ? " bg-blue" : "" )">
+                                        <i class="far fa fa-cubes nav-icon"></i>
+                                        <p>
+                                            Genel Ayarlar
+                                        </p>
+
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="/Tarifeler" class="nav-link @(Context.Request.Path.Value == "/Tarifeler"  ? " bg-blue" : "" )">
+                                        <i class="far fa fa-lira-sign nav-icon"></i>
+                                        <p>
+                                            Tarife Ayarları
+                                        </p>
+
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="/Kullanicilar" class="nav-link @(Context.Request.Path.Value == "/Kullanicilar"  ? " bg-blue" : "" )">
+                                        <i class="far fa fa-user nav-icon"></i>
+                                        <p>
+                                            Kullanıcılar
+
+                                        </p>
+
+                                    </a>
+                                </li>
+
+                            </ul>
+
                         </li>
-                        <li class="nav-item">
-                            <a href="/Tarifeler" class="nav-link">
-                                <i class="far fa fa-lira-sign nav-icon"></i>
+                        <!--AyarlarMenü End-->
+
+
+                        <!--CrmMenü Start-->
+                        <li class="nav-item @(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "menu-open" : "" )">
+                            <a href="#" class="nav-link">
+                                <i class="text-blue nav-icon fas fa-pager"></i>
                                 <p>
-                                    Tarifeler
+                                    Crm
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
-
                             </a>
+
+                            <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
+
+                            
+
+                            </ul>
+
                         </li>
+                        <!--CrmMenü End-->
+
                     }
 
                     <li class="nav-item">
-                        <a href="/LisansBilgileri" class="nav-link">
-                            <i class="far fa fa-hourglass-half nav-icon"></i>
+                        <a href="/LisansBilgileri" class="nav-link @(Context.Request.Path.Value == "/LisansBilgileri"  ? " bg-blue" : "" )">
+                            <i class="text-olive far fa fa-hourglass-half nav-icon"></i>
                             <p>
                                 Lisans Bilgileri
                             </p>
 
                         </a>
                     </li>
+
+
 
                 }
                 else
@@ -108,12 +181,26 @@
                     </li>
                 }
 
+
+
                 <li class="nav-item">
                     <a href="#" id="BtnSignOut" class="nav-link">
-                        <i class="fas fa-sign-out-alt nav-icon"></i>
+                        <i class="text-red fas fa-sign-out-alt nav-icon"></i>
                         <p class="text">Çıkış</p>
                     </a>
                 </li>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -202,7 +202,7 @@ namespace MadHotSpot.Controllers
                     //cmd.ExecuteNonQuery();
 
 
-                }
+                    }
 
              
                     context.SaveChanges();
