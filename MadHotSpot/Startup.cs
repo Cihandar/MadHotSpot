@@ -87,6 +87,18 @@ namespace MadHotSpot
             //    options.Cookie.Name = ".OtelApp.Session";
             //});
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:44351", "http://localhost:5001")
+                                            .AllowAnyHeader()
+                                            .AllowCredentials()
+                                            .AllowAnyOrigin()
+                                            .AllowAnyMethod();
+                    });
+            });
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -117,6 +129,8 @@ namespace MadHotSpot
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseCors("AllowOrigin");
         }
     }
 }

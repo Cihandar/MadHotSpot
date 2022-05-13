@@ -14,6 +14,8 @@ using tik4net.Objects.Ip;
 using tik4net.Objects.Ip.Firewall;
 using tik4net.Objects.Queue;
 using tik4net.Objects.System;
+using Microsoft.AspNetCore.Cors;
+using MadHotSpot.Models.ViewModel;
 
 namespace MadHotSpot.Controllers
 {
@@ -32,9 +34,10 @@ namespace MadHotSpot.Controllers
             config = _configuration;
         }
 
- 
+
+        [EnableCors("AllowOrigin")]
         [HttpPost("LoginCheck")]
-        public async Task<bool> LoginCheck(CustomerInfo customer)
+        public async Task<bool> LoginCheck(CustomerInfoViewModel customer)
         {
             var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == customer.FirmaId);
 
@@ -54,7 +57,14 @@ namespace MadHotSpot.Controllers
                 if (user != null)
                 {
 
-                    context.H_CustomerInfo.Add(customer);
+                    context.H_CustomerInfo.Add(new CustomerInfo { 
+
+                    PhoneNumber = customer.PhoneNumber,
+                    Email = customer.Email,
+                    FirmaId = customer.FirmaId,
+                    BirthDate = customer.BirthDate
+                    
+                    });
                         context.SaveChanges();
                     return true;
 
