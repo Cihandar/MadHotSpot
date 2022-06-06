@@ -40,7 +40,18 @@ namespace MadHotSpot.Controllers
             var ajaxResult = new Response();
             try
             {
-                var firma = _context.H_Firmalar.Where(x => x.FirmaKodu == request.FirmaKodu).FirstOrDefault();
+
+                var user = _userManager.Users.Where(x => request.UserName == x.UserName).FirstOrDefault();
+
+                if (user == null)
+                {
+                    ajaxResult.Success = false;
+                    ajaxResult.Message = "Girmiş olduğunuz email adresi ile sistemde kayıtlı kullanıcı bulunamadı.";
+                    return Ok(ajaxResult);
+                }
+
+
+                var firma = _context.H_Firmalar.Where(x => x.Id  == user.FirmaId).FirstOrDefault();
 
                 if(firma.BitisTarihi<DateTime.Now)
                 {
@@ -54,18 +65,9 @@ namespace MadHotSpot.Controllers
                     ajaxResult.Success = false;
                     ajaxResult.Message = "Lisansınız Pasifleştirilmiştir.. Lütfen Bizimle İletişime Geçin..  ";
                     return Ok(ajaxResult);
-                }
-
-
-
-                var user = _userManager.Users.Where(x => x.FirmaId == firma.Id && request.UserName == x.UserName).FirstOrDefault();
+                }            
               
-                if (user == null)
-                {
-                    ajaxResult.Success = false;
-                    ajaxResult.Message = "Kullanıcı girişi yapılamadı";
-                    return Ok(ajaxResult);
-                }
+       
 
                 var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, false);
                 if (result.Succeeded)
@@ -75,7 +77,7 @@ namespace MadHotSpot.Controllers
                 else
                 {
                     ajaxResult.Success = false;
-                    ajaxResult.Message = "Kullanıcı girişi yapılamadı";
+                    ajaxResult.Message = "Şifreniz Yanlış..";
                 }
 
                 return Ok(ajaxResult);
@@ -97,8 +99,14 @@ namespace MadHotSpot.Controllers
 
             try
             {
+                var isUser = _userManager.Users.Where(x => request.Email == x.UserName).FirstOrDefault();
 
-               
+                if(isUser != null)
+                {
+                    retVal.Success = false;
+                    retVal.Message = "Bu email adresi kullanımda. lütfen giriş yapın veya başka bir mail adresi ile kayıt olun.";
+                    return Ok(retVal);
+                }
 
                 request.BaslamaTarihi = DateTime.Now;
                 request.BitisTarihi = DateTime.Now.AddMonths(1);

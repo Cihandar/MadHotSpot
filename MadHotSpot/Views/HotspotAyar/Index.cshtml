@@ -1,0 +1,194 @@
+﻿
+@model MadHotSpot.Models.HotSpotAyar
+
+
+
+
+<form class="OtelApp-forms" id="OtelApp-forms" asp-controller="HotSpotAyar" asp-action="Update" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal')" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/HotSpotAyar/Update">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Kaydet</button>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Misafir Ayarları</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="UcretsizHotspot" class="text-danger"></span>
+                                        <label asp-for="UcretsizHotspot" class="form-control-label">Ücretsiz Hotspot</label>
+                                        <input maxlength="11" asp-for="UcretsizHotspot" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="MisafirEmail" class="text-danger"></span>
+                                        <label asp-for="MisafirEmail" class="form-control-label">Misafirden Email İste</label>
+                                        <input maxlength="11" asp-for="MisafirEmail" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="MisafirEmailZorunlu" class="text-danger"></span>
+                                        <label asp-for="MisafirEmailZorunlu" class="form-control-label">Misafirden Email İstemek Zorunlu</label>
+                                        <input maxlength="11" asp-for="MisafirEmailZorunlu" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="MisafirTelefon" class="text-danger"></span>
+                                        <label asp-for="MisafirTelefon" class="form-control-label">Misafirden Gsm Numarası İste</label>
+                                        <input maxlength="11" asp-for="MisafirTelefon" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="MisafirTelefonZorunlu" class="text-danger"></span>
+                                        <label asp-for="MisafirTelefonZorunlu" class="form-control-label">Misafirden Gsm Numarası İstemek Zorunlu</label>
+                                        <input maxlength="11" asp-for="MisafirTelefonZorunlu" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Toplantı Ayarları</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="ToplantiGirisi" class="text-danger"></span>
+                                        <label asp-for="ToplantiGirisi" class="form-control-label">Toplantı Girişleri</label>
+                                        <input maxlength="11" asp-for="ToplantiGirisi" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="ToplantiEmail" class="text-danger"></span>
+                                        <label asp-for="ToplantiEmail" class="form-control-label">Email İste</label>
+                                        <input maxlength="11" asp-for="ToplantiEmail" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="ToplantiEmailZorunlu" class="text-danger"></span>
+                                        <label asp-for="ToplantiEmailZorunlu" class="form-control-label">Email İstemek Zorunlu</label>
+                                        <input maxlength="11" asp-for="ToplantiEmailZorunlu" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="ToplantiTelefon" class="text-danger"></span>
+                                        <label asp-for="ToplantiTelefon" class="form-control-label">Gsm Numarası İste</label>
+                                        <input maxlength="11" asp-for="ToplantiTelefon" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="ToplantiTelefonZorunlu" class="text-danger"></span>
+                                        <label asp-for="ToplantiTelefonZorunlu" class="form-control-label">Gsm Numarası İstemek Zorunlu</label>
+                                        <input maxlength="11" asp-for="ToplantiTelefonZorunlu" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Toplantı Ayarları</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="PersonelGirisi" class="text-danger"></span>
+                                        <label asp-for="PersonelGirisi" class="form-control-label">Personel Girişleri</label>
+                                        <input maxlength="11" asp-for="PersonelGirisi" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="hidden" asp-for="FirmaId" />
+
+                    <div class="form-group col-md-12">
+
+                        <label asp-for="LogoUrl">Otel Logosu</label>
+                        <div class="input-group">
+                            <div class="widget-user-image px-2">
+
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" asp-for="LogoUrl">
+                                <label class="custom-file-label" for="exampleInputFile">Dosya Seç</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+
+                        <label asp-for="ArkaPlanUrl">Arka Plan Görseli</label>
+                        <div class="input-group">
+                            <div class="widget-user-image px-2">
+
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" asp-for="ArkaPlanUrl">
+                                <label class="custom-file-label" for="exampleInputFile">Dosya Seç</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+</form>
+
+
+
+@section Scripts
+    {
+ 
+
+    <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
+}

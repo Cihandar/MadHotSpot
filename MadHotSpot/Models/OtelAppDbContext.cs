@@ -19,6 +19,7 @@ namespace MadHotSpot.Models
 
         }
         public DbSet<Ayarlar> H_Ayarlar { get; set; }
+        public DbSet<HotSpotAyar> H_HotSpotAyar { get; set; }
         public DbSet<Kullanicilar> H_Kullanicilar { get; set; }
         public DbSet<Firmalar> H_Firmalar { get; set; }
         public DbSet<InternetSatis> H_InternetSatis { get; set; }
