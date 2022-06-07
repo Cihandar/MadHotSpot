@@ -8,6 +8,7 @@ using MadHotSpot.Models;
 using tik4net;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using MadHotSpot.Interfaces;
 
 namespace MadHotSpot.Controllers
 {
@@ -16,11 +17,13 @@ namespace MadHotSpot.Controllers
 
         public OtelAppDbContext context;
         private IConfiguration config;
+        IFileUpload fileUpload;
 
-        public HotSpotAyarController(OtelAppDbContext _context, IConfiguration _configuration)
+        public HotSpotAyarController(OtelAppDbContext _context, IConfiguration _configuration,IFileUpload _fileUpload)
         {
             context = _context;
             config = _configuration;
+            fileUpload = _fileUpload;
         }
 
         public IActionResult Index()
@@ -63,6 +66,7 @@ namespace MadHotSpot.Controllers
                 }
                 else
                 {
+                    _ayar.FirmaId = FirmaId;
                     context.H_HotSpotAyar.Add(_ayar);
                 }
                 context.SaveChanges();
@@ -80,6 +84,12 @@ namespace MadHotSpot.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(string base64file, string fname)
+        {
+            var result = await fileUpload.UploadFileImage("images/OtelLogo/", base64file, fname);
+            return Json(result);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -143,14 +143,15 @@
 
                             </div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" asp-for="LogoUrl">
+                                <input type="file" class="custom-file-input" accept="image/*"  id="input-file">
                                 <label class="custom-file-label" for="exampleInputFile">Dosya Seç</label>
+                                <input asp-for="LogoUrl" class="form-control" placeholder="" id="SablonDosyaAdi" type="hidden" />
                             </div>
 
                         </div>
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12" style="display:none;">
 
                         <label asp-for="ArkaPlanUrl">Arka Plan Görseli</label>
                         <div class="input-group">
@@ -160,6 +161,7 @@
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" asp-for="ArkaPlanUrl">
                                 <label class="custom-file-label" for="exampleInputFile">Dosya Seç</label>
+
                             </div>
 
                         </div>
@@ -188,7 +190,59 @@
 
 @section Scripts
     {
- 
+ <script>
+     $(document).ready(function () {
+         $("#input-file").change(
+             function () {
+
+                 Notiflix.Block.Standard('.modal-content');
+                 //Dosya Xslt Kontrol
+                 var name = this.files[0].name; 
+                  
+                     useFileLoad(this, name);
+            
+             });
+     });
+
+     function useFileLoad(inputfile, name) {
+
+
+
+         var filename = name;
+
+         var reader = new FileReader();
+         reader.onload = fileLoaded;
+         reader.readAsDataURL(inputfile.files[0]);
+
+
+         function fileLoaded(file) {
+             var formData = new FormData();
+             formData.append("base64file", file.target.result);
+             formData.append("fname", filename);
+             $.ajax(
+                 {
+                     url: 'HotSpotAyar/UploadFile',
+                     data: formData,
+                     processData: false,
+                     contentType: false,
+                     type: "POST",
+                     success: function (data) {
+                         Notiflix.Block.Remove("*", 0);
+                         if (data.success) {
+                             $("#SablonDosyaAdi").val(data.message);
+                             $("#SablonDosyaAdi").val(data.message);
+                             Notiflix.Notify.Success("Görsel Yüklendi");
+                         } else {
+                             Notiflix.Notify.Failure("Hata : " + data.message);
+                         }
+
+                     }
+                 }
+             );
+             // $('div.withBckImage').css({ 'background-image': "url(" + e.target.result + ")" });
+         }
+     }
+ </script>
 
     <script src="~/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
 }

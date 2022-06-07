@@ -13,6 +13,8 @@ using MadHotSpot.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using tik4net.Objects.User;
+using MadHotSpot.Interfaces;
+using MadHotSpot.Extentions;
 
 namespace MadHotSpot
 {
@@ -39,6 +41,8 @@ namespace MadHotSpot
             services.AddDbContext<OtelAppDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("OtelAppDatabase")));
             #endregion
 
+            services.AddScoped<IFileUpload, FileUpload>();
+
             services.AddIdentity<AppUser, IdentityRole>(options =>
                 {
                     options.Password.RequiredLength = 2;
@@ -58,23 +62,21 @@ namespace MadHotSpot
                 options.ValidationInterval = TimeSpan.Zero;
             });
 
+
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromDays(365);
+                //options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromHours(24);
                 options.LoginPath = "/Auth/Login";
                 options.LogoutPath = "/Auth/Logout";
                 options.AccessDeniedPath = "/Auth/AccessDenied";
-                options.Cookie = new CookieBuilder
-                {
-                    IsEssential = true, // required for auth to work without explicit user consent; adjust to suit your privacy policy,
-                    Name = ".MadHotSpot.Session",
-                    HttpOnly =  false,
-                    Expiration = TimeSpan.FromDays(365),
-                    SecurePolicy = CookieSecurePolicy.Always
-
-
-                };
+                //options.Cookie = new CookieBuilder
+                //{
+                //    IsEssential = true, // required for auth to work without explicit user consent; adjust to suit your privacy policy,
+                //    Name = ".EfaturaPortal.Session",
+                //    HttpOnly = false,
+                //    SecurePolicy = CookieSecurePolicy.Always
+                //};
 
             });
 
@@ -87,21 +89,23 @@ namespace MadHotSpot
             //    options.Cookie.Name = ".OtelApp.Session";
             //});
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: "AllowOrigin",
-                    builder =>
-                    {
-                        builder.WithOrigins("https://localhost:44351", "http://localhost:5001")
-                                            .AllowAnyHeader()
-                                            .AllowCredentials()
-                                            .AllowAnyOrigin()
-                                            .AllowAnyMethod();
-                    });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: "AllowOrigin",
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("https://localhost:44351", "http://localhost:5001")
+            //                                .AllowAnyHeader()
+            //                                .AllowCredentials()
+            //                                .AllowAnyOrigin()
+            //                                .AllowAnyMethod();
+            //        });
+            //});
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,16 +122,44 @@ namespace MadHotSpot
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            //app.UseCookiePolicy();
-            app.UseAuthentication();
+            ////app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+            ////app.UseCookiePolicy();
+            //app.UseAuthentication();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
+                    name: "usernotfound",
+                    pattern: "/usernotfound",
+                    defaults: new { controller = "Error", action = "UserNotFound" });
+
+                endpoints.MapControllerRoute(
+                    name: "notfound",
+                    pattern: "/notfound",
+                    defaults: new { controller = "Error", action = "NotFound" });
+
+                endpoints.MapControllerRoute(
+                    name: "unauthorized",
+                    pattern: "/unauthorized",
+                    defaults: new { controller = "Auth", action = "Unauthorized" });
+
+                endpoints.MapControllerRoute(
+                    name: "authentication",
+                    pattern: "/authentication",
+                    defaults: new { controller = "Auth", action = "Login" });
+
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseCors("AllowOrigin");

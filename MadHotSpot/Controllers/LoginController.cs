@@ -22,9 +22,15 @@ namespace MadHotSpot.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
-        { 
-            return View(); 
+        public IActionResult Index(string ClientMac, string ClientIp, string Lokasyon, Guid FirmaId)
+        {
+            ViewBag.ClientMac = ClientMac;
+            ViewBag.ClientIp = ClientIp;
+            ViewBag.Lokasyon = Lokasyon;
+
+            var data = context.H_HotSpotAyar.FirstOrDefault(x => x.FirmaId == FirmaId);
+
+            return View(data); 
         }
     }
 }
