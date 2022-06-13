@@ -44,6 +44,7 @@ namespace MadHotSpot.Controllers
             return PartialView("_FormPartial", data);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create(Firmalar request)
         {
