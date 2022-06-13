@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DtoModels\" />
+    <Folder Include="Mapping\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore" Version="2.1.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
@@ -16,7 +23,9 @@
 		</PackageReference>
 		<PackageReference Include="tik4net" Version="3.5.0" />
 	</ItemGroup>
+
 	<ItemGroup>
-	  <ProjectReference Include="..\MadHotSpot.Model\MadHotSpot.Model.csproj" />
+	  <ProjectReference Include="..\MadHotSpot.Extension\MadHotSpot.Extension.csproj" />
 	</ItemGroup>
+
 </Project>

@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MadHotSpot", "MadHotSpot\MadHotSpot.csproj", "{68294F59-AC6E-4188-97D4-97F3C6B51600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadHotSpot.Data", "MadHotSpot.Data\MadHotSpot.Data.csproj", "{5676702B-621B-4068-930F-0627A8DA523F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MadHotSpot.Data", "MadHotSpot.Data\MadHotSpot.Data.csproj", "{5676702B-621B-4068-930F-0627A8DA523F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadHotSpot.Model", "MadHotSpot.Model\MadHotSpot.Model.csproj", "{00830683-515F-4AF1-AE4A-6EF19602278F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadHotSpot.Extension", "MadHotSpot.Extension\MadHotSpot.Extension.csproj", "{C3821947-58F8-494E-AD84-7B53B7989293}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{5676702B-621B-4068-930F-0627A8DA523F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5676702B-621B-4068-930F-0627A8DA523F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5676702B-621B-4068-930F-0627A8DA523F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00830683-515F-4AF1-AE4A-6EF19602278F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00830683-515F-4AF1-AE4A-6EF19602278F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00830683-515F-4AF1-AE4A-6EF19602278F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00830683-515F-4AF1-AE4A-6EF19602278F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3821947-58F8-494E-AD84-7B53B7989293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3821947-58F8-494E-AD84-7B53B7989293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3821947-58F8-494E-AD84-7B53B7989293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3821947-58F8-494E-AD84-7B53B7989293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
