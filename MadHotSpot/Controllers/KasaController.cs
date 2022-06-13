@@ -25,7 +25,6 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
-
             return View();
         }
 
@@ -60,18 +59,9 @@ namespace MadHotSpot.Controllers
             catch (Exception ex)
             {
                 data = null;
-   
             }
-    
-            
-          
             return Json(data);
         }
-
-
-
-   
- 
  
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

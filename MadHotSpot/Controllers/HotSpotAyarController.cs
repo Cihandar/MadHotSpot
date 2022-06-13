@@ -46,7 +46,6 @@ namespace MadHotSpot.Controllers
             try
             {
                 var ayar = context.H_HotSpotAyar.FirstOrDefault(x => x.FirmaId == FirmaId);
-
                 if (ayar != null)
                 {
                     ayar.ArkaPlanUrl = _ayar.ArkaPlanUrl;
@@ -63,6 +62,7 @@ namespace MadHotSpot.Controllers
                     ayar.ToplantiTelefon = _ayar.ToplantiTelefon;
                     ayar.ToplantiTelefonZorunlu = _ayar.ToplantiTelefonZorunlu;
                     ayar.UcretsizHotspot = _ayar.UcretsizHotspot;
+                    //TODO: DUĞHAN UPDATE?
                 }
                 else
                 {
@@ -78,10 +78,6 @@ namespace MadHotSpot.Controllers
             {
                 return Ok(new Response { Success = false, Message = "Hata Döndü. " + ex.Message });
             }
-
-
-
-
         }
 
         [HttpPost]

@@ -39,19 +39,11 @@ namespace MadHotSpot.Controllers
             try
             {
                 var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
-
-
                 using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                 {
-
-
                     var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotActive>().ToList();
- 
                     return Json(user);
-
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -59,16 +51,6 @@ namespace MadHotSpot.Controllers
             }
 
         }
-
-
-
- 
-
-        
- 
-        
-      
- 
 
         public IActionResult TestMikrotik(Ayarlar ayar)
         {

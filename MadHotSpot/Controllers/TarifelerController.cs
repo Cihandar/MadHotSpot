@@ -24,12 +24,8 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
-      
- 
             return View();
- 
         }
-
 
         [HttpGet]
         public JsonResult GetAll()
@@ -41,10 +37,9 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetTarife(Guid Id)
         {
-            var data = context.H_Tarifeler.Where(x => x.Id == Id).FirstOrDefault();
+            var data = context.H_Tarifeler.FirstOrDefault(x => x.Id == Id);
             return Json(data);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Create(Guid Id)
@@ -56,8 +51,6 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Tarifeler request)
         {
-
-
             try
             {
                 request.Aktif = true;
@@ -69,12 +62,8 @@ namespace MadHotSpot.Controllers
             }
             catch (Exception ex)
             {
-
-                return Json(new Response { Success = false, Message = "Hata -> "+ex.Message });
+                return Json(new Response { Success = false, Message = "Hata -> " + ex.Message });
             }
-
- 
- 
         }
 
 
@@ -105,11 +94,8 @@ namespace MadHotSpot.Controllers
             }
             catch (Exception ex)
             {
-
                 return Json(new Response { Success = false, Message = "Hata -> " + ex.Message });
             }
-
- 
         }
 
 
@@ -118,8 +104,6 @@ namespace MadHotSpot.Controllers
         {
             return null;
         }
-
- 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

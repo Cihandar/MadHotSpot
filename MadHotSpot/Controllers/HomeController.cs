@@ -31,18 +31,14 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
-        
             return View();
         }
-
 
         public async Task<IActionResult> get_Hotspot_user(bool hepsi)
         {
             try
             {
                 var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
-
-
                 using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                 {
 
@@ -56,11 +52,7 @@ namespace MadHotSpot.Controllers
                         var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotActive>().ToList();
                         return Ok(new Response { Success = true, KullaniciSayisi = user.Count });
                     }
-                  
-                    
                 }
-
-             
             }
             catch (Exception ex)
             {
@@ -74,7 +66,6 @@ namespace MadHotSpot.Controllers
             var data = new List<ViewKasa>();
             try
             {
-
                 SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
                 SqlCommand cmd = new SqlCommand("Select Doviz,SUM(Bakiye) Bakiye from QV_KASA where Tarih=CONVERT(date,getdate()) and FirmaId='" + FirmaId + "' Group by Doviz Order by Doviz Desc", con);
                 con.Open();
@@ -89,8 +80,6 @@ namespace MadHotSpot.Controllers
                 }
 
                 con.Close();
-
-
             }
             catch (Exception ex)
             {
@@ -112,14 +101,12 @@ namespace MadHotSpot.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
@@ -164,6 +151,7 @@ namespace MadHotSpot.Controllers
             var data = new List<ViewKasa>();
             try
             {
+                //TODO :DUĞHAN
                 SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
                 SqlCommand cmd = new SqlCommand("Select Doviz,Satis,Iade,Bakiye ,Tarih from QV_KASA  where FirmaId='" + FirmaId + "' Order by Doviz Desc", con);
                 con.Open();

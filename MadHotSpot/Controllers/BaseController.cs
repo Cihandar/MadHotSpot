@@ -55,12 +55,7 @@ namespace MadHotSpot.Controllers
                     //_onlineUser.RestaurantId = user.RestorantId;
                 }
             }
-
-
-
         }
 
     }
-
- 
 }

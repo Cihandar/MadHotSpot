@@ -26,14 +26,8 @@ namespace MadHotSpot.Controllers
         public IActionResult Index()
         {
             var data = context.H_Firmalar.FirstOrDefault(x=>x.Id == FirmaId);
-            // return Json(data);
             return View(data);
- 
         }
- 
-
- 
- 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

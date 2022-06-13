@@ -24,12 +24,8 @@ namespace MadHotSpot.Controllers
 
         public IActionResult Index()
         {
-      
- 
             return View();
- 
         }
-
 
         [HttpGet]
         public JsonResult GetAll()
@@ -49,9 +45,9 @@ namespace MadHotSpot.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Kullanicilar request)
         {
-
             var checkuser = _userManager.Users.FirstOrDefault(x => (x.Email == request.Email) && x.FirmaId == FirmaId);
-            if(checkuser !=null) return Json(new Response { Success = false, Message = "Sistemde aynı kullanıcı adı veya mail adresi mevcut" });
+            if(checkuser !=null) 
+                return Json(new Response { Success = false, Message = "Sistemde aynı kullanıcı adı veya mail adresi mevcut" });
 
             var user = new AppUser
             {
@@ -64,7 +60,6 @@ namespace MadHotSpot.Controllers
             var result = await _userManager.CreateAsync(user, request.Password);
             return Json(new Response { Success = result.Succeeded, Message = "Kayıt Başarılı" });
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Update(Guid Id)
@@ -85,7 +80,6 @@ namespace MadHotSpot.Controllers
             var user = _userManager.Users.FirstOrDefault(x => x.Id == data.Id.ToString() && x.FirmaId == FirmaId);
             user.Yetki = data.Yetki;
              await _userManager.UpdateAsync(user);
-
 
             return Json(new Response { Success = true, Message = "Kayıt Başarılı" });
         }
@@ -109,7 +103,7 @@ namespace MadHotSpot.Controllers
             return Ok(new Response { Success = false, Message = "Bir Sorun Oluştu" });
         }
 
-
+        //TODO: DUĞHAN
         public IActionResult TestMikrotik(Ayarlar ayar)
         {
             try

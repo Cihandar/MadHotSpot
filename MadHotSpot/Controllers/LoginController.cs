@@ -39,19 +39,14 @@ namespace MadHotSpot.Controllers
         public async Task<bool> LoginCheck(CustomerInfoViewModel customer)
         {
             var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == customer.FirmaId);
-
-
             if (ayar == null) return false;
-
             try
             {
                 using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                 {
                     var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>().Where(x => x.Name == customer.BirthDate && x.Password == customer.RoomNumber).FirstOrDefault();
-
                     if (user != null)
                     {
-
                         context.H_CustomerInfo.Add(new CustomerInfo
                         {
 
@@ -63,8 +58,6 @@ namespace MadHotSpot.Controllers
                         });
                         context.SaveChanges();
                         return true;
-
-
                     }
                     else return false;
 

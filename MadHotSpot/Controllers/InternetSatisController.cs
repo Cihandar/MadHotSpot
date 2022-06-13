@@ -36,26 +36,17 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now ).OrderBy(x => x.BaslamaTarihi).ToList();
-            // return Json(data);
+            var data = context.H_InternetSatis.Where(x => x.FirmaId == FirmaId && x.BitisTarihi >= DateTime.Now).OrderBy(x => x.BaslamaTarihi).ToList();
             return Json(data);
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> Create(Guid InternetSatisId)
         {
-
-
             InternetSatisViewModel satis = new InternetSatisViewModel();
             satis.InternetSatis = context.H_InternetSatis.FirstOrDefault(x => x.Id == InternetSatisId);
             satis.Ayarlar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
             satis.Tarifeler = context.H_Tarifeler.Where(x => x.FirmaId == FirmaId && x.Aktif == true).ToList();
-            
-
-
-
             return PartialView("_FormPartial", satis);
         }
 
@@ -64,19 +55,12 @@ namespace MadHotSpot.Controllers
         {
             try
             {
-
-
                 satis.InternetSatis.FirmaId = FirmaId;
                 satis.InternetSatis.BaslamaTarihi = DateTime.Now;
                 satis.InternetSatis.BitisTarihi = DateTime.Now.AddDays(satis.InternetSatis.Gun);
                 satis.InternetSatis.Iade = false;
-                
-
-
-
                 if (AddUserMikrotik(context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId), satis.InternetSatis))
                 {
-
                     context.H_InternetSatis.Add(satis.InternetSatis);
                     context.SaveChanges();
                     return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
@@ -97,56 +81,41 @@ namespace MadHotSpot.Controllers
             return Ok(Prvt_IadeHesapla(satis));
         }
 
-
         public async Task<IActionResult> Iade(InternetSatis satis)
         {
-
-            var sonuc = Prvt_IadeHesapla(satis); 
-
+            var sonuc = Prvt_IadeHesapla(satis);
             if (sonuc.Success)
             {
                 var data = context.H_InternetSatis.FirstOrDefault(x => x.Id == satis.Id);
-
                 if (MikrotikIade(data.Sifre))
                 {
-
                     data.Iade = true;
                     data.IadeEdilenTutar = sonuc.IadeTutar;
                     context.SaveChanges();
 
                     return Ok(new Response { Success = true, Message = "Iade Yapıldı." });
                 }
-                else
-                {
-                    return Ok(new Response { Success = false, Message = "Iade Yapılamadı. Hata!!" });
-                }
             }
-            else
-            {
-                return Ok(new Response { Success = false, Message = "Iade Yapılamadı. Hata!!" });
-            }
+            return Ok(new Response { Success = false, Message = "Iade Yapılamadı. Hata!!" });
 
         }
 
-        
+
         private Response Prvt_IadeHesapla(InternetSatis satis)
         {
             var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
-            if(! ayar.IadeAktif) return new Response { Success = false, Message = "Iade Aktif Değil.. Iade yapılmadı !.. " };
+            if (!ayar.IadeAktif) return new Response { Success = false, Message = "Iade Aktif Değil.. Iade yapılmadı !.. " };
 
             var data = context.H_InternetSatis.FirstOrDefault(x => x.Id == satis.Id);
-
-            if (DateTime.Now.Date == data.BitisTarihi.Date)  //Son gün İade yapılmaz. Kontrol..
+            if (data != null && DateTime.Now.Date == data.BitisTarihi.Date)  //Son gün İade yapılmaz. Kontrol..
             {
-                return  new Response { Success = false, Message = "Bitiş Tarihinde İade yapamazsınız" };
+                return new Response { Success = false, Message = "Bitiş Tarihinde İade yapamazsınız" };
             }
 
             TimeSpan kalangun = data.BitisTarihi.Date - DateTime.Now.Date;
-
             double gunluktutar = data.Tutar / data.Gun;
-
             double iadetutar = kalangun.Days * gunluktutar;
-
+            
             return new Response { Success = true, IadeGun = kalangun.Days, IadeTutar = iadetutar, Doviz = data.Doviz };
         }
         public bool ActiveUserDelete(string sifre)
@@ -171,63 +140,36 @@ namespace MadHotSpot.Controllers
                 return false;
             }
         }
-   
+
         public bool MikrotikIade(string sifre)
         {
             try
             {
-
                 var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
-
-
-
-                    using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
-                    {
-
-                  
-
-                    ActiveUserDelete(sifre); 
+                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
+                {
+                    ActiveUserDelete(sifre);
                     //conn.Delete(active);
-
-
-                    var user =   conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", sifre)).FirstOrDefault();
+                    var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", sifre)).FirstOrDefault();
                     conn.Delete(user);
-
-
-
-               
-
                     //cmd = conn.CreateCommand("/ip/hotspot/cookies/removee",
                     //conn.CreateParameter("numbers", sifre));
                     //cmd.ExecuteNonQuery();
-
-
-                    }
-
-             
-                    context.SaveChanges();
-
+                }
+                context.SaveChanges();
                 return true;
-            
-
-
-
-
             }
             catch (Exception ex)
             {
                 return false;
             }
         }
-
-
         public bool AddUserMikrotik(Ayarlar ayar, InternetSatis satis)
         {
             try
             {
                 using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
                 {
-
                     var sure = satis.Gun * 24;
                     var user = new tik4net.Objects.Ip.Hotspot.HotspotUser()
                     {
@@ -239,10 +181,6 @@ namespace MadHotSpot.Controllers
                     };
 
                     conn.Save(user);
-
-
-
-
                     // if (!conn.IsOpened) conn.Open(ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass);
                     // ITikCommand cmd = conn.CreateCommand("/ip/hotspot/user/add",
                     //conn.CreateParameter("server", ayar.MikrotikHotspotAdi),
@@ -260,9 +198,8 @@ namespace MadHotSpot.Controllers
             {
                 return false;
             }
-
         }
-
+        //TODO:DUĞHAN
         public IActionResult TestMikrotik(Ayarlar ayar)
         {
             try

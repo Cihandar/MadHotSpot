@@ -8,6 +8,7 @@ using MadHotSpot.Models;
 using Microsoft.AspNetCore.Identity;
 using tik4net;
 using MadHotSpot.Extentions;
+using Microsoft.EntityFrameworkCore;
 
 namespace MadHotSpot.Controllers
 {
@@ -26,24 +27,20 @@ namespace MadHotSpot.Controllers
         public IActionResult Index()
         {
             if (!admin) return Redirect("/");
-
             return View();
-
         }
-
 
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = context.H_Firmalar.Where(x=> x.FirmaKodu !=6807).ToList().OrderBy(x=> x.BitisTarihi);
+            var data = context.H_Firmalar.Where(x => x.FirmaKodu != 6807).OrderBy(x => x.BitisTarihi).ToList();
             return Json(data);
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var data = context.H_Firmalar.FirstOrDefault(x => x.Id == null);
+            var data = await context.H_Firmalar.FirstOrDefaultAsync(x => x.Id == null);
             return PartialView("_FormPartial", data);
         }
 
@@ -68,46 +65,31 @@ namespace MadHotSpot.Controllers
             };
 
             context.H_Firmalar.Add(firma);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             try
             {
+                var user = new AppUser
+                {
+                    Email = request.Email,
+                    UserName = request.Email,
+                    PhoneNumber = request.Telefon,
+                    FirmaId = request.Id
+                };
 
- 
-            var user = new AppUser
-            {
-                Email = request.Email,
-                UserName = request.Email,
-                PhoneNumber = request.Telefon,
-                FirmaId = request.Id
-            };
-
-            var result = await _userManager.CreateAsync(user, request.Password);
- 
-
-            if (result.Succeeded)
-            {
-
-                context.H_Ayarlar.Add(new Ayarlar { FirmaId = request.Id, GunlukFiyatTL = 10, GunlukFiyatEURO = 2, GunlukFiyatUSD = 3, SinirsizAktif = false, AdSoyadZorunlu = false });
-
-                context.SaveChanges();
-
-
-                SendEmail mail = new SendEmail();
-
-                mail.Send(request.Email, "Online Hotspot Giriş Bilgileri", "", request.Email, request.FirmaKodu.ToString(), request.Password, "IlkKayit");
-
-            }
-            else
-            {
-
-            }
-
+                var result = await _userManager.CreateAsync(user, request.Password);
+                if (result.Succeeded)
+                {
+                    context.H_Ayarlar.Add(new Ayarlar { FirmaId = request.Id, GunlukFiyatTL = 10, GunlukFiyatEURO = 2, GunlukFiyatUSD = 3, SinirsizAktif = false, AdSoyadZorunlu = false });
+                    await context.SaveChangesAsync();
+                    
+                    SendEmail mail = new SendEmail();
+                    mail.Send(request.Email, "Online Hotspot Giriş Bilgileri", "", request.Email, request.FirmaKodu.ToString(), request.Password, "IlkKayit");
+                }
             }
             catch (Exception ex)
             {
-                return Json(new Response { Success = false, Message = ex.Message});
-
+                return Json(new Response { Success = false, Message = ex.Message });
             }
 
             return Json(new Response { Success = true, Message = "Kayıt Başarılı" });
@@ -117,29 +99,33 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(Guid Id)
         {
-            var data = context.H_Firmalar.FirstOrDefault(x => x.Id == Id);
+            var data = await context.H_Firmalar.FirstOrDefaultAsync(x => x.Id == Id);
             return PartialView("_FormPartial", data);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(Firmalar request)
         {
-            var firma = context.H_Firmalar.FirstOrDefault(x => x.Id == request.Id);
-
-            firma.Aktif = request.Aktif;
-            firma.FirmaAdi = request.FirmaAdi;
-            firma.BaslamaTarihi = request.BaslamaTarihi;
-            firma.BitisTarihi = request.BitisTarihi;
-            firma.Email = request.Email;
-            firma.FirmaKodu = request.FirmaKodu;
-            firma.Password = request.Password;
-            firma.Telefon = request.Telefon;
-            firma.Silindi = false;
-            firma.YetkiliAdSoyad = request.YetkiliAdSoyad;
-
-            context.SaveChanges();
-
-            return Json(new Response { Success = true, Message = "Kayıt Başarılı" });
+            var firma = await context.H_Firmalar.FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (firma != null)
+            {
+                firma.Aktif = request.Aktif;
+                firma.FirmaAdi = request.FirmaAdi;
+                firma.BaslamaTarihi = request.BaslamaTarihi;
+                firma.BitisTarihi = request.BitisTarihi;
+                firma.Email = request.Email;
+                firma.FirmaKodu = request.FirmaKodu;
+                firma.Password = request.Password;
+                firma.Telefon = request.Telefon;
+                firma.Silindi = false;
+                firma.YetkiliAdSoyad = request.YetkiliAdSoyad;
+                //TODO:DUGHAN
+                context.SaveChanges();
+                
+                return Json(new Response { Success = true, Message = "Kayıt Başarılı" });
+            }
+            else
+                return Json(new Response { Success = false, Message = "Kayıt Başarısız" });
         }
 
 

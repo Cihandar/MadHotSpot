@@ -8,6 +8,7 @@ using MadHotSpot.Models;
 using tik4net;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace MadHotSpot.Controllers
 {
@@ -26,22 +27,15 @@ namespace MadHotSpot.Controllers
         public IActionResult Index()
         {
             var data = context.H_Ayarlar.FirstOrDefault(x=>x.FirmaId == FirmaId);
-            // return Json(data);
             data.MikrotikPass = null;
             return View(data);
- 
         }
 
         public IActionResult FirmaAl()
         {
             var firma = context.H_Firmalar.FirstOrDefault(x => x.Id == FirmaId);
-
             return Json(firma);
         }
-
-  
-
-
 
         [HttpPost]
         public async Task<IActionResult> Update(Ayarlar ayarlar)
@@ -50,7 +44,7 @@ namespace MadHotSpot.Controllers
 
             try
             {
-                var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
+                var ayar =  await context.H_Ayarlar.FirstOrDefaultAsync(x => x.FirmaId == FirmaId);
 
                 ayar.GunlukFiyatEURO = ayarlar.GunlukFiyatEURO;
                 ayar.GunlukFiyatTL = ayarlar.GunlukFiyatTL;
@@ -68,6 +62,7 @@ namespace MadHotSpot.Controllers
                 ayar.TarifeAktif = ayarlar.TarifeAktif;
                 ayar.DiaEntegrasyonAktif = ayarlar.DiaEntegrasyonAktif;
                 ayar.DiaUrl = ayarlar.DiaUrl;
+                //TODO : DUGHAN
                 context.SaveChanges();
 
                 return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });
@@ -77,10 +72,6 @@ namespace MadHotSpot.Controllers
             {
                 return Ok(new Response { Success = false, Message = "Hata Döndü. Bir Dön bak kendine... " }); ;
             }
-      
-            
-                
-           
         }
  
         public IActionResult TestMikrotik(Ayarlar ayar)
@@ -88,7 +79,6 @@ namespace MadHotSpot.Controllers
             try
             {
                 var retVal = new Response();
-
                 int port = 0;
                 int.TryParse(ayar.MikrotikPort, out port);
 
@@ -102,10 +92,7 @@ namespace MadHotSpot.Controllers
             catch (Exception ex)
             {
                 return Ok(new Response { Success = false, Message = ex.Message }); ;
-
             }
-    
- 
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -113,7 +100,5 @@ namespace MadHotSpot.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-      
     }
 }

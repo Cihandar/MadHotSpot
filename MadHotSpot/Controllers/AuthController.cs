@@ -40,9 +40,7 @@ namespace MadHotSpot.Controllers
             var ajaxResult = new Response();
             try
             {
-
-                var user = _userManager.Users.Where(x => request.UserName == x.UserName).FirstOrDefault();
-
+                var user = _userManager.Users.FirstOrDefault(x => request.UserName == x.UserName);
                 if (user == null)
                 {
                     ajaxResult.Success = false;
@@ -50,9 +48,7 @@ namespace MadHotSpot.Controllers
                     return Ok(ajaxResult);
                 }
 
-
-                var firma = _context.H_Firmalar.Where(x => x.Id  == user.FirmaId).FirstOrDefault();
-
+                var firma = _context.H_Firmalar.FirstOrDefault(x => x.Id  == user.FirmaId);
                 if(firma.BitisTarihi<DateTime.Now)
                 {
                     ajaxResult.Success = false;
@@ -66,8 +62,6 @@ namespace MadHotSpot.Controllers
                     ajaxResult.Message = "Lisansınız Pasifleştirilmiştir.. Lütfen Bizimle İletişime Geçin..  ";
                     return Ok(ajaxResult);
                 }            
-              
-       
 
                 var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, false);
                 if (result.Succeeded)
@@ -88,8 +82,6 @@ namespace MadHotSpot.Controllers
             }
 
             return Ok(ajaxResult);
-
-
         }
 
         [HttpPost("Register")]
@@ -99,8 +91,7 @@ namespace MadHotSpot.Controllers
 
             try
             {
-                var isUser = _userManager.Users.Where(x => request.Email == x.UserName).FirstOrDefault();
-
+                var isUser = _userManager.Users.FirstOrDefault(x => request.Email == x.UserName);
                 if(isUser != null)
                 {
                     retVal.Success = false;
@@ -124,37 +115,22 @@ namespace MadHotSpot.Controllers
                     UserName = request.Email,
                     PhoneNumber = request.Telefon,
                     FirmaId=request.Id
-                    
-
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
-
-
-
-
                 if (!result.Succeeded)
                 {
                     return Ok(new Response { Success = false, Message = result.Errors.Select(x => x.Description).FirstOrDefault() });
                 }
 
-
                 if (UserAddSnc.Success)
                 {
 
                     _context.H_Ayarlar.Add(new Ayarlar { FirmaId = request.Id, GunlukFiyatTL = 10, GunlukFiyatEURO = 2, GunlukFiyatUSD = 3, SinirsizAktif=false, AdSoyadZorunlu=false });
-
                     _context.SaveChanges();
-
  
                     SendEmail mail = new SendEmail();
-
                     mail.Send(request.Email,"Online Hotspot Giriş Bilgileri","", request.Email, request.FirmaKodu.ToString(), request.Password, "IlkKayit");
-
-                }
-                else
-                {
-
                 }
 
                 retVal.Message = "Kaydınız Yapıldı. Yönlendiriliyorsunuz.";

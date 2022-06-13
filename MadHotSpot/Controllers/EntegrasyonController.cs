@@ -35,9 +35,7 @@ namespace MadHotSpot.Controllers
 
         public IActionResult KullaniciBas(Guid FirmaId)
         {
-
-            var data = context.H_Ayarlar.Where(x => x.FirmaId == FirmaId).FirstOrDefault();
-
+            var data = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
             if (data != null)
             {
                 if (data.DiaEntegrasyonAktif)
@@ -53,6 +51,7 @@ namespace MadHotSpot.Controllers
 
                         if (diaData != null && diaData.Misafir != null)
                         {
+                            //TODO: DUĞHAN
                             foreach (var x in diaData.Misafir)
                             {
                                 if (kayitvarmi(x)) continue;
@@ -96,10 +95,7 @@ namespace MadHotSpot.Controllers
                                             });
 
                                             context.SaveChanges();
-
-
                                         }
-
                                     }
                                 }
                                 catch (Exception ex)
@@ -109,13 +105,9 @@ namespace MadHotSpot.Controllers
                             }
                             kayitsil(data);
                         }
-
-
                     }
                 }
             }
-
-
 
             return Ok(new Response { Success = true, Message = "Entegrasyon Yapıldı !" });
         }
@@ -126,8 +118,8 @@ namespace MadHotSpot.Controllers
  
             if (DateTime.TryParse(x.Dogumtarihi, out dt))
             {
-                var data = context.H_Rezervasyonlar.Where(b => b.Odano == x.Odano && b.DogumTarihi == dt).FirstOrDefault();
-                if (data == null) return false; else return true;
+                var data = context.H_Rezervasyonlar.FirstOrDefault(b => b.Odano == x.Odano && b.DogumTarihi == dt);
+                return data != null;
             }
 
             return false;
@@ -145,7 +137,7 @@ namespace MadHotSpot.Controllers
                         var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", x.DogumTarihi.ToString("dd.MM.yyyy"))).FirstOrDefault();
                         conn.Delete(user);
                     }
-
+                    //TODO : DUĞHAN
                     SqlConnection con = new SqlConnection(config.GetConnectionString("OtelAppDatabase"));
                     SqlCommand cmd = new SqlCommand("DELETE FROM H_Rezervasyonlar where Id='" + x.Id.ToString() + "'", con);
                     con.Open();
