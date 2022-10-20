@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using tik4net.Objects.User;
 using MadHotSpot.Interfaces;
 using MadHotSpot.Extentions;
+using System.Reflection;
+using MadHotSpot.Extentions.AutoMapper;
 
 namespace MadHotSpot
 {
@@ -42,6 +44,8 @@ namespace MadHotSpot
             #endregion
 
             services.AddScoped<IFileUpload, FileUpload>();
+
+            services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 
             services.AddIdentity<AppUser, IdentityRole>(options =>
                 {
