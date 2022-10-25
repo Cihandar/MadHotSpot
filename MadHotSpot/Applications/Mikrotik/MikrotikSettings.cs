@@ -12,6 +12,7 @@ namespace MadHotSpot.Applications.Mikrotik
     public class MikrotikSettings : IMikrotikSettings
     {
         OtelAppDbContext _context;
+
         public MikrotikSettings(OtelAppDbContext context)
         {
             _context = context;

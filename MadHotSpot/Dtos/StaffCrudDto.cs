@@ -26,5 +26,6 @@ namespace MadHotSpot.Dtos
         public string UserProfile { get; set; }
         public string Comment { get; set; }
         public string MikrotikId { get; set; }
+        public List<tik4net.Objects.Ip.Hotspot.HotspotUserProfile> HotspotUserProfilList { get; set; }
     }
 }

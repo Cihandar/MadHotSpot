@@ -17,6 +17,8 @@ using MadHotSpot.Interfaces;
 using MadHotSpot.Extentions;
 using System.Reflection;
 using MadHotSpot.Extentions.AutoMapper;
+using MadHotSpot.Applications.Staffs;
+using MadHotSpot.Applications.Mikrotik;
 
 namespace MadHotSpot
 {
@@ -44,6 +46,10 @@ namespace MadHotSpot
             #endregion
 
             services.AddScoped<IFileUpload, FileUpload>();
+            services.AddScoped<IStaffCrud, StaffCrud>();
+            services.AddScoped<IStaffMikrotikCrud, StaffMikrotikCrud>();
+            services.AddScoped<IMikrotikSettings, MikrotikSettings>();
+            services.AddScoped<IMikrotikUserProfile, MikrotikUserProfile>();
 
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 

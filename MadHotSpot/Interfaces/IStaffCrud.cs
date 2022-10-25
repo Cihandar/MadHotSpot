@@ -13,6 +13,7 @@ namespace MadHotSpot.Interfaces
         public Task<ResultJson> Update(StaffCrudDto model);
         public Task<List<StaffCrudDto>> GetAll(Guid FirmaId);
         public Task<StaffCrudDto> GetById(Guid Id);
-        public Task<ResultJson> SetActive(Guid Id, string mikrotikId, bool status, Guid FirmaId);
+        public Task<ResultJson> SetActive(Guid Id, bool status);
+        public Task<ResultJson> Delete(Guid Id);
     }
 }

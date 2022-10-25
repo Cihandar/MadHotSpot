@@ -32,16 +32,16 @@
                 {
 
                     <!--HotSpotMenü Start-->
-                    <li class="nav-item @(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "menu-open" : "" )">
+                    <li class="nav-item @(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" ? "menu-open" : "" )">
                         <a href="#" class="nav-link">
-                            <i class="text-green nav-icon fas fa-cloud"></i>
+                            <i class="text-green nav-icon fas fa-tags"></i>
                             <p>
-                                Hotspot
+                                Satış
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
 
-                        <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
+                        <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis"  ? "display:block;" : "display:none;" )">
 
                             <li class="nav-item">
                                 <a href="/InternetSatis" class="nav-link @(Context.Request.Path.Value == "/InternetSatis"  ? " bg-blue" : "" )">
@@ -62,6 +62,21 @@
 
                                 </a>
                             </li>
+                        </ul>
+                    </li>
+                    <!--HotSpotMenü End-->
+
+                    <!--HotSpotMenü Start-->
+                    <li class="nav-item @(Context.Request.Path.Value == "/Staff" || Context.Request.Path.Value == "/Meeting" || Context.Request.Path.Value == "/AktifKullanicilar" ? "menu-open" : "" )">
+                        <a href="#" class="nav-link">
+                            <i class="text-green nav-icon fas fa-network-wired"></i>
+                            <p>
+                                Hotspot İşlemleri
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+
+                        <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/Staff" || Context.Request.Path.Value == "/Meeting" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
 
                             <li class="nav-item">
                                 <a href="/AktifKullanicilar" class="nav-link @(Context.Request.Path.Value == "/AktifKullanicilar"  ? " bg-blue" : "" )">
@@ -70,10 +85,17 @@
                                 </a>
                             </li>
 
-                        </ul>
+                            <li class="nav-item">
+                                <a href="/Staff" class="nav-link @(Context.Request.Path.Value == "/Staff"  ? " bg-blue" : "" )">
+                                    <i class="fad fa fa-users nav-icon"></i>
+                                    <p>
+                                        Personel Kartları
+                                    </p>
 
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <!--HotSpotMenü End-->
 
 
 
@@ -88,7 +110,7 @@
                         <!--AyarlarMenü Start-->
                         <li class="nav-item @(Context.Request.Path.Value == "/Ayarlar" || Context.Request.Path.Value == "/Tarifeler" || Context.Request.Path.Value == "/Kullanicilar"  ? " menu-open" : "" )">
                             <a href="#" class="nav-link ">
-                                <i class="text-cyan nav-icon fas fa-cogs"></i>
+                                <i class="text-cyan nav-icon fas fa-toolbox"></i>
                                 <p>
                                     Ayarlar
                                     <i class="right fas fa-angle-left"></i>
@@ -100,7 +122,7 @@
 
                                 <li class="nav-item">
                                     <a href="/Ayarlar" class="nav-link @(Context.Request.Path.Value == "/Ayarlar"  ? " bg-blue" : "" )">
-                                        <i class="far fa fa-cubes nav-icon"></i>
+                                        <i class="far fa fa-cogs nav-icon"></i>
                                         <p>
                                             Genel Ayarlar
                                         </p>
@@ -116,18 +138,7 @@
                                         </p>
 
                                     </a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a href="/HotSpotAyar" class="nav-link @(Context.Request.Path.Value == "/HotSpotAyar"  ? " bg-blue" : "" )">
-                                        <i class="far fa fa-lira-sign nav-icon"></i>
-                                        <p>
-                                            HotSpot Ayarları
-                                        </p>
-
-                                    </a>
-                                </li>
+                                </li>   
 
                                 <li class="nav-item">
                                     <a href="/Kullanicilar" class="nav-link @(Context.Request.Path.Value == "/Kullanicilar"  ? " bg-blue" : "" )">
@@ -145,6 +156,37 @@
                         </li>
                         <!--AyarlarMenü End-->
 
+                        <li class="nav-item @(Context.Request.Path.Value == "/UserProfile"  ? "menu-open" : "" )">
+                            <a href="#" class="nav-link">
+                                <i class="text-green fas fa-digital-tachograph"></i>
+                                <p>
+                                    Hotspot Ayarları
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+
+                            <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/UserProfile" || Context.Request.Path.Value == "/HotSpotAyar" ? "display:block;" : "display:none;" )">
+
+                                <li class="nav-item">
+                                    <a href="/UserProfile" class="nav-link @(Context.Request.Path.Value == "/UserProfile"  ? " bg-blue" : "" )">
+                                        <i class="fas fa-user-cog nav-icon"></i>
+                                        <p class="text">Kullanıcı Profilleri</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="/HotSpotAyar" class="nav-link @(Context.Request.Path.Value == "/HotSpotAyar"  ? " bg-blue" : "" )">
+                                        <i class="fas fa-sign-in-alt"></i> 
+                                        <p>
+                                            Login Ekranı
+                                        </p>
+
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
 
                         <!--CrmMenü Start-->
                         <li class="nav-item @(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "menu-open" : "" )">
@@ -157,9 +199,6 @@
                             </a>
 
                             <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/" || Context.Request.Path.Value == "/Kasa" || Context.Request.Path.Value == "/InternetSatis" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
-
-                            
-
                             </ul>
 
                         </li>

@@ -1,0 +1,120 @@
+﻿@model MadHotSpot.Models.ViewModel.ResultWithObject<MadHotSpot.Dtos.HotspotUserProfileDto>;
+@{
+
+    var action = Model == null || Model.Data.Id == null || Model.Data.Id =="" ? "create" : "update";
+    //var areaTypeList = typeof(type).EnumToList().Select(x => new { Value = x.Value, Text = x.Description }).OrderBy(x => x.Text).ToList();
+}
+<div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal',10,yenile)" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/UserProfile/@action">
+            @Html.AntiForgeryToken()
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hotspot Kullanıcı Profil Kartı</h5>
+                    <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="hidden">
+                        <input class="form-control" type="hidden" asp-for="Data.Id"   />
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Data.Name" class="form-control-label">Profil Adı</label>
+                                <input asp-for="Data.Name" class="form-control" placeholder="" />
+                                <span asp-validation-for="Data.Name" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Data.SharedUsers" class="form-control-label">Paylaşılan Kullanıcılar</label>
+                                <input asp-for="Data.SharedUsers" class="form-control" placeholder="" />
+                                
+                                <span asp-validation-for="Data.SharedUsers" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Data.RateLimit" class="form-control-label">İnternet Hızı (Upload/Download)</label>
+                                <select asp-for="Data.RateLimit" class="form-control">
+                                    <option value="">Sınırsız Upload / Sınırsız Download</option>
+                                    <option value="512k/1m">512 Kb Upload / 1 Mb Download</option>
+                                    <option value="512k/2m">512 Kb Upload / 2 Mb Download</option>
+                                    <option value="512k/3m">512 Kb Upload / 3 Mb Download</option>
+                                    <option value="512k/4m">512 Kb Upload / 4 Mb Download</option>
+                                    <option value="512k/5m">512 Kb Upload / 5 Mb Download</option>
+                                    <option value="512k/10m">512 Kb Upload / 10 Mb Download</option>
+                                    <option value="512k/20m">512 Kb Upload / 20 Mb Download</option>
+                                    <option value="1m/1m">1 Mb Upload / 1 Mb Download</option>
+                                    <option value="1m/2m">1 Mb Upload / 2 Mb Download</option>
+                                    <option value="1m/3m">1 Mb Upload / 3 Mb Download</option>
+                                    <option value="1m/4m">1 Mb Upload / 4 Mb Download</option>
+                                    <option value="1m/5m">1 Mb Upload / 5 Mb Download</option>
+                                    <option value="1m/10m">1 Mb Upload / 10 Mb Download</option>
+                                    <option value="1m/20m">1 Mb Upload / 20 Mb Download</option>
+                                    <option value="2m/1m">2 Mb Upload / 1 Mb Download</option>
+                                    <option value="2m/2m">2 Mb Upload / 2 Mb Download</option>
+                                    <option value="2m/3m">2 Mb Upload / 3 Mb Download</option>
+                                    <option value="2m/4m">2 Mb Upload / 4 Mb Download</option>
+                                    <option value="2m/5m">2 Mb Upload / 5 Mb Download</option>
+                                    <option value="2m/10m">2 Mb Upload / 10 Mb Download</option>
+                                    <option value="2m/20m">2 Mb Upload / 20 Mb Download</option>
+                                    <option value="1m/1m">1 Mb Upload / 1 Mb Download</option>
+                                    <option value="2m/2m">2 Mb Upload / 2 Mb Download</option>
+                                    <option value="3m/3m">3 Mb Upload / 3 Mb Download</option>
+                                    <option value="4m/4m">4 Mb Upload / 4 Mb Download</option>
+                                    <option value="5m/5m">5 Mb Upload / 5 Mb Download</option>
+                                    <option value="10m/10m">10 Mb Upload / 10 Mb Download</option>
+                                    <option value="15m/15m">15 Mb Upload / 15 Mb Download</option>
+                                    <option value="20m/20m">20 Mb Upload / 20 Mb Download</option>
+                                    <option value="30m/30m">30 Mb Upload / 30 Mb Download</option>
+                                    <option value="40m/40m">40 Mb Upload / 40 Mb Download</option>
+                                    <option value="50m/50m">50 Mb Upload / 50 Mb Download</option>
+                                    <option value="100m/100m">100 Mb Upload / 100 Mb Download</option>
+                                    <option value="250m/250m">260 Mb Upload / 200 Mb Download</option>
+                                    <option value="500m/500m">500 Mb Upload / 500 Mb Download</option>
+                                </select>                               
+                                <span asp-validation-for="Data.RateLimit" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Data.AddMacCookie" class="form-control-label">Mac Çerezi Tutulsun mu ?</label>
+                                <input asp-for="Data.AddMacCookie" class="form-control" placeholder="" />
+            
+                                <span asp-validation-for="Data.AddMacCookie" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Data.MacCookieTimeout" class="form-control-label">Mac Çerezi Tutulsun mu ?</label>
+                                <input asp-for="Data.MacCookieTimeout" class="form-control" placeholder="" />
+                               
+                                <span asp-validation-for="Data.MacCookieTimeout" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary OtelApp-forms-modal-close" data-dismiss="modal">Vazgeç</button>
+                    <button type="submit" id="kaydet" class="btn btn-success">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+ 
+</script>
+
+

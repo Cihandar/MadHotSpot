@@ -11,6 +11,7 @@ namespace MadHotSpot.Interfaces
     {
         public Task<ResultJson> AddUser(StaffCrudDto model);
         public Task<ResultJson> UpdateUser(StaffCrudDto model);
-        public Task<ResultJson> SetDisabled(Guid FirmaId, string mikrotikId, bool status);
+        public Task<ResultJson> SetDisabled(Staff staff, bool status);
+        public Task<ResultJson> DeleteUser(StaffCrudDto model);
     }
 }

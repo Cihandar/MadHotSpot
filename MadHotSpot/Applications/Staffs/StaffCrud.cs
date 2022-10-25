@@ -17,10 +17,11 @@ namespace MadHotSpot.Applications.Staffs
         IMapper _mapper;
         IStaffMikrotikCrud _staffMikrotik;
 
-        public StaffCrud(IMapper mapper, OtelAppDbContext context)
+        public StaffCrud(IMapper mapper, OtelAppDbContext context, IStaffMikrotikCrud staffMikrotik)
         {
             _mapper = mapper;
             _context = context;
+            _staffMikrotik = staffMikrotik;
         }
 
         public async Task<ResultJson> Add(StaffCrudDto model)
@@ -48,11 +49,11 @@ namespace MadHotSpot.Applications.Staffs
             return result;
         }
 
-        public async Task<ResultJson> SetActive(Guid Id,string mikrotikId, bool status,Guid FirmaId)
+        public async Task<ResultJson> SetActive(Guid Id,bool status)
         {
-            var mikrotikResult = await _staffMikrotik.SetDisabled(FirmaId,mikrotikId, status);
-            if(!mikrotikResult.Success) return new ResultJson { Success = false, Message = mikrotikResult.Message };
             var staff = await _context.H_Staffs.FindAsync(Id);
+            var mikrotikResult = await _staffMikrotik.SetDisabled(staff, status);
+            if(!mikrotikResult.Success) return new ResultJson { Success = false, Message = mikrotikResult.Message };         
             staff.Active = status;
             await _context.SaveChangesAsync();
             return new ResultJson { Success = true, Message = "Başarılı", Id = staff.Id };
@@ -62,7 +63,6 @@ namespace MadHotSpot.Applications.Staffs
         {
             var mikrotikResult = await _staffMikrotik.UpdateUser(model);
             if(!mikrotikResult.Success) return new ResultJson { Success = false, Message = mikrotikResult.Message };
-
             var staff = await _context.H_Staffs.FindAsync(model.Id);
             if (staff == null) return new ResultJson { Success = false, Message = "Personelin kaydı bulunamadı", Id = model.Id };
             staff.IdNumber = model.IdNumber;
@@ -75,9 +75,21 @@ namespace MadHotSpot.Applications.Staffs
             staff.Year = model.Year;
             staff.UserProfile = model.UserProfile;
             staff.Active = model.Active;
+            staff.MikrotikId = mikrotikResult.MikrotikId;
             await _context.SaveChangesAsync();
             return new ResultJson { Success = true, Message = "Güncelleme Başarılı", Id = staff.Id };
 
+        }
+
+        public async Task<ResultJson> Delete(Guid Id)
+        {
+            var model = await GetById(Id);
+            var mikrotikResult = await _staffMikrotik.DeleteUser(model);
+            if (!mikrotikResult.Success) return new ResultJson { Success = false, Message = mikrotikResult.Message };
+            var entityModel = _mapper.Map<Staff>(model);
+            _context.H_Staffs.Remove(entityModel);
+            _context.SaveChanges();
+            return new ResultJson { Success = true, Message = "Kayıt Silindi"};
         }
     }
 }
