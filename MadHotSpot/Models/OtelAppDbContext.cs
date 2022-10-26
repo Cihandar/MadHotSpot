@@ -28,6 +28,7 @@ namespace MadHotSpot.Models
         public DbSet<Rezervasyonlar> H_Rezervasyonlar { get; set; }
         public DbSet<CustomerInfo> H_CustomerInfo { get; set; }
         public DbSet<Staff> H_Staffs { get; set; }
+        public DbSet<Meet> H_Meets { get; set; }
 
 
     }

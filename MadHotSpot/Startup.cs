@@ -19,6 +19,7 @@ using System.Reflection;
 using MadHotSpot.Extentions.AutoMapper;
 using MadHotSpot.Applications.Staffs;
 using MadHotSpot.Applications.Mikrotik;
+using MadHotSpot.Applications.Meets;
 
 namespace MadHotSpot
 {
@@ -48,6 +49,8 @@ namespace MadHotSpot
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddScoped<IStaffCrud, StaffCrud>();
             services.AddScoped<IStaffMikrotikCrud, StaffMikrotikCrud>();
+            services.AddScoped<IMeetCrud, MeetCrud>();
+            services.AddScoped<IMeetMikrotikCrud, MeetMikrotikCrud>();
             services.AddScoped<IMikrotikSettings, MikrotikSettings>();
             services.AddScoped<IMikrotikUserProfile, MikrotikUserProfile>();
 

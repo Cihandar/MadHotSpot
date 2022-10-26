@@ -94,11 +94,18 @@
 
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="/Staff" class="nav-link @(Context.Request.Path.Value == "/Meet"  ? " bg-blue" : "" )">
+                                    <i class="fad fa fa-users nav-icon"></i>
+                                    <p>
+                                        Toplantı İşlemleri
+                                    </p>
+
+                                </a>
+                            </li>
                         </ul>
                     </li>
-
-
-
 
 
 
@@ -138,7 +145,7 @@
                                         </p>
 
                                     </a>
-                                </li>   
+                                </li>
 
                                 <li class="nav-item">
                                     <a href="/Kullanicilar" class="nav-link @(Context.Request.Path.Value == "/Kullanicilar"  ? " bg-blue" : "" )">
@@ -176,7 +183,7 @@
 
                                 <li class="nav-item">
                                     <a href="/HotSpotAyar" class="nav-link @(Context.Request.Path.Value == "/HotSpotAyar"  ? " bg-blue" : "" )">
-                                        <i class="fas fa-sign-in-alt"></i> 
+                                        <i class="fas fa-sign-in-alt"></i>
                                         <p>
                                             Login Ekranı
                                         </p>
