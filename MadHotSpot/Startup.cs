@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MadHotSpot.Applications.Meets;
+using MadHotSpot.Applications.Mikrotik;
+using MadHotSpot.Applications.Staffs;
+using MadHotSpot.Extentions;
+using MadHotSpot.Extentions.AutoMapper;
+using MadHotSpot.Interfaces;
+using MadHotSpot.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MadHotSpot.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using tik4net.Objects.User;
-using MadHotSpot.Interfaces;
-using MadHotSpot.Extentions;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Reflection;
-using MadHotSpot.Extentions.AutoMapper;
-using MadHotSpot.Applications.Staffs;
-using MadHotSpot.Applications.Mikrotik;
-using MadHotSpot.Applications.Meets;
 
 namespace MadHotSpot
 {
@@ -75,7 +71,7 @@ namespace MadHotSpot
                 options.ValidationInterval = TimeSpan.Zero;
             });
 
-
+            //services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.ConfigureApplicationCookie(options =>
             {
                 //options.Cookie.HttpOnly = true;
@@ -122,7 +118,7 @@ namespace MadHotSpot
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())

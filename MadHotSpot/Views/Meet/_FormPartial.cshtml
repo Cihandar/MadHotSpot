@@ -10,7 +10,7 @@
             @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-primary"><i class="far fa fa-people-carry"></i> Personel Kartı</h5>
+                    <h5 class="modal-title text-primary"><i class="far fa fa-people-carry"></i> Toplantı İşlemleri</h5>
                     <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
                 </div>
                 <div class="modal-body">
@@ -18,7 +18,7 @@
                         <input type="hidden" class="form-control" asp-for="Id" />
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="Name" class="form-control-label">Toplantı Adı</label>
@@ -26,14 +26,7 @@
                                 <span asp-validation-for="Name" class="text-danger"> </span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label asp-for="Silindi" class="form-control-label">Aktif</label>
-                                <input asp-for="Silindi" class="form-control" placeholder="" />
-                                <span asp-validation-for="Silindi" class="text-danger"> </span>
-                            </div>
-                        </div>
+                   
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -72,7 +65,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="RateLimit" class="form-control-label">İnternet Hızı (Upload/Download)</label>
                                 <select asp-for="RateLimit" class="form-control">
@@ -114,6 +107,14 @@
                                     <option value="500m/500m">500 Mb Upload / 500 Mb Download</option>
                                 </select>
                                 <span asp-validation-for="RateLimit" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Silindi" class="form-control-label">Aktif</label>
+                                <input asp-for="Silindi" class="form-control" placeholder="" />
+                                <span asp-validation-for="Silindi" class="text-danger"> </span>
                             </div>
                         </div>
                     </div>
