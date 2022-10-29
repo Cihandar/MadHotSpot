@@ -15,8 +15,7 @@
                     <th>Şirket</th>
                     <th>Bağlantı Sayısı</th>
                     <th>Şifre Geçerlilik Süresi</th>
-                    <th>Bağlantı Hızı</th>
-                    <th>Durum</th>              
+                    <th>Bağlantı Hızı</th>          
                     <th width="50">İşlemler</th>
                 </tr>
             </thead>
@@ -85,13 +84,7 @@
                             { "data": "companyName" },
                             { "data": "accessLimit" },
                             { "data": "passwordExpire" },
-                            { "data": "RateLimit" },
-                            {
-                                "data": "silindi",
-                                render: function (data, type, full, meta) {
-                                    return data == 0 ? "<span class='text-danger'>Pasif</span>" : "<span class='text-success'>Aktif</span>";
-                                }
-                            },
+                            { "data": "rateLimit" },             
                             {
                                 data: null,
                                 width: "210px",
@@ -102,12 +95,7 @@
                                     return GridIslemlerButtons(data, type, full, meta, "/Meet/update", "/Meet/delete");
                                 }
                             }
-                        ],
-                        "createdRow": function (row, data, dataIndex) {
-                            if (!data.active) {
-                                $(row).css({ "background-color": "#FFCFCF" });
-                            }
-                        },
+                        ], 
                         data: data
                     });
 

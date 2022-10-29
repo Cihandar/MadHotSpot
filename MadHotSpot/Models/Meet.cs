@@ -13,12 +13,13 @@ namespace MadHotSpot.Models
         /// </summary>
         public string AccessLimit { get; set; }
         /// <summary>
-        ///  Bağlantı hızı sayısı 
+        ///  Bağlantı hızı   
         /// </summary>
         public string RateLimit { get; set; }
         public string Password { get; set; }
         public string CompanyName { get; set; }
         public DateTime PasswordExpire { get; set; }
         public string MikrotikId { get; set; }
+        public string UserProfileName { get; set; }
     }
 }

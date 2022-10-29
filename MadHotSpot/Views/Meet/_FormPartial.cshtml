@@ -6,30 +6,34 @@
 }
 <div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal',10,yenile)" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Meet/@action">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="Meet" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal',10,yenile)" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/Meet/@action">
             @Html.AntiForgeryToken()
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-primary"><i class="far fa fa-people-carry"></i> Toplantı İşlemleri</h5>
+                    <h5 class="modal-title text-primary"><i class="far fa fa-people-carry"></i> Toplantı Kartı</h5>
                     <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="hidden">
-                        <input type="hidden" class="form-control" asp-for="Id" />
-                    </div>
+                <div class="modal-body">    
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
-                                <label asp-for="Name" class="form-control-label">Toplantı Adı</label>
+                                <label asp-for="Name" class="form-control-label">Kullanıcı Adı</label>
                                 <input asp-for="Name" class="form-control" placeholder="" />
                                 <span asp-validation-for="Name" class="text-danger"> </span>
                             </div>
                         </div>
-                   
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Password" class="form-control-label">Şifre</label>
+                                <input asp-for="Password" class="form-control" placeholder="" />
+                                <span asp-validation-for="Password" class="text-danger"> </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <!-- text input -->
                             <div class="form-group">
                                 <label asp-for="CompanyName" class="form-control-label">Firma İsmi</label>
@@ -37,6 +41,9 @@
                                 <span asp-validation-for="CompanyName" class="text-danger"> </span>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
@@ -45,26 +52,6 @@
                                 <span asp-validation-for="AccessLimit" class="text-danger"> </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label asp-for="Password" class="form-control-label">Bağlantı Şifresi</label>
-                                <input asp-for="Password" class="form-control" placeholder="" />
-                                <span asp-validation-for="Password" class="text-danger"> </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label asp-for="PasswordExpire" class="form-control-label">Şifre Geçerlilik Süresi</label>
-                                <input asp-for="PasswordExpire" class="form-control" placeholder="" />
-                                <span asp-validation-for="PasswordExpire" class="text-danger"> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label asp-for="RateLimit" class="form-control-label">İnternet Hızı (Upload/Download)</label>
@@ -109,14 +96,19 @@
                                 <span asp-validation-for="RateLimit" class="text-danger"> </span>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
-                                <label asp-for="Silindi" class="form-control-label">Aktif</label>
-                                <input asp-for="Silindi" class="form-control" placeholder="" />
-                                <span asp-validation-for="Silindi" class="text-danger"> </span>
+                                <label asp-for="PasswordExpire" class="form-control-label">Şifre Geçerlilik Süresi</label>
+                                <input  asp-for="PasswordExpire" class="form-control" placeholder="" />
+                                <span asp-validation-for="PasswordExpire" class="text-danger"> </span>
                             </div>
                         </div>
+                        
+ 
                     </div>
                 </div>
                 <div class="modal-footer">

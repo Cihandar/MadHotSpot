@@ -12,5 +12,6 @@ namespace MadHotSpot.Models
         public string Value { get; set; }
         public Guid Id { get; set; }
         public string MikrotikId { get; set; }
+        public string UserProfileName { get; set; }
     }
 }

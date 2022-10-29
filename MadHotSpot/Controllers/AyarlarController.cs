@@ -9,6 +9,7 @@ using tik4net;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using MadHotSpot.Interfaces;
 
 namespace MadHotSpot.Controllers
 {
@@ -17,16 +18,18 @@ namespace MadHotSpot.Controllers
 
         public OtelAppDbContext context;
         private IConfiguration config;
+        public IMikrotikSettings _mikrotikSettings;
 
-        public AyarlarController(OtelAppDbContext _context, IConfiguration _configuration)
+        public AyarlarController(OtelAppDbContext _context, IConfiguration _configuration, IMikrotikSettings mikrotikSettings)
         {
             context = _context;
             config = _configuration;
+            _mikrotikSettings = mikrotikSettings;
         }
 
         public IActionResult Index()
         {
-            var data = context.H_Ayarlar.FirstOrDefault(x=>x.FirmaId == FirmaId);
+            var data = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
             data.MikrotikPass = null;
             return View(data);
         }
@@ -44,7 +47,7 @@ namespace MadHotSpot.Controllers
 
             try
             {
-                var ayar =  await context.H_Ayarlar.FirstOrDefaultAsync(x => x.FirmaId == FirmaId);
+                var ayar = await context.H_Ayarlar.FirstOrDefaultAsync(x => x.FirmaId == FirmaId);
 
                 ayar.GunlukFiyatEURO = ayarlar.GunlukFiyatEURO;
                 ayar.GunlukFiyatTL = ayarlar.GunlukFiyatTL;
@@ -73,7 +76,7 @@ namespace MadHotSpot.Controllers
                 return Ok(new Response { Success = false, Message = "Hata Döndü. Bir Dön bak kendine... " }); ;
             }
         }
- 
+
         public IActionResult TestMikrotik(Ayarlar ayar)
         {
             try
@@ -99,6 +102,13 @@ namespace MadHotSpot.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteExpireUsers()
+        {
+            var result = await _mikrotikSettings.DeleteExpireTimeUsers(FirmaId);
+            return Json(result);
         }
     }
 }

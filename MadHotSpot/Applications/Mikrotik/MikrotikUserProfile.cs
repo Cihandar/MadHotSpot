@@ -37,7 +37,7 @@ namespace MadHotSpot.Applications.Mikrotik
                 {
                     conn.Save<HotspotUserProfile>(model);
                 }
-                return new ResultJson { Success = true, Message = "Profile Mikrotike Kaydedildi" };
+                return new ResultJson { Success = true, Message = "Profile Mikrotike Kaydedildi",UserProfileName=model.Name };
             }
             catch (Exception ex)
             {

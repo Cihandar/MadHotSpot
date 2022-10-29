@@ -63,6 +63,11 @@
                                         <i class="fa fa-ribbon"></i> Test
                                     </button>
                                 </div>
+                                <div class="form-group col-12">
+                                    <button type="button" class="btn btn-danger" onclick="deleteOldUser()">
+                                        <i class="fa fa-trash"></i> Eski Kullanıcıları Sil
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,6 +199,22 @@
                     Notiflix.Block.Remove("*", 0);
                 }
 
+            });
+        }
+
+        function deleteOldUser() {
+            Notiflix.Block.Standard('#mikrotik');
+            $.ajax({
+                type: "get",
+                url: "/Ayarlar/DeleteExpireUsers",
+                success: function (result) {
+                    if (result.success) {
+                        Notiflix.Notify.Success(result.message);
+                    } else {
+                        Notiflix.Notify.Failure(result.message);
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
             });
         }
 

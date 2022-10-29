@@ -67,6 +67,9 @@ namespace MadHotSpot.Controllers
                 if (result.Succeeded)
                 {
                     ajaxResult.Result = user;
+
+                    
+
                 }
                 else
                 {

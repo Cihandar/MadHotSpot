@@ -42,8 +42,9 @@ namespace MadHotSpot.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var listUserprofile = await _userProfile.GetAll(FirmaId);
-            return PartialView("_FormPartial");
+            var model = new MeetCrudDto();
+            model.PasswordExpire = DateTime.Now.AddDays(1);
+            return PartialView("_FormPartial",model);
         }
 
         [HttpPost]

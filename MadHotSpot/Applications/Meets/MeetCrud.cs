@@ -30,6 +30,7 @@ namespace MadHotSpot.Applications.Meets
             if (!mikrotikresult.Success) return new ResultJson { Success = false, Message = mikrotikresult.Message };
             var data = _mapper.Map<Meet>(model);
             data.MikrotikId = mikrotikresult.MikrotikId;
+            data.UserProfileName = mikrotikresult.UserProfileName;
             await _context.H_Meets.AddAsync(data);
             await _context.SaveChangesAsync();
             return new ResultJson { Success = true, Message = "Personel Kaydı Yapıldı", Id = data.Id };
