@@ -108,8 +108,8 @@ namespace MadHotSpot.Applications.Meets
                     {
                         var profile = new HotspotUserProfile();
                         try
-                        {
-                            profile = conn.LoadByName<HotspotUserProfile>(model.UserProfileName);
+                        {                            
+                            profile = conn.LoadByName<HotspotUserProfile>(model.UserProfileName);                 
                         }
                         catch (TikNoSuchItemException)
                         {
@@ -128,7 +128,6 @@ namespace MadHotSpot.Applications.Meets
                         conn.Save(user);
                         return new ResultJson { Success = true, MikrotikId = user.Id };
                     }
-
                 }
                 catch (TikNoSuchItemException ex)
                 {

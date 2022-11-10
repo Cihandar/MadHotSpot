@@ -12,6 +12,7 @@ namespace MadHotSpot.Models.ViewModel
         public Guid FirmaId { get; set; }
         public string PhoneNumber { get; set; }
         public string RoomNumber { get; set; }
+        public string HotspotType { get; set; }
 
     }
 }

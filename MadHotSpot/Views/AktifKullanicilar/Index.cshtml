@@ -12,10 +12,10 @@
                     <th>#</th>
                     <th>Kullanıcı</th>
                     <th>Mac Adresi</th>
-                    <th>Server</th>
-                    <th>bytesIn</th>
-                    <th>bytesOut</th>
-                    <th>Login By</th>
+                    <th>Hotspot</th>
+                    <th>Alınan</th>
+                    <th>Gönderilen</th>
+                    <th>Bağlı Kaldığı Süre</th>
               
                     <th width="50">İşlemler</th>
                 </tr>
@@ -85,9 +85,19 @@
                             { "data": "userName" },
                             { "data": "macAddress" },
                             { "data": "server" },
-                            { "data": "bytesIn" },
-                            { "data": "bytesOut" },
-                            { "data": "loginBy" },
+                            {
+                                data:null,
+                                render: function (data, type, full, meta) {
+                                    return formatBytes(data.bytesIn);
+                                }
+                            },
+                            {
+                                data: null,
+                                render: function (data, type, full, meta) {
+                                    return formatBytes(data.bytesOut);
+                                }
+                            },
+                            { "data": "idleTime" },
              
                    
                             {
@@ -129,7 +139,18 @@
             GetData();
         }
 
- 
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 Bytes'
+
+            const k = 1024
+            const dm = decimals < 0 ? 0 : decimals
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+        }
+
  
     </script>
 }

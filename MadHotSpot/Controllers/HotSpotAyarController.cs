@@ -61,6 +61,20 @@ namespace MadHotSpot.Controllers
                     ayar.ToplantiGirisi = _ayar.ToplantiGirisi;
                     ayar.ToplantiTelefon = _ayar.ToplantiTelefon;
                     ayar.ToplantiTelefonZorunlu = _ayar.ToplantiTelefonZorunlu;
+
+                    ayar.SpaEmail = _ayar.SpaEmail;
+                    ayar.SpaEmailZorunlu = _ayar.SpaEmailZorunlu;
+                    ayar.SpaGirisi = _ayar.SpaGirisi;
+                    ayar.SpaTelefon = _ayar.SpaTelefon;
+                    ayar.SpaTelefonZorunlu = _ayar.SpaTelefonZorunlu;
+
+                    ayar.GunuBirlikEmail = _ayar.GunuBirlikEmail;
+                    ayar.GunuBirlikEmailZorunlu = _ayar.GunuBirlikEmailZorunlu;
+                    ayar.GunuBirlikGirisi = _ayar.GunuBirlikGirisi;
+                    ayar.GunuBirlikTelefon = _ayar.GunuBirlikTelefon;
+                    ayar.GunuBirlikTelefonZorunlu = _ayar.GunuBirlikTelefonZorunlu;
+
+
                     ayar.UcretsizHotspot = _ayar.UcretsizHotspot;
                     //TODO: DUĞHAN UPDATE?
                 }
