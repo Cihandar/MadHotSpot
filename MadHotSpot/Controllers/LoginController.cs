@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using tik4net;
 using MadHotSpot.Models.ViewModel;
 using tik4net.Objects;
+using MadHotSpot.Interfaces;
+using MadHotSpot.Models.Enum;
 
 namespace MadHotSpot.Controllers
 {
@@ -17,11 +19,19 @@ namespace MadHotSpot.Controllers
 
         public OtelAppDbContext context;
         private readonly UserManager<AppUser> _userManager;
+        IStaffCrud _staffCrud;
+        IStaffMikrotikCrud _staffMikrotikCrud;
+        ILogCrud _logCrud;
+        ICustomerInfo _customerInfo;
 
-        public LoginController(OtelAppDbContext _context, UserManager<AppUser> userManager)
+        public LoginController(OtelAppDbContext _context, UserManager<AppUser> userManager, IStaffCrud staffCrud, IStaffMikrotikCrud staffMikrotikCrud, ILogCrud logCrud, ICustomerInfo customerInfo)
         {
             context = _context;
             _userManager = userManager;
+            _staffCrud = staffCrud;
+            _staffMikrotikCrud = staffMikrotikCrud;
+            _logCrud = logCrud;
+            _customerInfo = customerInfo;
         }
 
         public IActionResult Index(string ClientMac, string ClientIp, string Lokasyon, Guid FirmaId)
@@ -31,43 +41,55 @@ namespace MadHotSpot.Controllers
             ViewBag.Lokasyon = Lokasyon;
 
             var data = context.H_HotSpotAyar.FirstOrDefault(x => x.FirmaId == FirmaId);
-
-            return View(data); 
+            return View(data);
         }
 
         [HttpPost("LoginCheck")]
         public async Task<bool> LoginCheck(CustomerInfoViewModel customer)
         {
-            var ayar = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == customer.FirmaId);
-            if (ayar == null) return false;
-            try
-            {
-                using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
-                {
-                    var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>().Where(x => x.Name == customer.BirthDate && x.Password == customer.RoomNumber).FirstOrDefault();
-                    if (user != null)
-                    {
-                        context.H_CustomerInfo.Add(new CustomerInfo
-                        {
-
-                            PhoneNumber = customer.PhoneNumber,
-                            Email = customer.Email,
-                            FirmaId = customer.FirmaId,
-                            BirthDate = customer.BirthDate
-
-                        });
-                        context.SaveChanges();
-                        return true;
-                    }
-                    else return false;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
+            ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId);
+            if (!result.Success)
+                await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
+            else
+                _customerInfo.SendCustomerInfoAsync(customer);
+            return result.Success;
         }
+
+        //[HttpPost("LoginStaffCheck")]
+        //public async Task<bool> LoginStaffCheck(CustomerInfoViewModel customer)
+        //{
+        //    ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId);
+        //    if (!result.Success) await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId,customer.Mac,customer.LocalIp);
+        //    return result.Success;
+        //}
+
+        //[HttpPost("LoginMeetCheck")]
+        //public async Task<bool> LoginMeetCheck(CustomerInfoViewModel customer)
+        //{
+        //    ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId);
+        //    if (!result.Success) await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
+        //    else _customerInfo.SendCustomerInfoAsync(customer, LoginType.Meet);
+        //    return result.Success;
+        //}
+
+        //[HttpPost("LoginSpaCheck")]
+        //public async Task<bool> LoginSpaCheck(CustomerInfoViewModel customer)
+        //{
+        //    ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId);
+        //    if (!result.Success) await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
+        //    else _customerInfo.SendCustomerInfoAsync(customer, LoginType.Spa);
+        //    return result.Success;
+        //}
+
+        //[HttpPost("LoginDailyCheck")]
+        //public async Task<bool> LoginSpaCheck(CustomerInfoViewModel customer)
+        //{
+        //    ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId);
+        //    if (!result.Success) await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
+        //    else _customerInfo.SendCustomerInfoAsync(customer, LoginType.Spa);
+        //    return result.Success;
+        //}
+
+
     }
 }

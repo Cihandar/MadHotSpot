@@ -89,5 +89,7 @@ namespace MadHotSpot.Applications.Meets
             _context.SaveChanges();
             return new ResultJson { Success = true, Message = "Kayıt Silindi"};
         }
+
+
     }
 }

@@ -1092,7 +1092,7 @@
                     "Email": $("#guestemail").val(),
                     "PhoneNumber": $("#guestPhoneNumber").val(),
                     "RoomNumber": $("#roomNumber").val(),
-                    "HotspotType" : "Guest"
+                    "LoginType" : 0
                 }),
                 success: function (result) {
 
@@ -1114,6 +1114,32 @@
 
         function ToplantiEmailTelefonKontrol() {
 
+            Notiflix.Block.Standard('.login-box');
+            $.ajax({
+                type: "post",
+                url: "/Login/LoginCheck",
+                data: JSON.stringify({
+                    "FirmaId": $("#FirmaId").val(),
+                    "BirthDate": $("#meetIdNumber").val(),
+                    "Email": $("#meetEmail").val(),
+                    "PhoneNumber": $("#meetPhoneNumber").val(),
+                    "RoomNumber": $("#meetPassword").val(),
+                    "LoginType": 2
+                }),
+                success: function (result) {
+
+                    if (result.success) {
+                        return true;
+                    } else {
+                        Notiflix.Notify.Failure("Bilgiler Eşleşmedi");
+                        return false;
+                    }
+                    Notiflix.Block.Remove("*", 0);
+                }
+            });
+        }
+
+        function SpaEmailTelefonKontrol() {
 
             Notiflix.Block.Standard('.login-box');
             $.ajax({
@@ -1125,7 +1151,7 @@
                     "Email": $("#meetEmail").val(),
                     "PhoneNumber": $("#meetPhoneNumber").val(),
                     "RoomNumber": $("#meetPassword").val(),
-                    "HotspotType": "Meet"
+                    "LoginType": 3
                 }),
                 success: function (result) {
 
@@ -1141,9 +1167,11 @@
                 }
 
             });
+
+
         }
 
-        function SpaEmailTelefonKontrol() {
+        function StaffKontrol() {
 
 
             Notiflix.Block.Standard('.login-box');
@@ -1156,7 +1184,7 @@
                     "Email": $("#meetEmail").val(),
                     "PhoneNumber": $("#meetPhoneNumber").val(),
                     "RoomNumber": $("#meetPassword").val(),
-                    "HotspotType": "Spa"
+                    "HotspotType": 1
                 }),
                 success: function (result) {
 

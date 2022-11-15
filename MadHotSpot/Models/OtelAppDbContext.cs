@@ -29,7 +29,7 @@ namespace MadHotSpot.Models
         public DbSet<CustomerInfo> H_CustomerInfo { get; set; }
         public DbSet<Staff> H_Staffs { get; set; }
         public DbSet<Meet> H_Meets { get; set; }
-
+        public DbSet<Log> H_Logs { get; set; }
 
     }
 

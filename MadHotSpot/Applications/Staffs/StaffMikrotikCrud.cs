@@ -1,6 +1,7 @@
 ﻿using MadHotSpot.Dtos;
 using MadHotSpot.Interfaces;
 using MadHotSpot.Models;
+using MadHotSpot.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,6 +130,42 @@ namespace MadHotSpot.Applications.Staffs
                 }
             }
             else return new ResultJson { Success = false, Message = result.Message };
+        }
+
+        public async Task<ResultJson> CheckMikrotikUser(string username,string password,Guid FirmaId)
+        {
+            ResultMikrotikConnection resultMc = await _mikrotik.GetMikrotikConnection(FirmaId);
+            ResultJson resultJson = new ResultJson();
+            if(resultMc.result)
+            {
+                try
+                {
+                    using (var conn = resultMc.tikConnection)
+                    {
+                        var user = conn.LoadList<HotspotUser>().Where(x => x.Name.Equals(username) && x.Password.Equals(password)).FirstOrDefault();
+                        if (user != null)
+                        {
+                            resultJson.Success = true;
+                        }
+                        else
+                        {
+                            resultJson.Success = false;
+                            resultJson.Message = "Geçersiz Şifre";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    resultJson.Success = false;
+                    resultJson.Message = ex.Message;
+                }
+            }else
+            {
+                resultJson.Success = false;
+                resultJson.Message = resultMc.Message;
+            }
+
+            return resultJson;
         }
     }
 }
