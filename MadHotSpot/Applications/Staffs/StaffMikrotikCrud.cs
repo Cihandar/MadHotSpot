@@ -132,7 +132,7 @@ namespace MadHotSpot.Applications.Staffs
             else return new ResultJson { Success = false, Message = result.Message };
         }
 
-        public async Task<ResultJson> CheckMikrotikUser(string username,string password,Guid FirmaId)
+        public async Task<ResultJson> CheckMikrotikUser(string username,string password,Guid FirmaId,string ClientMac,string ClientIp)
         {
             ResultMikrotikConnection resultMc = await _mikrotik.GetMikrotikConnection(FirmaId);
             ResultJson resultJson = new ResultJson();
@@ -145,6 +145,8 @@ namespace MadHotSpot.Applications.Staffs
                         var user = conn.LoadList<HotspotUser>().Where(x => x.Name.Equals(username) && x.Password.Equals(password)).FirstOrDefault();
                         if (user != null)
                         {
+                            var resultActive = conn.CreateCommandAndParameters("/ip/hotspot/active/login", "user", username, "password", password, "mac-address", ClientMac, "ip", ClientIp).ExecuteScalarOrDefault();
+
                             resultJson.Success = true;
                         }
                         else

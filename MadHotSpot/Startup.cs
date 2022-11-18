@@ -1,4 +1,6 @@
-﻿using MadHotSpot.Applications.Meets;
+﻿using MadHotSpot.Applications.CustomerInfos;
+using MadHotSpot.Applications.Logs;
+using MadHotSpot.Applications.Meets;
 using MadHotSpot.Applications.Mikrotik;
 using MadHotSpot.Applications.Staffs;
 using MadHotSpot.Extentions;
@@ -49,6 +51,8 @@ namespace MadHotSpot
             services.AddScoped<IMeetMikrotikCrud, MeetMikrotikCrud>();
             services.AddScoped<IMikrotikSettings, MikrotikSettings>();
             services.AddScoped<IMikrotikUserProfile, MikrotikUserProfile>();
+            services.AddScoped<ILogCrud, LogCrud>();
+            services.AddScoped<ICustomerInfo, CustomerInfoCrud>();
 
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 
