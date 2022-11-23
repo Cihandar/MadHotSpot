@@ -18,6 +18,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Reflection;
+using Serilog.AspNetCore;
+using Serilog.Sinks.MSSqlServer;
+using Serilog.Core;
+using Serilog;
 
 namespace MadHotSpot
 {
@@ -114,6 +118,7 @@ namespace MadHotSpot
             //                                .AllowAnyMethod();
             //        });
             //});
+
 
 
 

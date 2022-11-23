@@ -11,7 +11,7 @@ using MadHotSpot.Models.ViewModel;
 using tik4net.Objects;
 using MadHotSpot.Interfaces;
 using MadHotSpot.Models.Enum;
-
+using Serilog;
 namespace MadHotSpot.Controllers
 {
     public class LoginController : Controller
@@ -23,8 +23,9 @@ namespace MadHotSpot.Controllers
         IStaffMikrotikCrud _staffMikrotikCrud;
         ILogCrud _logCrud;
         ICustomerInfo _customerInfo;
+        ILogger _logger;
 
-        public LoginController(OtelAppDbContext _context, UserManager<AppUser> userManager, IStaffCrud staffCrud, IStaffMikrotikCrud staffMikrotikCrud, ILogCrud logCrud, ICustomerInfo customerInfo)
+        public LoginController(OtelAppDbContext _context, UserManager<AppUser> userManager, IStaffCrud staffCrud, IStaffMikrotikCrud staffMikrotikCrud, ILogCrud logCrud, ICustomerInfo customerInfo, ILogger logger)
         {
             context = _context;
             _userManager = userManager;
@@ -32,6 +33,7 @@ namespace MadHotSpot.Controllers
             _staffMikrotikCrud = staffMikrotikCrud;
             _logCrud = logCrud;
             _customerInfo = customerInfo;
+            _logger = logger;
         }
 
         public IActionResult Index(string ClientMac, string ClientIp, string Lokasyon,string Url, Guid FirmaId)
@@ -49,13 +51,16 @@ namespace MadHotSpot.Controllers
         {
             ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId, customer.Mac, customer.LocalIp);
             if (!result.Success)
-                await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
-            else
-            {
-             //   _customerInfo.SendCustomerInfoAsync(customer);
-                result.Message = "https://www.google.com";
+            { 
+                //await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
+                _logger.Error("Hotspot Hata Giriş", customer, result);
             }
 
+            else
+            {
+                _customerInfo.SendCustomerInfoAsync(customer);
+                result.Message = "https://www.google.com";
+            }
             return Ok(result);
         }
 
