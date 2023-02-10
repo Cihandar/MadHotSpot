@@ -123,6 +123,7 @@ namespace MadHotSpot
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMemoryCache();
 
         }
 
