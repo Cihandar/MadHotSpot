@@ -18,7 +18,7 @@ namespace MadHotSpot.Controllers
     public class BaseController : Controller
     {
 
-        public static Guid FirmaId { get; set; }
+        public Guid FirmaId { get; set; }
         public bool admin { get; set; }
         public override void OnActionExecuting(ActionExecutingContext context)
         {

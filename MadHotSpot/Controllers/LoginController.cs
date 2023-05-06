@@ -23,9 +23,9 @@ namespace MadHotSpot.Controllers
         IStaffMikrotikCrud _staffMikrotikCrud;
         ILogCrud _logCrud;
         ICustomerInfo _customerInfo;
-        ILogger _logger;
 
-        public LoginController(OtelAppDbContext _context, UserManager<AppUser> userManager, IStaffCrud staffCrud, IStaffMikrotikCrud staffMikrotikCrud, ILogCrud logCrud, ICustomerInfo customerInfo, ILogger logger)
+
+        public LoginController(OtelAppDbContext _context, UserManager<AppUser> userManager, IStaffCrud staffCrud, IStaffMikrotikCrud staffMikrotikCrud, ILogCrud logCrud, ICustomerInfo customerInfo)
         {
             context = _context;
             _userManager = userManager;
@@ -33,7 +33,7 @@ namespace MadHotSpot.Controllers
             _staffMikrotikCrud = staffMikrotikCrud;
             _logCrud = logCrud;
             _customerInfo = customerInfo;
-            _logger = logger;
+          
         }
 
         public IActionResult Index(string ClientMac, string ClientIp, string Lokasyon,string Url, Guid FirmaId)
@@ -53,7 +53,7 @@ namespace MadHotSpot.Controllers
             if (!result.Success)
             { 
                 //await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
-                _logger.Error("Hotspot Hata Giriş", customer, result);
+              //  _logger.Error("Hotspot Hata Giriş", customer, result);
             }
 
             else

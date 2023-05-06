@@ -31,6 +31,7 @@ namespace MadHotSpot.Controllers
         {
             var data = context.H_Ayarlar.FirstOrDefault(x => x.FirmaId == FirmaId);
             data.MikrotikPass = null;
+            data.ElektraPassword = null;
             return View(data);
         }
 
@@ -65,7 +66,12 @@ namespace MadHotSpot.Controllers
                 ayar.TarifeAktif = ayarlar.TarifeAktif;
                 ayar.DiaEntegrasyonAktif = ayarlar.DiaEntegrasyonAktif;
                 ayar.DiaUrl = ayarlar.DiaUrl;
-                //TODO : DUGHAN
+                ayar.ElektraEntegrasyonAktif = ayarlar.ElektraEntegrasyonAktif;
+                ayar.ElektraTenantId = ayarlar.ElektraTenantId;
+                ayar.ElektraUser = ayarlar.ElektraUser;
+                
+                if (!string.IsNullOrEmpty(ayarlar.ElektraPassword)) ayar.ElektraPassword = ayarlar.ElektraPassword;
+
                 context.SaveChanges();
 
                 return Ok(new Response { Success = true, Message = "Kayıt Başarılı" });

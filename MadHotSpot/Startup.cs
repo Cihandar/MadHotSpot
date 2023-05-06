@@ -46,6 +46,7 @@ namespace MadHotSpot
 
             #region DbContext
             services.AddDbContext<OtelAppDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("OtelAppDatabase")));
+  
             #endregion
 
             services.AddScoped<IFileUpload, FileUpload>();

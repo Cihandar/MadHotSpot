@@ -14,9 +14,6 @@ namespace MadHotSpot.Models
         public OtelAppDbContext(DbContextOptions<OtelAppDbContext> options) : base(options) { }
         public OtelAppDbContext()
         {
-
- 
-
         }
         public DbSet<Ayarlar> H_Ayarlar { get; set; }
         public DbSet<HotSpotAyar> H_HotSpotAyar { get; set; }

@@ -23,5 +23,10 @@ namespace MadHotSpot.Models
         public bool TarifeAktif { get; set; }
         public bool DiaEntegrasyonAktif { get; set; }
         public string DiaUrl { get; set; }
+        public bool ElektraEntegrasyonAktif { get; set; }
+        public string ElektraTenantId { get; set; }
+        public string ElektraUser { get; set; }
+        public string ElektraPassword { get; set; }
+
     }
 }

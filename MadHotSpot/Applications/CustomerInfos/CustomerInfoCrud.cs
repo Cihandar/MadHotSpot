@@ -20,19 +20,28 @@ namespace MadHotSpot.Applications.CustomerInfos
 
         public void SendCustomerInfoAsync(CustomerInfoViewModel customer)
         {
-            CustomerInfo model = _context.H_CustomerInfo.Where(x => x.Email.Equals(customer.Email)).FirstOrDefault();
-            if (model == null && customer.LoginType != LoginType.Staff)
+            try
             {
-                _context.H_CustomerInfo.Add(new CustomerInfo
+                CustomerInfo model = _context.H_CustomerInfo.Where(x => x.Email.Equals(customer.Email)).FirstOrDefault();
+                if (model == null && customer.LoginType != LoginType.Staff)
                 {
-                    Email = customer.Email,
-                    PhoneNumber = customer.PhoneNumber,
-                    FirmaId = customer.FirmaId,
-                    LoginType = customer.LoginType,
-                    RoomNumber = customer.RoomNumber,
-                    BirthDate = customer.BirthDate
-                });
+                    _context.H_CustomerInfo.Add(new CustomerInfo
+                    {
+                        Email = customer.Email,
+                        PhoneNumber = customer.PhoneNumber,
+                        FirmaId = customer.FirmaId,
+                        LoginType = customer.LoginType,
+                        RoomNumber = customer.RoomNumber,
+                        BirthDate = customer.BirthDate
+                    });
+                }
             }
+            catch (Exception ex)
+            {
+                
+            }
+         
+  
 
         }
     }

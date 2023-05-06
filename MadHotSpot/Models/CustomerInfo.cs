@@ -14,6 +14,5 @@ namespace MadHotSpot.Models
         public bool Kvkk { get; set; }
         public bool Contact { get; set; }
         public LoginType LoginType { get; set; }
-
     }
 }
