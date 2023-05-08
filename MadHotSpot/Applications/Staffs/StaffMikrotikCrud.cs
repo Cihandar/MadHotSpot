@@ -86,7 +86,7 @@ namespace MadHotSpot.Applications.Staffs
                     {
                         var user = conn.LoadById<HotspotUser>(model.MikrotikId);
                         user.Disabled = !model.Active;
-                        user.Name = model.Name;
+                        user.Name = model.IdNumber;
                         user.Email = model.Email;
                         user.Password = model.Day + "." + model.Month + "." + model.Year;
                         user.Profile = model.UserProfile;

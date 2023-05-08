@@ -33,10 +33,10 @@ namespace MadHotSpot.Controllers
             _staffMikrotikCrud = staffMikrotikCrud;
             _logCrud = logCrud;
             _customerInfo = customerInfo;
-          
+
         }
 
-        public IActionResult Index(string ClientMac, string ClientIp, string Lokasyon,string Url, Guid FirmaId)
+        public IActionResult Index(string ClientMac, string ClientIp, string Lokasyon, string Url, Guid FirmaId)
         {
             ViewBag.ClientMac = ClientMac;
             ViewBag.ClientIp = ClientIp;
@@ -46,19 +46,20 @@ namespace MadHotSpot.Controllers
             return View(data);
         }
 
-        [HttpPost] 
+        [HttpPost]
         public async Task<IActionResult> LoginCheck([FromBody] CustomerInfoViewModel customer)
         {
             ResultJson result = await _staffMikrotikCrud.CheckMikrotikUser(customer.UserName, customer.Password, customer.FirmaId, customer.Mac, customer.LocalIp);
             if (!result.Success)
-            { 
+            {
                 //await _logCrud.SendErrorLogAsync(result.Message, "Login", customer.FirmaId, customer.Mac, customer.LocalIp);
-              //  _logger.Error("Hotspot Hata Giriş", customer, result);
+                //  _logger.Error("Hotspot Hata Giriş", customer, result);
             }
 
             else
             {
-                _customerInfo.SendCustomerInfoAsync(customer);
+                if (customer.LoginType != LoginType.Staff)
+                    _customerInfo.SendCustomerInfoAsync(customer);
                 result.Message = "https://www.google.com";
             }
             return Ok(result);
