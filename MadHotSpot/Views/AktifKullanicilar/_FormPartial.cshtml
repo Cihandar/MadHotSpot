@@ -11,7 +11,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">İnternet Satış Tanımları</h5>
-                    <button  type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
+                    <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
                 </div>
                 <div class="modal-body">
                     <div class="hidden">
@@ -43,25 +43,25 @@
                             </div>
                         </div>
                     </div>
-                    @if(Model.Ayarlar.TarifeAktif)
-                    { 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label asp-for="InternetSatis.Tarife" class="form-control-label">Tarifeli Satış</label>
-                                <input asp-for="InternetSatis.Tarife" onchange="TarifeAktif()" class="form-control" placeholder="" id="tarife" />
-                                <span asp-validation-for="InternetSatis.Tarife" class="text-danger"> </span>
+                    @if (Model.Ayarlar.TarifeAktif)
+                    {
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label asp-for="InternetSatis.Tarife" class="form-control-label">Tarifeli Satış</label>
+                                    <input asp-for="InternetSatis.Tarife" onchange="TarifeAktif()" class="form-control" placeholder="" id="tarife" />
+                                    <span asp-validation-for="InternetSatis.Tarife" class="text-danger"> </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label asp-for="InternetSatis.TarifeId" class="form-control-label">Tarife Seç</label>
+                                <select asp-for="InternetSatis.TarifeId" onchange="TarifeSec()" class="form-control" data-placeholder="" disabled asp-items="@(new SelectList(Model.Tarifeler,"Id","TarifeAdi"))" id="cmbtarife">
+                                    <option value="0">Tarife Seç</option>
+                                </select>
+                                <span asp-validation-for="InternetSatis.TarifeId" class="text-danger"> </span>
                             </div>
                         </div>
-                        <div class="form-group col-md-8">
-                            <label asp-for="InternetSatis.TarifeId" class="form-control-label">Tarife Seç</label>
-                            <select asp-for="InternetSatis.TarifeId" onchange="TarifeSec()" class="form-control" data-placeholder="" disabled asp-items="@(new SelectList(Model.Tarifeler,"Id","TarifeAdi"))" id="cmbtarife">
-                                <option value="0">Tarife Seç</option>
-                            </select>
-                            <span asp-validation-for="InternetSatis.TarifeId" class="text-danger"> </span>
-                        </div>
-                    </div>
                     }
                     <div class="row">
                         <div class="col-sm-4">
@@ -199,40 +199,40 @@
     var usd = 0;
     var euro = 0;
 
-                        function TarifeSec() {
+    function TarifeSec() {
 
-                            if ($("#cmbtarife").val() != "0") {
-                                $("#kaydet").prop("disabled", false);
-                                Notiflix.Block.Standard('.modal-dialog');
-                                $.ajax({
-                                    type: "get",
-                                    url: "Tarifeler/GetTarife",
-                                    data: { Id: $("#cmbtarife").val() },
-                                    success: function (result) {
+        if ($("#cmbtarife").val() != "0") {
+            $("#kaydet").prop("disabled", false);
+            Notiflix.Block.Standard('.modal-dialog');
+            $.ajax({
+                type: "get",
+                url: "Tarifeler/GetTarife",
+                data: { Id: $("#cmbtarife").val() },
+                success: function (result) {
 
-                                        if (result != null) {
+                    if (result != null) {
 
-                                            tl = result.tlFiyat;
-                                            euro = result.euroFiyat;
-                                            usd = result.usdFiyat;
+                        tl = result.tlFiyat;
+                        euro = result.euroFiyat;
+                        usd = result.usdFiyat;
 
-                                            $("#gun").val(result.gun);
-                                            hesapla();
+                        $("#gun").val(result.gun);
+                        hesapla();
 
-                                        }
+                    }
 
 
-                                    }
+                }
 
-                                });
-                                Notiflix.Block.Remove("*", 0);
-                            } else {
-                               
-                                $("#kaydet").prop("disabled",true);
-                            }
+            });
+            Notiflix.Block.Remove("*", 0);
+        } else {
 
-                        }
- 
+            $("#kaydet").prop("disabled", true);
+        }
+
+    }
+
 
     function hesapla() {
 
@@ -253,31 +253,31 @@
             }
         } else {
 
-     
 
-        if ($("#gun").val() < 1) $("#gun").val("1");
 
-        var gun = $("#gun").val();
-        var tutar = 0;
-        switch ($("#doviz").val()) {
+            if ($("#gun").val() < 1) $("#gun").val("1");
 
-            case "TL":
-                var tltutar = $("#TLtutar").val();
-                tutar = tltutar * gun;
-                break;
+            var gun = $("#gun").val();
+            var tutar = 0;
+            switch ($("#doviz").val()) {
 
-            case "EURO":
-                var eurotutar = $("#Eurotutar").val();
-                tutar = eurotutar * gun;
-                break;
+                case "TL":
+                    var tltutar = $("#TLtutar").val();
+                    tutar = tltutar * gun;
+                    break;
 
-            case "USD":
-                var usdtutar = $("#USDtutar").val();
-                tutar = usdtutar * gun;
-                break;
-        }
+                case "EURO":
+                    var eurotutar = $("#Eurotutar").val();
+                    tutar = eurotutar * gun;
+                    break;
 
-        $("#tutar").val(tutar);
+                case "USD":
+                    var usdtutar = $("#USDtutar").val();
+                    tutar = usdtutar * gun;
+                    break;
+            }
+
+            $("#tutar").val(tutar);
         }
     }
 

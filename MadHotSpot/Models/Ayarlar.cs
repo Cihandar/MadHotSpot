@@ -27,6 +27,7 @@ namespace MadHotSpot.Models
         public string ElektraTenantId { get; set; }
         public string ElektraUser { get; set; }
         public string ElektraPassword { get; set; }
+        public bool ManuelGuestAdd { get; set; }
 
     }
 }

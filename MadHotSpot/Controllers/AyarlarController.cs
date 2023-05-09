@@ -69,6 +69,7 @@ namespace MadHotSpot.Controllers
                 ayar.ElektraEntegrasyonAktif = ayarlar.ElektraEntegrasyonAktif;
                 ayar.ElektraTenantId = ayarlar.ElektraTenantId;
                 ayar.ElektraUser = ayarlar.ElektraUser;
+                ayar.ManuelGuestAdd = ayarlar.ManuelGuestAdd;
                 
                 if (!string.IsNullOrEmpty(ayarlar.ElektraPassword)) ayar.ElektraPassword = ayarlar.ElektraPassword;
 

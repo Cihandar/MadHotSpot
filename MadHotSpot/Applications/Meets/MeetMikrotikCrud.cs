@@ -75,6 +75,47 @@ namespace MadHotSpot.Applications.Meets
             else return new ResultJson { Success = false, Message = result.Message };
         }
 
+        public async Task<ResultJson> AddUser(Rezervasyonlar model)
+        {
+            var result = await _mikrotik.GetMikrotikConnection(model.FirmaId);
+            if (result.result)
+            {
+                var time = (int)Math.Round((model.AyrilisTarihi - DateTime.Now).TotalDays, 0);
+                var user = new HotspotUser()
+                {
+                    Name = model.DogumTarihi.ToString("dd.MM.yyyy"),
+                    Password = model.Odano,
+                    Comment = "Guest",
+                    LimitUptime = time.ToString() + ":00:00"
+                };
+                try
+                {
+                    using (var conn = result.tikConnection)
+                    {
+                   
+                        try
+                        {
+                    
+                                conn.Save(user);
+                      
+                            return new ResultJson { Success = true, MikrotikId = user.Id, UserProfileName = "" };
+                        }
+                        catch (Exception ex)
+                        {
+                            return new ResultJson { Success = false, Message = ex.Message };
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResultJson { Success = false, Message = ex.Message };
+                }
+
+
+            }
+            else return new ResultJson { Success = false, Message = result.Message };
+        }
+
         public async Task<ResultJson> SetDisabled(Meet Meet, bool status)
         {
             var result = await _mikrotik.GetMikrotikConnection(Meet.FirmaId);
@@ -158,6 +199,28 @@ namespace MadHotSpot.Applications.Meets
 
                         var user = conn.LoadById<HotspotUser>(model.MikrotikId);
                         conn.Delete(user);
+                    }
+                    return new ResultJson { Success = true };
+                }
+                catch (Exception ex)
+                {
+                    return new ResultJson { Success = false, Message = ex.Message };
+                }
+            }
+            else return new ResultJson { Success = false, Message = result.Message };
+        }
+
+        public async Task<ResultJson> DeleteUser(string username,Guid FirmaId)
+        {
+            var result = await _mikrotik.GetMikrotikConnection(FirmaId);
+            if (result.result)
+            {
+                try
+                {
+                    using (var conn = result.tikConnection)
+                    {
+                        var profile = conn.LoadByName<HotspotUser>(username);
+                        conn.Delete(profile);
                     }
                     return new ResultJson { Success = true };
                 }

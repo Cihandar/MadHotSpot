@@ -1,0 +1,92 @@
+﻿@model MadHotSpot.Models.Rezervasyonlar;
+@{
+
+    var action = Model.Id == null || Model.Id == Guid.Empty ? "create" : "update";
+    //var areaTypeList = typeof(type).EnumToList().Select(x => new { Value = x.Value, Text = x.Description }).OrderBy(x => x.Text).ToList();
+}
+<div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" enctype="multipart/form-data" data-ajax-begin="OtelAppOnBegin" data-ajax-complete="OtelAppOnComplete('crud-modal',10,yenile)" data-ajax-failure="OtelAppOnFailure" data-ajax-success="OtelAppOnSuccess(data, yenile)" data-ajax="true" data-ajax-method="POST" data-ajax-url="/GuestList/@action">
+            @Html.AntiForgeryToken()
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">İnternet Satış Tanımları</h5>
+                    <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="hidden">
+                        <input type="hidden" class="form-control" asp-for="Id">
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="MusteriAdi" class="form-control-label">Ad Soyad</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="MusteriAdi" class="form-control" placeholder="Müşteri Adı Soyadı">
+                                    <span asp-validation-for="MusteriAdi" class="text-danger"> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Tcno" class="form-control-label">T.C. No</label>
+                                <input asp-for="Tcno" class="form-control" placeholder="T.C. No" />
+                                <span asp-validation-for="Tcno" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="KimlikNo" class="form-control-label">Pasaport No</label>
+                                <input asp-for="KimlikNo" class="form-control" placeholder="Pasaport No" />
+                                <span asp-validation-for="KimlikNo" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Odano" class="form-control-label">Odano</label>
+                                <input asp-for="Odano" class="form-control" placeholder="Odano" />
+                                <span asp-validation-for="Odano" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="DogumTarihi" class="form-control-label">Doğum Tarihi</label>
+                                <input asp-for="DogumTarihi" class="form-control" placeholder="Doğum Tarihi" />
+                                <span asp-validation-for="DogumTarihi" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="AyrilisTarihi" class="form-control-label">Çıkış Tarihi</label>
+                                <input asp-for="AyrilisTarihi" class="form-control" placeholder="Çıkış Tarihi" />
+                                <span asp-validation-for="AyrilisTarihi" class="text-danger"> </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary OtelApp-forms-modal-close" data-dismiss="modal">Vazgeç</button>
+                    <button type="submit" id="kaydet" class="btn btn-success">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

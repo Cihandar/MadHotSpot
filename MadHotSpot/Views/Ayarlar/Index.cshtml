@@ -22,38 +22,38 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-6">
                                     <label asp-for="MikrotikIp" class="form-control-label">Ip Adresi</label>
                                     <input asp-for="MikrotikIp" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikIp" class="text-danger"> </span>
                                 </div>
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-6">
                                     <label asp-for="MikrotikPort" class="form-control-label">Api Port</label>
                                     <input asp-for="MikrotikPort" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikPort" class="text-danger"> </span>
                                 </div>
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-6">
                                     <label asp-for="MikrotikUser" class="form-control-label">Kullanıcı Adı</label>
                                     <input maxlength="11" asp-for="MikrotikUser" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikUser" class="text-danger"> </span>
                                 </div>
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-6">
                                     <label asp-for="MikrotikPass" class="form-control-label">Şifre</label>
                                     <input maxlength="11" asp-for="MikrotikPass" class="form-control" placeholder="" />
 
                                     <span asp-validation-for="MikrotikPass" class="text-danger"> </span>
                                 </div>
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-4">
                                     <label asp-for="MikrotikHotspotAdi" class="form-control-label">Hotspot Adı</label>
                                     <input maxlength="11" asp-for="MikrotikHotspotAdi" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikHotspotAdi" class="text-danger"> </span>
                                 </div>
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-4">
                                     <label asp-for="MikrotikProfilAdi" class="form-control-label">User Profil Adı</label>
                                     <input maxlength="11" asp-for="MikrotikProfilAdi" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikProfilAdi" class="text-danger"> </span>
                                 </div>
-                                <div class="form-group col-12">
+                                <div class="form-group col-md-4">
                                     <label asp-for="MikrotikDefaultSifre" class="form-control-label">Default Giriş Şifresi</label>
                                     <input maxlength="11" asp-for="MikrotikDefaultSifre" class="form-control" placeholder="" />
                                     <span asp-validation-for="MikrotikDefaultSifre" class="text-danger"> </span>
@@ -71,6 +71,56 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h5 class="box-title">Diğer Ayarlar</h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="IadeAktif" class="text-danger"></span>
+                                        <label asp-for="IadeAktif" class="form-control-label">İade Aktif</label>
+                                        <input maxlength="11" asp-for="IadeAktif" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="TarifeAktif" class="text-danger"></span>
+                                        <label asp-for="TarifeAktif" class="form-control-label">Tarifeli Satış Aktif</label>
+                                        <input maxlength="11" asp-for="TarifeAktif" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12" style="display:none;">
+                                    <div class="icheck-primary d-inline">
+                                        <span asp-validation-for="SinirsizAktif" class="text-danger"> </span>
+                                        <label asp-for="SinirsizAktif" class="form-control-label">Sınırsız Aktif</label>
+                                        <input maxlength="11" asp-for="SinirsizAktif" class="ml-2" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-12" style="display:none;">
+                                    <div class="icheck-primary d-inline">
+                                        <label asp-for="AdSoyadZorunlu" class="form-control-label">Ad Soyad Zorunlu?</label>
+                                        <input maxlength="11" asp-for="AdSoyadZorunlu" class="ml-2" placeholder="" />
+                                        <span asp-validation-for="AdSoyadZorunlu" class="text-danger"> </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12"  >
+                                    <div class="icheck-primary d-inline">
+                                        <label asp-for="ManuelGuestAdd" class="form-control-label">Manuel Misafir Ekleme Aktif</label>
+                                        <input maxlength="11" asp-for="ManuelGuestAdd" class="ml-2" placeholder="" />
+                                        <span asp-validation-for="ManuelGuestAdd" class="text-danger"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-md-6">
                     <div class="box box-info">
@@ -162,50 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h5 class="box-title">Diğer Ayarlar</h5>
-                        </div>
-                        <div class="box-body">
-                            <div class="row">
-
-                                <div class="form-group col-12">
-                                    <div class="icheck-primary d-inline">
-                                        <span asp-validation-for="IadeAktif" class="text-danger"></span>
-                                        <label asp-for="IadeAktif" class="form-control-label">İade Aktif</label>
-                                        <input maxlength="11" asp-for="IadeAktif" class="ml-2" placeholder="" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-12">
-                                    <div class="icheck-primary d-inline">
-                                        <span asp-validation-for="TarifeAktif" class="text-danger"></span>
-                                        <label asp-for="TarifeAktif" class="form-control-label">Tarifeli Satış Aktif</label>
-                                        <input maxlength="11" asp-for="TarifeAktif" class="ml-2" placeholder="" />
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group col-12" style="display:none;">
-                                    <div class="icheck-primary d-inline">
-                                        <span asp-validation-for="SinirsizAktif" class="text-danger"> </span>
-                                        <label asp-for="SinirsizAktif" class="form-control-label">Sınırsız Aktif</label>
-                                        <input maxlength="11" asp-for="SinirsizAktif" class="ml-2" placeholder="" />
-                                    </div>
-                                </div>
-                                <div class="form-group col-12" style="display:none;">
-                                    <div class="icheck-primary d-inline">
-                                        <label asp-for="AdSoyadZorunlu" class="form-control-label">Ad Soyad Zorunlu?</label>
-                                        <input maxlength="11" asp-for="AdSoyadZorunlu" class="ml-2" placeholder="" />
-                                        <span asp-validation-for="AdSoyadZorunlu" class="text-danger"> </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>

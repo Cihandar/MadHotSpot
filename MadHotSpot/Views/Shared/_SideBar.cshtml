@@ -77,6 +77,13 @@
                         </a>
 
                         <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/Staff" || Context.Request.Path.Value == "/Meet" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
+                            
+                            <li class="nav-item">
+                                <a href="/GuestList" class="nav-link @(Context.Request.Path.Value == "/GuestList"  ? " bg-blue" : "" )">
+                                    <i class="fas fa-user-alt nav-icon"></i>
+                                    <p class="text">Otel Misafirleri</p>
+                                </a>
+                            </li>
 
                             <li class="nav-item">
                                 <a href="/AktifKullanicilar" class="nav-link @(Context.Request.Path.Value == "/AktifKullanicilar"  ? " bg-blue" : "" )">
