@@ -11,10 +11,11 @@ namespace MadHotSpot.Models
 {
     public class OtelAppDbContext :  IdentityDbContext<AppUser>
     {
-        public OtelAppDbContext(DbContextOptions<OtelAppDbContext> options) : base(options) { }
         public OtelAppDbContext()
         {
         }
+        public OtelAppDbContext(DbContextOptions<OtelAppDbContext> options) : base(options) { }
+      
         public DbSet<Ayarlar> H_Ayarlar { get; set; }
         public DbSet<HotSpotAyar> H_HotSpotAyar { get; set; }
         public DbSet<Kullanicilar> H_Kullanicilar { get; set; }
@@ -28,6 +29,14 @@ namespace MadHotSpot.Models
         public DbSet<Meet> H_Meets { get; set; }
         public DbSet<Log> H_Logs { get; set; }
         public DbSet<ElektraWebSetting> H_ElektraWebSetting { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=mssql.aktasweb.com;Database=001MadHotspotDb;User Id=selinushms;Password=cK@3y6p2;Application Name=OtelApp-Production;MultipleActiveResultSets=true");
+            }
+        }
 
     }
 

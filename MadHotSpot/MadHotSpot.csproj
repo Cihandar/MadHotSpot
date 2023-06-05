@@ -5,6 +5,11 @@
 		<DebugType>full</DebugType>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Migrations\20230605192140_elektrawebsettingsdto.cs" />
+	  <Compile Remove="Migrations\20230605192140_elektrawebsettingsdto.Designer.cs" />
+	</ItemGroup>
+
 
 	<ItemGroup>
     <None Remove="Views\Shared\_Layout.cshtml22" />
