@@ -27,6 +27,7 @@ namespace MadHotSpot.Models
         public DbSet<Staff> H_Staffs { get; set; }
         public DbSet<Meet> H_Meets { get; set; }
         public DbSet<Log> H_Logs { get; set; }
+        public DbSet<ElektraWebSetting> H_ElektraWebSetting { get; set; }
 
     }
 

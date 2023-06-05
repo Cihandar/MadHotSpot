@@ -22,6 +22,7 @@ using Serilog.AspNetCore;
 using Serilog.Sinks.MSSqlServer;
 using Serilog.Core;
 using Serilog;
+using MadHotSpot.Applications.ElektraWeb;
 
 namespace MadHotSpot
 {
@@ -58,6 +59,7 @@ namespace MadHotSpot
             services.AddScoped<IMikrotikUserProfile, MikrotikUserProfile>();
             services.AddScoped<ILogCrud, LogCrud>();
             services.AddScoped<ICustomerInfo, CustomerInfoCrud>();
+            services.AddScoped<IElektraWebSettingsCrud, ElektraWebSettingsCrud>();
 
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 
@@ -124,6 +126,7 @@ namespace MadHotSpot
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();
 
         }
