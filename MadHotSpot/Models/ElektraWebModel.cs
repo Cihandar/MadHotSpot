@@ -24,6 +24,7 @@ namespace MadHotSpot.Models
         public string Object { get; set; }
         public List<OrderBy> OrderBy { get; set; }
         public Paging Paging { get; set; }
+        public List<object> Select { get; set; }
         public List<object> Where { get; set; }
         public string Tenant { get; set; }
         public string Usercode { get; set; }
@@ -45,6 +46,17 @@ namespace MadHotSpot.Models
     public class Parameters
     {
         public int HOTELID { get; set; }
+    }
+
+    public class CashFolioParameter : Parameters
+    {
+        public string RESID { get; set; }
+        public int DEPID { get; set; }
+        public int REVID { get; set; }
+        public int DEPID_PAYMENT { get; set; }
+        public string CTOTAL { get; set; }
+        public int CURRENCYID { get; set; }
+        public string Notes { get; set; }
     }
     #endregion
 

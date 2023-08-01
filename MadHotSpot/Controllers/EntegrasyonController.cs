@@ -67,12 +67,30 @@ namespace MadHotSpot.Controllers
 
                 if (integrationData != null && integrationData.Misafir != null)
                 {
+                    string profileName = data.MikrotikProfilAdi;
                     //TODO: DUĞHAN
                     foreach (var x in integrationData.Misafir)
                     {
-                        if (kayitvarmi(x)) continue;
+                        if (kayitvarmi(x,data)) continue;
                         try
                         {
+                            if(x.HotSpotMode=="0")
+                            {
+                                if (!string.IsNullOrEmpty(data.ElektraFreeProfile))
+                                    profileName = data.ElektraFreeProfile;
+
+                            }else if(x.HotSpotMode=="1")
+                            {
+                                if (!string.IsNullOrEmpty(data.ElektraPaidProfile))
+                                    profileName = data.ElektraPaidProfile;
+                            }
+                            else if(x.HotSpotMode=="2")
+                            {
+                                if (!string.IsNullOrEmpty(data.ElektraHighSpeedProfile))
+                                    profileName = data.ElektraHighSpeedProfile;
+                            }
+                             
+
                             using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, data.MikrotikIp, int.Parse(data.MikrotikPort), data.MikrotikUser, data.MikrotikPass))
                             {
                                 DateTime dt;
@@ -91,7 +109,7 @@ namespace MadHotSpot.Controllers
                                     var sure = CheckOut - DateTime.Now;
                                     var user = new tik4net.Objects.Ip.Hotspot.HotspotUser()
                                     {
-                                        Profile = data.MikrotikProfilAdi,
+                                        Profile = profileName,
                                         Server = data.MikrotikHotspotAdi,
                                         Name = dt.ToString("dd.MM.yyyy"),
                                         Password = x.Odano,
@@ -108,6 +126,7 @@ namespace MadHotSpot.Controllers
                                         KimlikNo = x.Pasaportno,
                                         Tcno = x.Tckimlikno,
                                         FirmaId = data.FirmaId,
+                                        HotSpotMode = x.HotSpotMode
 
                                     });
 
@@ -129,13 +148,30 @@ namespace MadHotSpot.Controllers
             return Ok(new Response { Success = true, Message = "Entegrasyon Yapıldı !" });
         }
 
-        bool kayitvarmi(Misafir x)
+        bool kayitvarmi(Misafir x,Ayarlar ayar)
         {
             DateTime dt;
 
             if (DateTime.TryParse(x.Dogumtarihi, out dt))
             {
                 var data = context.H_Rezervasyonlar.FirstOrDefault(b => b.Odano == x.Odano && b.DogumTarihi == dt);
+                if(data != null)
+                {
+                    if(x.HotSpotMode!=data.HotSpotMode)
+                    {
+                        context.H_Rezervasyonlar.Remove(data);
+                        context.SaveChanges();
+                        using (var conn = ConnectionFactory.OpenConnection(TikConnectionType.Api_v2, ayar.MikrotikIp, int.Parse(ayar.MikrotikPort), ayar.MikrotikUser, ayar.MikrotikPass))
+                        {
+                            var user = conn.LoadList<tik4net.Objects.Ip.Hotspot.HotspotUser>(conn.CreateParameter("name", data.DogumTarihi.ToString("dd.MM.yyyy"))).FirstOrDefault();
+                            if(user!=null) conn.Delete(user);
+                        }
+                        return false;
+                    }else
+                    {
+                        return true;
+                    }
+                }
                 return data != null;
             }
 
@@ -260,7 +296,8 @@ namespace MadHotSpot.Controllers
                         Pasaportno = item.PASSPORTNO,
                         Tckimlikno = item.NATIONALIDNO,
                         Voucherno = item.VOUCHERNO,
-                        Odano = item.ROOMNO
+                        Odano = item.ROOMNO,
+                        HotSpotMode = item.HOTSPOTMODE
                     });
                 }
             }

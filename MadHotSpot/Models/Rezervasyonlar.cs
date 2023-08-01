@@ -13,5 +13,6 @@ namespace MadHotSpot.Models
         public DateTime DogumTarihi { get; set; }
         public string Odano { get; set; }
         public string MusteriAdi { get; set; }
+        public string HotSpotMode { get; set; }
     }
 }

@@ -60,7 +60,6 @@ namespace MadHotSpot.Controllers
             var response = client.Execute<T>(new RestRequest("", Method.Post) { RequestFormat = DataFormat.Json }
                 .AddBody(request));
             return response.Data;
-
         }
 
 

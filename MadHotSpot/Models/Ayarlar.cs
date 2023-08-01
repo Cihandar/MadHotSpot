@@ -28,6 +28,8 @@ namespace MadHotSpot.Models
         public string ElektraUser { get; set; }
         public string ElektraPassword { get; set; }
         public bool ManuelGuestAdd { get; set; }
-
+        public string ElektraFreeProfile { get; set; }
+        public string ElektraPaidProfile { get; set; }
+        public string ElektraHighSpeedProfile { get; set; }
     }
 }

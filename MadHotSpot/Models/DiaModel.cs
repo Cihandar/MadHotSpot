@@ -39,6 +39,9 @@ namespace MadHotSpot.Models
 
         [XmlElement(ElementName = "dogumtarihi")]
         public string Dogumtarihi { get; set; }
+
+        [XmlElement(ElementName = "hotspotmode")]
+        public string HotSpotMode { get; set; }
     }
 
     [XmlRoot(ElementName = "misafirler")]
