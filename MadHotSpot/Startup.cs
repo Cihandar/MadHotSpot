@@ -23,6 +23,7 @@ using Serilog.Sinks.MSSqlServer;
 using Serilog.Core;
 using Serilog;
 using MadHotSpot.Applications.ElektraWeb;
+using MadHotSpot.Applications.Visitors;
 
 namespace MadHotSpot
 {
@@ -60,6 +61,8 @@ namespace MadHotSpot
             services.AddScoped<ILogCrud, LogCrud>();
             services.AddScoped<ICustomerInfo, CustomerInfoCrud>();
             services.AddScoped<IElektraWebSettingsCrud, ElektraWebSettingsCrud>();
+            services.AddScoped<IVisitorCrud, VisitorCrud>();
+            services.AddScoped<IVisitorMikrotikCrud, VisitorMikrotikCrud>();
 
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 
