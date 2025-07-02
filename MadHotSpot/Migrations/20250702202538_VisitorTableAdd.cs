@@ -3,14 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MadHotSpot.Migrations
 {
-    public partial class VisitorModelAdd : Migration
+    public partial class VisitorTableAdd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "HotSpotMode",
-                table: "H_Rezervasyonlar",
-                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "H_Visitors",
@@ -25,6 +21,7 @@ namespace MadHotSpot.Migrations
                     Day = table.Column<string>(nullable: true),
                     Month = table.Column<string>(nullable: true),
                     Year = table.Column<string>(nullable: true),
+                    RoomNumber = table.Column<string>(nullable: true),
                     LastMac = table.Column<string>(nullable: true),
                     IdNumber = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
@@ -46,9 +43,7 @@ namespace MadHotSpot.Migrations
             migrationBuilder.DropTable(
                 name: "H_Visitors");
 
-            migrationBuilder.DropColumn(
-                name: "HotSpotMode",
-                table: "H_Rezervasyonlar");
+    
         }
     }
 }

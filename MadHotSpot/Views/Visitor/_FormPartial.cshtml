@@ -1,0 +1,142 @@
+﻿@model MadHotSpot.Dtos.VisitorCrudDto;
+@{
+
+    var action = Model == null || Model.Id == Guid.Empty ? "create" : "update";
+    //var areaTypeList = typeof(type).EnumToList().Select(x => new { Value = x.Value, Text = x.Description }).OrderBy(x => x.Text).ToList();
+}
+<div class="modal fade OtelApp-forms-modal" id="crud-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form class="OtelApp-forms" id="OtelApp-forms" asp-controller="DepartmanGruplari" asp-action="@action" 
+        enctype="multipart/form-data" 
+        data-ajax-begin="OtelAppOnBegin" 
+        data-ajax-complete="OtelAppOnComplete('crud-modal',10,yenile)" 
+        data-ajax-failure="OtelAppOnFailure" 
+        data-ajax-success="OtelAppOnSuccess(data, yenile)" 
+        data-ajax="true" 
+        data-ajax-method="POST" 
+        data-ajax-url="/Visitor/@action">
+
+            @Html.AntiForgeryToken()
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary"><i class="far fa fa-people-carry"></i> Misafir Kartı</h5>
+                    <button type="button" class="close OtelApp-forms-modal-close" data-dismiss="modal" aria-label="Vazgeç"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="hidden">
+                        <input type="hidden" class="form-control" asp-for="Comment" value="Visitor" />
+                        <input type="hidden" class="form-control" asp-for="Id" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="RoomNumber" class="form-control-label">OdaNumarası *</label>
+                                <input asp-for="RoomNumber" class="form-control" placeholder="" />
+                                <span asp-validation-for="RoomNumber" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="Active" class="form-control-label">Aktif</label>
+                                <input asp-for="Active" class="form-control" placeholder="" />
+                                <span asp-validation-for="Active" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="IdNumber" class="form-control-label">Kimlik / Pasaport No</label>
+                                <input asp-for="IdNumber" class="form-control" placeholder="" />
+                                <span asp-validation-for="IdNumber" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Name" class="form-control-label">Ad</label>
+                                <input asp-for="Name" class="form-control" placeholder="" />
+                                <span asp-validation-for="Name" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label asp-for="Surname" class="form-control-label">Soyad</label>
+                                <input asp-for="Surname" class="form-control" placeholder="" />
+                                <span asp-validation-for="Surname" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="PhoneNumber" class="form-control-label">Telefon</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label asp-for="Email" class="form-control-label">Email</label>
+                                <input asp-for="Email" class="form-control" placeholder="" />
+                                <span asp-validation-for="Email" class="text-danger"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"> 
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="Day" class="form-control-label">Gün</label>
+                                        <input asp-for="Day" class="form-control" placeholder="" type="number" />
+                                        <span asp-validation-for="Day" class="text-danger"> </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label asp-for="Month" class="form-control-label">Ay</label>
+                                        <input asp-for="Month" class="form-control" placeholder="" type="number" />
+                                        <span asp-validation-for="Month" class="text-danger"> </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label asp-for="Year" class="form-control-label">Yıl</label>
+                                        <input asp-for="Year" class="form-control" placeholder="" type="number" />
+                                        <span asp-validation-for="Year" class="text-danger"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="UserProfile">Kullanıcı Profili</label>
+                            <select asp-for="UserProfile" class="form-control">
+                                @foreach (var x in Model.HotspotUserProfilList)
+                                {
+                                    <option value="@x.Name">@x.Name (@x.RateLimit)</option>
+                                }
+                            </select>
+                        </div>
+                      
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary OtelApp-forms-modal-close" data-dismiss="modal">Vazgeç</button>
+                    <button type="submit" id="kaydet" class="btn btn-success">Kaydet</button>
+                </div>
+            </div>
+            <input type="hidden" asp-for="FirmaId" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="MikrotikId" />
+        </form>
+    </div>
+</div>
+
+
+

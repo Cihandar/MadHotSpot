@@ -8,6 +8,8 @@
 	<ItemGroup>
 	  <Compile Remove="Migrations\20230605192140_elektrawebsettingsdto.cs" />
 	  <Compile Remove="Migrations\20230605192140_elektrawebsettingsdto.Designer.cs" />
+	  <Compile Remove="Migrations\20250702161508_VisitorModelAdd.cs" />
+	  <Compile Remove="Migrations\20250702161508_VisitorModelAdd.Designer.cs" />
 	</ItemGroup>
 
 

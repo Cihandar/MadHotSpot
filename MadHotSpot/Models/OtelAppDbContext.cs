@@ -35,15 +35,9 @@ namespace MadHotSpot.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=mssql.aktasweb.com;Database=001MadHotspotDb;User Id=selinushms;Password=cK@3y6p2;Application Name=OtelApp-Production;MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Server = 85.95.249.64\\MSSQLSERVER2016; Database = MadHotspotDb; User Id = aZ46e9n; Password = R5vlw93&; Application Name = OtelApp - Production; MultipleActiveResultSets = true");
             }
         }
-
     }
-
-
-
-
-
 }
  

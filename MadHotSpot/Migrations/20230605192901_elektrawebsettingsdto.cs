@@ -7,42 +7,14 @@ namespace MadHotSpot.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Password",
-                table: "H_CustomerInfo");
+         
 
             migrationBuilder.AddColumn<int>(
                 name: "LoginType",
                 table: "H_CustomerInfo",
                 nullable: false,
                 defaultValue: 0);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "ElektraEntegrasyonAktif",
-                table: "H_Ayarlar",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ElektraPassword",
-                table: "H_Ayarlar",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ElektraTenantId",
-                table: "H_Ayarlar",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ElektraUser",
-                table: "H_Ayarlar",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "ManuelGuestAdd",
-                table: "H_Ayarlar",
-                nullable: false,
-                defaultValue: false);
+ 
 
             migrationBuilder.CreateTable(
                 name: "H_ElektraWebSetting",

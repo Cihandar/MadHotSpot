@@ -587,6 +587,8 @@ namespace MadHotSpot.Migrations
 
                     b.Property<string>("RateLimit");
 
+                    b.Property<string>("RoomNumber");
+
                     b.Property<bool>("Silindi");
 
                     b.Property<string>("Surname");

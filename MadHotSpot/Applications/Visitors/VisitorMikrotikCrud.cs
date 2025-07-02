@@ -29,8 +29,8 @@ namespace MadHotSpot.Applications.Visitors
                 {
                     Profile = model.UserProfile,
                     Server = result.ayarlar.MikrotikHotspotAdi,
-                    Name = model.IdNumber,
-                    Password = model.Day + "." + model.Month + "." + model.Year,
+                    Password = model.RoomNumber,
+                    Name = model.Day + "." + model.Month + "." + model.Year,
                     Email = model.Email,
                     Disabled = !model.Active,
                     Comment = model.Comment
@@ -85,9 +85,9 @@ namespace MadHotSpot.Applications.Visitors
                     {
                         var user = conn.LoadById<HotspotUser>(model.MikrotikId);
                         user.Disabled = !model.Active;
-                        user.Name = model.IdNumber;
+                        user.Password = model.RoomNumber;
                         user.Email = model.Email;
-                        user.Password = model.Day + "." + model.Month + "." + model.Year;
+                        user.Name = model.Day + "." + model.Month + "." + model.Year;
                         user.Profile = model.UserProfile;
                         conn.Save(user);
                         return new ResultJson { Success = true, MikrotikId = user.Id };

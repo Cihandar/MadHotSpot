@@ -7,6 +7,7 @@
         public string Day { get; set; }
         public string Month { get; set; }
         public string Year { get; set; }
+        public string RoomNumber { get; set; }
         public string LastMac { get; set; }
         public string IdNumber { get; set; }
         public bool Active { get; set; }

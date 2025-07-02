@@ -6,20 +6,7 @@ namespace MadHotSpot.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ElektraFreeProfile",
-                table: "H_Ayarlar",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ElektraHighSpeedProfile",
-                table: "H_Ayarlar",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ElektraPaidProfile",
-                table: "H_Ayarlar",
-                nullable: true);
+ 
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

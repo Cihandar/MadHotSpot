@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MadHotSpot.Migrations
 {
     [DbContext(typeof(OtelAppDbContext))]
-    [Migration("20250702161508_VisitorModelAdd")]
-    partial class VisitorModelAdd
+    [Migration("20250702202538_VisitorTableAdd")]
+    partial class VisitorTableAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -588,6 +588,8 @@ namespace MadHotSpot.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<string>("RateLimit");
+
+                    b.Property<string>("RoomNumber");
 
                     b.Property<bool>("Silindi");
 

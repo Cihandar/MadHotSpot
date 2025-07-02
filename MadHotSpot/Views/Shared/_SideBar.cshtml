@@ -76,7 +76,7 @@
                             </p>
                         </a>
 
-                        <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/Staff" || Context.Request.Path.Value == "/Meet" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
+                        <ul class="nav nav-treeview" style="@(Context.Request.Path.Value == "/GuestList" ||Context.Request.Path.Value == "/Visitor" ||Context.Request.Path.Value == "/Staff" || Context.Request.Path.Value == "/Meet" || Context.Request.Path.Value == "/AktifKullanicilar" ? "display:block;" : "display:none;" )">
                             
                             <li class="nav-item">
                                 <a href="/GuestList" class="nav-link @(Context.Request.Path.Value == "/GuestList"  ? " bg-blue" : "" )">
@@ -91,6 +91,16 @@
                                     <p class="text">Aktif Kullanıcılar</p>
                                 </a>
                             </li>
+
+           @*                  <li class="nav-item">
+                                <a href="/Visitor" class="nav-link @(Context.Request.Path.Value == "/Visitor"  ? " bg-blue" : "" )">
+                                    <i class="fad fa fa-users nav-icon"></i>
+                                    <p>
+                                        Misafir Kartları
+                                    </p>
+
+                                </a>
+                            </li> *@
 
                             <li class="nav-item">
                                 <a href="/Staff" class="nav-link @(Context.Request.Path.Value == "/Staff"  ? " bg-blue" : "" )">
